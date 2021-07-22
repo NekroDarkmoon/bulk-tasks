@@ -1,0 +1,51 @@
+<div id="bulk-menu">
+
+    <h2>Bulk Tasks</h2>
+
+    <!-- Nav Bar -->
+    <nav class="sheet-tabs tabs">
+        <a class="item active" data-tab="actors"><i class="fas fa-users"></i> Actors</a>
+        <a class="item" data-tab="journals"><i class="fas fa-book"></i> Journals</a>
+        <a class="item" data-tab="items"><i class="fas fa-shield-alt"></i> Items</a>
+        <a class="item" data-tab="scenes"><i class="fas fa-map"></i> Scenes</a>
+        <a class="item" data-tab="tables"><i class="fas fa-table"></i> RollTables</a>
+    </nav>
+
+    <!-- Actors -->
+    <section class="tab" data-tab="actors">
+        <hr>
+        <form class="flexcol" autocomplete="off">
+            <fieldset class="bulk-display">
+                {{#each this.actors}}
+                    {{#with this}}
+                        <span>
+                            <input type="checkbox" class="bm-check" id="{{this._id}}" name="{{this.name}}" data-dtype="Boolean" >
+                            <label for="{{this._id}}">{{this.name}}</label> <br />
+                        </span>
+                    {{/with}}
+                {{/each}}
+            </fieldset>
+
+            <!-- Buttons -->
+            <footer class="bulk-footer">                    
+                <!-- Move Button -->
+                <button type="button" id="bm-move"><i class="fas fa-truck-moving"></i>Move</button>
+
+                <!-- Delete Button -->
+                <button type="button" id="bm-delete"><i class="fas fa-trash"></i>Delete</button>
+
+                <!-- Cancel Button -->
+                <button type="button" id="bm-cancel"><i class="fas fa-times"></i>Cancel</button>
+
+            </footer>
+        </form>
+    </section>
+
+    <!-- Journals -->
+
+    <!-- Items -->
+    
+    <!-- Scenes -->
+
+    <!-- RollTables -->
+</div>

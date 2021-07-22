@@ -1,0 +1,19 @@
+/* .bulk-display {
+    height: 700px;
+    overflow-y: scroll;
+} */
+
+.bulk-footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#bm-delete, #bm-move, #bm-cancel {
+    border: thin black 2px;
+}
+
+#bm-delete {
+    background-color: #b50f00;
+    color: white;
+}
+

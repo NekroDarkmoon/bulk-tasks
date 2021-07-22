@@ -1,0 +1,41 @@
+{
+  "name": "bulk-tasks",
+  "title": "Bulk Tasks",
+  "description": "",
+  "version": "0.1.0",
+  "library": "false",
+  "manifestPlusVersion": "1.0.0",
+  "minimumCoreVersion": "0.8.5",
+  "compatibleCoreVersion": "0.8.8",
+  "authors": [
+    {
+      "name": "NekroDarkmoon",
+      "url": "https://github.com/NekroDarkmoon/",
+      "discord": "Nekro Darkmoon#2995",
+      "ko-fi": "https://ko-fi.com/nekrodarkmoon"
+    }
+  ],
+  "dependencies": [],
+  "esmodules": [
+    "index.js"
+  ],
+  "styles": [
+    "/styles/module.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
+  ],
+  "url": "https://github.com/NekroDarkmoon/bulk-tasks",
+  "manifest": "https://raw.githubusercontent.com/NekroDarkmoon/bulk-tasks/main/module.json",
+  "download": "https://github.com/NekroDarkmoon/bulk-tasks/releases/download/0.1.0/bulk-tasks.zip",
+  "media": [
+    {
+      "type": "icon",
+      "url": ""
+    }
+  ]
+}

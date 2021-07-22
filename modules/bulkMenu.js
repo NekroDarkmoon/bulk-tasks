@@ -63,14 +63,24 @@ export class BulkMenu extends FormApplication{
 
 
     async _updateObject(event, formData){
-        console.log(event);
         console.log(formData);
 
-        if (event?.explicitOriginalTarget.id == "bm.delete"){
+        if (event?.explicitOriginalTarget.id == "bm-delete"){
+            // Get checked items
+            let choices = new Set();
+                
+            for (const [key, value] of Object.entries(formData)) {
+                if (value === true) {choices.add(key);}
+            }
 
+            // Fetch and delete each item in the set
+            for (let item of choices) {
+                console.log(`${moduleTag} | Deleted ${game.actors.get(item).data.name}`);
+                // await game.actors.delete(item);
+            }
         }
 
-        if (event?.explicitOriginalTarget.id == "bm.move"){
+        if (event?.explicitOriginalTarget.id == "bm-move"){
             
         }
 

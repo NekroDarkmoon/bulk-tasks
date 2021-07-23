@@ -5,7 +5,7 @@
 
 .bulk-footer{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr ;
 }
 
 #bm-delete, #bm-move, #bm-cancel {

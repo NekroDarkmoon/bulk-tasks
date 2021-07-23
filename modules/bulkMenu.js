@@ -52,11 +52,12 @@ export class BulkMenu extends FormApplication{
         super.activateListeners(html);
 
         html.on('click', '#bm-delete', async(event) =>{
-            
             // Initiate are you sure?
-
             this.submit();
+        });
 
+        html.on('click', '#bm-cancel', async(event) => {
+            this.close();
         });
 
     }
@@ -64,37 +65,36 @@ export class BulkMenu extends FormApplication{
 
     async _updateObject(event, formData){
         console.log(formData);
+        console.log(event);
 
         if (event?.explicitOriginalTarget.id == "bm-delete"){
-            // Get checked items
-            let choices = new Set();
+            Dialog.confirm({
+                title: "Delete Entities",
+                content: "Are you sure? </br> This action is permanent and cannot be undone.",
+                yes: () => {this.deleteObjs(event, formData)},
+                no: () => {this.close()},
+                defaultYes: false
+            });
+        }
+
+
+    }
+
+
+    async deleteObjs(event, formData) {
+        // Get checked items
+        let choices = new Set();
                 
-            for (const [key, value] of Object.entries(formData)) {
-                if (value === true) {choices.add(key);}
-            }
-
-            // Fetch and delete each item in the set
-            for (let item of choices) {
-                console.log(`${moduleTag} | Deleted ${game.actors.get(item).data.name}`);
-                // await game.actors.delete(item);
-            }
+        for (const [key, value] of Object.entries(formData)) {
+            if (value === true) {choices.add(key);}
         }
 
-        if (event?.explicitOriginalTarget.id == "bm-move"){
-            
+        // Fetch and delete each item in the set
+        for (let item of choices) {
+            console.log(`${moduleTag} | Deleted ${game.actors.get(item).data.name}`);
+            // await game.actors.delete(item);
         }
-
-        this.render(true);
     }
 
 
 }
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

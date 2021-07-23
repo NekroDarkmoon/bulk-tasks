@@ -3,9 +3,15 @@
     overflow-y: scroll;
 } */
 
+.bulk-display {
+    height: 400px;
+    overflow-y: scroll;   
+    margin-bottom: 2em;
+}
+
 .bulk-footer{
     display: grid;
-    grid-template-columns: 1fr 1fr ;
+    grid-template-columns:  1fr 1fr 1fr ;
 }
 
 #bm-delete, #bm-move, #bm-cancel {
@@ -16,4 +22,3 @@
     background-color: #b50f00;
     color: white;
 }
-

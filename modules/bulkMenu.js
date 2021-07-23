@@ -4,9 +4,9 @@
 import { moduleName, moduleTag } from "./constants.js";
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports 
+//                                   Bulk Menu 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-export class BulkMenu extends FormApplication{
+export class BulkMenu extends Application{
 
     constructor(dialogData={}, options={}){
         super(dialogData, options);
@@ -18,6 +18,8 @@ export class BulkMenu extends FormApplication{
         this.items = game.items._source;
         this.journals = game.journal._source;
         this.tables = game.tables._source;
+        this.playlists = game.playlists._source;
+        this.macros = game.macros._source;
     }
 
 
@@ -26,11 +28,11 @@ export class BulkMenu extends FormApplication{
             title: "Bulk Tasks",
             id: "bulk-tasks-menu",
             template: `modules/${moduleName}/templates/bulkMenu.html`,
-            width: 550,
+            width: 580,
             height: 'auto',
             resizable: true,
             closeOnSubmit: false,
-            tabs: [{navSelector: ".tabs", contentSelector: "div", inital: "actors"}] 
+            tabs: [{navSelector: ".tabs", contentSelector: "form", inital: "actors"}] 
         });
     }
 
@@ -38,10 +40,12 @@ export class BulkMenu extends FormApplication{
     getData(options = {}){
         const data = {
             actors: this.actors,
-            journals: {},
-            items: {},
-            scenes: {},
-            tables: {}
+            journals: this.journals,
+            items: this.items,
+            macros: this.macros,
+            scenes: this.scenes,
+            tables: this.tables,
+            playlists: this.playlists,
         };
 
         return data;
@@ -51,10 +55,34 @@ export class BulkMenu extends FormApplication{
     activateListeners(html){
         super.activateListeners(html);
 
+        let choices = new Set();
+
+        // Add on checked
+        html.find('.bm-check').on('change', async (event) =>{
+            
+            const selected = event.currentTarget.dataset;
+            const checked = event.currentTarget.checked;
+
+            if (checked) {
+                choices.add(selected);
+            } else {
+                choices.delete(selected);
+            }
+        });
+        
+
         html.on('click', '#bm-delete', async(event) =>{
             // Initiate are you sure?
-            this.submit();
+            Dialog.confirm({
+                title: "Delete Entities",
+                content: "Are you sure? </br> This action is permanent and cannot be undone.",
+                yes: () => {this.deleteObjs(choices)},
+                no: () => {this.close()},
+                defaultYes: false
+            });
+
         });
+
 
         html.on('click', '#bm-cancel', async(event) => {
             this.close();
@@ -64,36 +92,37 @@ export class BulkMenu extends FormApplication{
 
 
     async _updateObject(event, formData){
-        console.log(formData);
-        console.log(event);
-
-        if (event?.explicitOriginalTarget.id == "bm-delete"){
-            Dialog.confirm({
-                title: "Delete Entities",
-                content: "Are you sure? </br> This action is permanent and cannot be undone.",
-                yes: () => {this.deleteObjs(event, formData)},
-                no: () => {this.close()},
-                defaultYes: false
-            });
-        }
-
-
+ 
     }
 
 
-    async deleteObjs(event, formData) {
+    async deleteObjs(choices) {
         // Get checked items
-        let choices = new Set();
-                
-        for (const [key, value] of Object.entries(formData)) {
-            if (value === true) {choices.add(key);}
-        }
+        console.log(choices);
 
         // Fetch and delete each item in the set
         for (let item of choices) {
-            console.log(`${moduleTag} | Deleted ${game.actors.get(item).data.name}`);
-            // await game.actors.delete(item);
+            await game[item.type].get(item.id).delete();
+            console.log(`${moduleTag} | Deleted ${item.name}`);
         }
+    }
+
+    async moveObjs(choices) {
+        // Get the move menu 
+
+    }
+
+}
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                                    Imports 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+export class MoveMenu {
+
+    constructor(dialogData = {}, options = {}) {
+        
     }
 
 

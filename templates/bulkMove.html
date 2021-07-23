@@ -1,0 +1,38 @@
+<form class="flexcol bm-move-display" autocomplete="off">
+
+    <!-- Choices Section -->
+    <section class="bmove-choices">
+        <h4>Selected Entities: </h4>
+        <ul class="bm-move-selected">
+            {{#each this.choices}}
+                {{#with this}}
+                <li class="bm-move-choice">{{this.name}}</li>
+                {{/with}}
+            {{/each}}
+        </ul>
+    </section>
+
+    <!-- Folders Section -->
+    <section class="bmove-destination">
+        <label for="folders">Destination Folder: </label>
+        <select class="bm-destination-select" name="folders" id="folders">
+            {{#each this.folders}}
+                {{#with this}}    
+                <option value="{{this.name}}" data-type="{{this.type}}" data-id="{{this._id}}" data-name="{{this.name}}">{{this.name}}</option>
+                {{/with}}
+            {{/each}}
+        </select>
+    </section>
+
+
+    <footer class="bulk-move-footer">
+        <!-- Move Button -->
+        <button type="button" id="bmove-move"><i class="fas fa-truck-moving"></i>Move</button>
+
+        <!-- Cancel Button -->
+        <button type="reset" id="bmove-cancel"><i class="fas fa-times"></i>Cancel</button>
+
+    </footer>
+
+
+</form>

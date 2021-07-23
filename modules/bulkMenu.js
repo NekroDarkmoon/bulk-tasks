@@ -84,6 +84,11 @@ export class BulkMenu extends Application{
         });
 
 
+        html.on('click', '#bm-move', async(event) => {
+            const moveMenu = new MoveMenu({}, {}, choices).render(true);
+        });
+
+
         html.on('click', '#bm-cancel', async(event) => {
             this.close();
         });
@@ -105,12 +110,10 @@ export class BulkMenu extends Application{
             await game[item.type].get(item.id).delete();
             console.log(`${moduleTag} | Deleted ${item.name}`);
         }
+        
+        this.render(true);
     }
 
-    async moveObjs(choices) {
-        // Get the move menu 
-
-    }
 
 }
 
@@ -119,10 +122,95 @@ export class BulkMenu extends Application{
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-export class MoveMenu {
+export class MoveMenu extends Application{
 
-    constructor(dialogData = {}, options = {}) {
+    constructor(dialogData = {}, options = {}, selected = {}) {
+        super(dialogData, options);
         
+        this.data = dialogData;
+        this.choices = selected;
+        this.entityTypes = null;
+        this.mostType = null;
+
+        // Get list of folders and types.
+        this.folders = game.folders._source;
+
+    }
+
+
+    static get defaultOptions(){
+        return mergeObject(super.defaultOptions, {
+            title: "Move Entities",
+            id: "bulk-tasks-move",
+            template: `modules/${moduleName}/templates/bulkMove.html`,
+            width: 500,
+            height: 'auto',
+            resizable: true,
+            closeOnSubmit: false
+        });
+    }
+
+
+    getData(options = {}){
+
+        let entityTypes = {actors:[], journal:[], items:[], scenes:[], tables:[], playlists:[], macros:[]};
+        let defFolderTypes = {Actor:[], JournalEntry:[], Item:[], Scene:[], RollTable:[], Playlist:[], macros:[]};
+
+        for (let item of this.choices) {
+            entityTypes[item.type].push(item);
+        }
+        this.entityTypes = entityTypes;
+
+        for (let folder of this.folders) {
+            defFolderTypes[folder.type].push(folder);
+        }
+
+        const mostType = Object.keys(entityTypes).reduce((a, b) => entityTypes[a].length > entityTypes[b].length ? a : b);
+        this.mostType = mostType;
+
+        const folderTypes = {
+            actors: defFolderTypes.Actor,
+            journal: defFolderTypes.JournalEntry,
+            items: defFolderTypes.Item,
+            scenes: defFolderTypes.Scene,
+            tables: defFolderTypes.RollTable,
+            playlists: defFolderTypes.Playlist,
+        }
+
+        const data = {
+            choices: entityTypes[mostType],
+            folders: folderTypes[mostType]
+        };
+
+        return data;
+    }
+
+
+    activateListeners(html) {
+        super.activateListeners(html);
+        
+
+        html.on('click', '#bmove-move', async (event) => {
+            let destFolder = $('.bm-destination-select').find(':selected')[0].dataset;
+            console.log(destFolder);
+
+            for (let item of this.entityTypes[this.mostType]) {
+                console.log(`${moduleTag} | Moving ${item.name} to ${destFolder.name}`);
+                console.log(item.id);
+            }
+
+        });
+        
+
+        html.on('click', '#bmove-cancel', async (event) => {
+            this.close();
+        });
+
+    }
+
+
+    async _updateObject(event, formData) {
+
     }
 
 

@@ -4,9 +4,9 @@
 } */
 
 .bulk-display {
-    height: 400px;
+    height: 600px;
     overflow-y: scroll;   
-    margin-bottom: 2em;
+    margin-bottom: 0.25em;
 }
 
 .bulk-footer{
@@ -21,4 +21,21 @@
 #bm-delete {
     background-color: #b50f00;
     color: white;
+}
+
+
+.bmove-choices {
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: scroll;
+    margin-bottom: 0.25em;
+}
+
+.bmove-destination {
+    margin-bottom: 0.5em;
+}
+
+.bulk-move-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

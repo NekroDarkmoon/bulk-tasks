@@ -86,6 +86,7 @@ export class BulkMenu extends Application{
 
         html.on('click', '#bm-move', async(event) => {
             const moveMenu = new MoveMenu({}, {}, choices).render(true);
+            this.close();
         });
 
 
@@ -195,9 +196,11 @@ export class MoveMenu extends Application{
             console.log(destFolder);
 
             for (let item of this.entityTypes[this.mostType]) {
+                await (game[item.type].get(item.id)).update({folder: destFolder.id});
                 console.log(`${moduleTag} | Moving ${item.name} to ${destFolder.name}`);
-                console.log(item.id);
             }
+
+            this.close();
 
         });
         

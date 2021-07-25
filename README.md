@@ -16,4 +16,4 @@ Paste the following link in the install module section of foundry. https://githu
 
 
 ### Support 
-Consider buying me a coffee if you like my work. [](https://ko-fi.com/nekrodarkmoon)
+Consider buying me a coffee if you like my work. [https://ko-fi.com/nekrodarkmoon](https://ko-fi.com/nekrodarkmoon)

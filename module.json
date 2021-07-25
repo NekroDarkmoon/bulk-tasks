@@ -1,7 +1,7 @@
 {
   "name": "bulk-tasks",
   "title": "Bulk Tasks",
-  "description": "",
+  "description": "Delete/Move entities en masse.",
   "version": "0.1.0",
   "library": "false",
   "manifestPlusVersion": "1.0.0",

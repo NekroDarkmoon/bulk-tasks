@@ -6,7 +6,7 @@ Delete/Move actors, journals, items, macros, scenes, tables, playlists en masse.
 
 
 ### Installation Guide 
-Paste the following link in the install module section of foundry. https://github.com/NekroDarkmoon/optional-rules-dnd5e/releases/latest/download/module.json
+Paste the following link in the install module section of foundry. https://github.com/NekroDarkmoon/bulk-tasks/releases/latest/download/module.json
 
 
 ### Support 

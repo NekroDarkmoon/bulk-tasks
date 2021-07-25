@@ -193,7 +193,6 @@ export class MoveMenu extends Application{
 
         html.on('click', '#bmove-move', async (event) => {
             let destFolder = $('.bm-destination-select').find(':selected')[0].dataset;
-            console.log(destFolder);
 
             for (let item of this.entityTypes[this.mostType]) {
                 await (game[item.type].get(item.id)).update({folder: destFolder.id});

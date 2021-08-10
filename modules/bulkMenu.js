@@ -12,14 +12,17 @@ export class BulkMenu extends Application{
         super(dialogData, options);
         this.data = dialogData;
 
+        // Get permission level
+        const userID = game.user.id;
+
         // Get list of scenes, actors, items, journals and rolltables.
-        this.actors = game.actors._source;
-        this.scenes = game.scenes._source;
-        this.items = game.items._source;
-        this.journals = game.journal._source;
-        this.tables = game.tables._source;
-        this.playlists = game.playlists._source;
-        this.macros = game.macros._source;
+        this.actors = this.permissionFilterer(game.actors._source,  userID);
+        this.scenes = this.permissionFilterer(game.scenes._source, userID);
+        this.items = this.permissionFilterer(game.items._source, userID);
+        this.journals = this.permissionFilterer(game.journal._source, userID);
+        this.tables = this.permissionFilterer(game.tables._source, userID);
+        this.playlists = this.permissionFilterer(game.playlists._source, userID);
+        this.macros = this.permissionFilterer(game.macros._source, userID);
     }
 
 
@@ -115,6 +118,10 @@ export class BulkMenu extends Application{
         this.render(true);
     }
 
+    
+    permissionFilterer(inputArray, userID) {
+        return inputArray.filter(entity => (entity.permission.default == 3 || entity.permission[userID] == 3));
+    }
 
 }
 

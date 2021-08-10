@@ -9,9 +9,20 @@ import { moduleName, moduleTag } from "./constants.js";
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports 
+//                                 Helper Functions 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const debounceReload = debounce(() => window.location.reload(), 100);
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports 
+//                                    Settings 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+export async function registerSettings() {
+    await game.settings.register(moduleName, "gmOnly", {
+        name: "Hide menu from players",
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: debounceReload
+    });
+}

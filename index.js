@@ -3,13 +3,13 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { BulkMenu } from "./modules/bulkMenu.js";
 import {moduleTag, moduleName} from "./modules/constants.js";
-
+import {registerSettings} from "./modules/settings.mjs"
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                     Main 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Hooks.on('init', async() => {
-    
+    await registerSettings();
     console.log(`${moduleTag} | Initialized.`);
 });
 
@@ -35,9 +35,21 @@ Hooks.on('ready', async() => {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Add Bulk button 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+/**
+ * 
+ * @param {*} app 
+ * @param {*} html 
+ * @returns 
+ */
 function addBulkButton(app, html) {
-    // console.log(app);
 
+    // Check for preferences
+    const forGm = game.settings.get(moduleName, 'gmOnly');
+    if (forGm && !game.user.isGM) {
+        console.warn("Exiting");
+        return;} 
+
+    console.log("Drawing");
     if((app.options.id == "scenes" || app.options.id == "actors" 
         || app.options.id == "items" || app.options.id == "journal" 
         || app.options.id == "tables")){

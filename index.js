@@ -45,11 +45,8 @@ function addBulkButton(app, html) {
 
     // Check for preferences
     const forGm = game.settings.get(moduleName, 'gmOnly');
-    if (forGm && !game.user.isGM) {
-        console.warn("Exiting");
-        return;} 
+    if (forGm && !game.user.isGM) {return;} 
 
-    console.log("Drawing");
     if((app.options.id == "scenes" || app.options.id == "actors" 
         || app.options.id == "items" || app.options.id == "journal" 
         || app.options.id == "tables")){

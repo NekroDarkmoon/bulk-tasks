@@ -10,7 +10,7 @@
         <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a>
     </nav>
 
-    <section class="tab" data-tab="actors">
+    <!-- <section class="tab" data-tab="actors">
         <hr>
         <fieldset class="bulk-display">
             {{#each this.actors}}
@@ -23,6 +23,23 @@
             {{/each}}
         </fieldset>
 
+    </section> -->
+    <section class="tab" data-tab="actors">
+        <hr>
+        <fieldset class="bulk-display">
+            {{#each this.actors}}
+                <div style="border: 2px black solid;">
+                    {{#each this.content}}
+                        {{#with this}}
+                            <span>
+                                <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="actors" data-name="{{this.name}}">
+                                <label for="{{this._id}}">{{this.name}}</label> <br />
+                            </span>
+                        {{/with}}
+                    {{/each}}
+                </div>
+            {{/each}}
+        </fieldset>
     </section>
 
     <section class="tab" data-tab="journal">

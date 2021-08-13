@@ -10,25 +10,12 @@
         <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a>
     </nav>
 
-    <!-- <section class="tab" data-tab="actors">
-        <hr>
-        <fieldset class="bulk-display">
-            {{#each this.actors}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="actors" data-name="{{this.name}}">
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
-                    </span>
-                {{/with}}
-            {{/each}}
-        </fieldset>
-
-    </section> -->
     <section class="tab" data-tab="actors">
         <hr>
         <fieldset class="bulk-display">
             {{#each this.actors}}
                 <div style="border: 2px black solid;">
+                    {{this.data.name}} <br>
                     {{#each this.content}}
                         {{#with this}}
                             <span>
@@ -46,46 +33,55 @@
         <hr>
         <fieldset class="bulk-display">
             {{#each this.journals}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="journal" data-name="{{this.name}}" >
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
-                    </span>
-                {{/with}}
+                <div style="border: 2px black solid;">
+                    {{#each this.content}} 
+                        {{#with this}}
+                            <span>
+                                <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="journal" data-name="{{this.name}}" >
+                                <label for="{{this._id}}">{{this.name}}</label> <br />
+                            </span>
+                        {{/with}}
+                    {{/each}}
+                </div>
             {{/each}}
         </fieldset>
-
     </section>
 
     <section class="tab" data-tab="items">
         <hr>
         <fieldset class="bulk-display">
             {{#each this.items}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="items" data-name="{{this.name}}" >
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
-                    </span>
-                {{/with}}
+                <div style="border: 2px black solid;">
+                    {{#each this.content}}
+                        {{#with this}}
+                            <span>
+                                <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="items" data-name="{{this.name}}" >
+                                <label for="{{this._id}}">{{this.name}}</label> <br />
+                            </span>
+                        {{/with}}
+                    {{/each}}
+                </div>
             {{/each}}
         </fieldset>
-
     </section>
 
 
-        <section class="tab" data-tab="scenes">
+    <section class="tab" data-tab="scenes">
         <hr>
         <fieldset class="bulk-display">
             {{#each this.scenes}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="scenes" data-name="{{this.name}}" >
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
-                    </span>
-                {{/with}}
+                <div style="border: 2px black solid;">
+                    {{#each this.content}}
+                        {{#with this}}
+                            <span>
+                                <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="scenes" data-name="{{this.name}}" >
+                                <label for="{{this._id}}">{{this.name}}</label> <br />
+                            </span>
+                        {{/with}}
+                    {{/each}}
+                </div>
             {{/each}}
         </fieldset>
-
     </section>
 
 
@@ -93,15 +89,18 @@
         <hr>
         <fieldset class="bulk-display">
             {{#each this.tables}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="tables" data-name="{{this.name}}" >
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
-                    </span>
-                {{/with}}
+                <div style="border: 2px black solid;">
+                    {{#each this.content}}
+                        {{#with this}}
+                            <span>
+                                <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="tables" data-name="{{this.name}}" >
+                                <label for="{{this._id}}">{{this.name}}</label> <br />
+                            </span>
+                        {{/with}}
+                    {{/each}}
+                </div>
             {{/each}}
         </fieldset>
-
     </section>
 
 
@@ -109,15 +108,18 @@
         <hr>
         <fieldset class="bulk-display">
             {{#each this.playlists}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="playlists" data-name="{{this.name}}" >
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
-                    </span>
-                {{/with}}
+                <div style="border: 2px black solid;">
+                    {{#each this.content}}    
+                        {{#with this}}
+                            <span>
+                                <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="playlists" data-name="{{this.name}}" >
+                                <label for="{{this._id}}">{{this.name}}</label> <br />
+                            </span>
+                        {{/with}}
+                    {{/each}}
+                </div>
             {{/each}}
         </fieldset>
-
     </section>
 
     <section class="tab" data-tab="macros">
@@ -132,7 +134,6 @@
                 {{/with}}
             {{/each}}
         </fieldset>
-
     </section>
 
     <footer class="bulk-footer">

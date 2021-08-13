@@ -7,26 +7,16 @@ import { moduleName, moduleTag } from "./constants.js";
 //                                   Bulk Menu 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 export class BulkMenu extends Application{
-
     constructor(dialogData={}, options={}){
         super(dialogData, options);
         this.data = dialogData;
+        this.userID = game.user.id;
 
-        // Get permission level
-        const userID = game.user.id;
-
-        // Get list of scenes, actors, items, journals and rolltables.
-        // this.actors = this.permissionFilterer(game.actors._source,  userID);
-        // this.scenes = this.permissionFilterer(game.scenes._source, userID);
-        // this.items = this.permissionFilterer(game.items._source, userID);
-        // this.journals = this.permissionFilterer(game.journal._source, userID);
-        // this.tables = this.permissionFilterer(game.tables._source, userID);
-        // this.playlists = this.permissionFilterer(game.playlists._source, userID);
-        // this.macros = this.permissionFilterer(game.macros._source, userID);
-        // this.folders = game.folders._source;
     }
 
-
+    /**
+     * 
+     */
     static get defaultOptions(){
         return mergeObject(super.defaultOptions, {
             title: "Bulk Tasks",
@@ -45,38 +35,55 @@ export class BulkMenu extends Application{
 
         // Get directories
         const documentTypes = {
-            actors: game.actors.directory.folders,
-            journals:game.journal.directory.folders,
-            items:game.items.directory.folders,
+            actors: game.actors.directory,
+            journals:game.journal.directory,
+            items:game.items.directory,
             macros: game.macros.directory.documents,
-            scenes:game.scenes.directory.folders,
-            tables:game.tables.directory.folders,
-            playlists:game.playlists.directory.folders, 
+            scenes:game.scenes.directory,
+            tables:game.tables.directory,
+            playlists:game.playlists.directory, 
         }
 
         console.log(documentTypes);
 
         for (let documentType in documentTypes) {
             if (documentType !== "macros") {
-                const folders = documentTypes[documentType];
+                const folders = documentTypes[documentType].folders;
+                console.log(folders);
                 for (let folder of folders) {
-                    let temp = this.permissionFilterer(folder.content, game.user.id);
+                    const temp = this.permissionFilterer(folder.content);
                     folder.content = temp;
                 }
-            }
+
+                // Add root folder
+                const root = {
+                    data: {name: "Root"}
+                };
+
+                // Populate root folder
+                const entities = documentTypes[documentType].documents;
+                let noParent = entities.filter(entity => entity.data.folder === null);
+                noParent = this.permissionFilterer(noParent);
+                
+                console.log(noParent);
+
+                root.content = noParent;
+                folders.push(root);
+            }        
         }
+
 
         console.log(documentTypes);
 
 
         const data = {
-            actors: documentTypes.actors,
-            journals: documentTypes.journals,
-            items: documentTypes.items,
-            macros: documentTypes.macros,
-            scenes: documentTypes.scenes,
-            tables: documentTypes.tables,
-            playlists: documentTypes.playlists,
+            actors: documentTypes.actors.folders,
+            journals: documentTypes.journals.folders,
+            items: documentTypes.items.folders,
+            macros: documentTypes.macros.folders,
+            scenes: documentTypes.scenes.folders,
+            tables: documentTypes.tables.folders,
+            playlists: documentTypes.playlists.folders,
         };
 
         return data;
@@ -111,7 +118,6 @@ export class BulkMenu extends Application{
                 no: () => {this.close()},
                 defaultYes: false
             });
-
         });
 
 
@@ -128,9 +134,7 @@ export class BulkMenu extends Application{
     }
 
 
-    async _updateObject(event, formData){
- 
-    }
+    async _updateObject(event, formData){}
 
 
     async deleteObjs(choices) {
@@ -147,8 +151,9 @@ export class BulkMenu extends Application{
     }
 
     
-    permissionFilterer(inputArray, userID) {
-        return inputArray.filter(entity => (entity.data.permission.default == 3 || entity.data.permission[userID] == 3));
+    permissionFilterer(inputArray) {
+        return inputArray.filter(entity => (entity.data.permission.default == 3 
+            || entity.data.permission[this.userID] == 3));
     }
 
 }

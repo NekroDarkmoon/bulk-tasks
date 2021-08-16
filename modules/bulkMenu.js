@@ -7,25 +7,25 @@ import { moduleName, moduleTag } from "./constants.js";
 //                                   Bulk Menu 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 export class BulkMenu extends Application{
-
     constructor(dialogData={}, options={}){
         super(dialogData, options);
         this.data = dialogData;
+        this.userID = game.user.id;
 
-        // Get permission level
-        const userID = game.user.id;
-
-        // Get list of scenes, actors, items, journals and rolltables.
-        this.actors = this.permissionFilterer(game.actors._source,  userID);
-        this.scenes = this.permissionFilterer(game.scenes._source, userID);
-        this.items = this.permissionFilterer(game.items._source, userID);
-        this.journals = this.permissionFilterer(game.journal._source, userID);
-        this.tables = this.permissionFilterer(game.tables._source, userID);
-        this.playlists = this.permissionFilterer(game.playlists._source, userID);
-        this.macros = this.permissionFilterer(game.macros._source, userID);
+        this.documentTypes = {
+            actors: game.actors.directory,
+            journals:game.journal.directory,
+            items:game.items.directory,
+            macros: game.macros.directory,
+            scenes:game.scenes.directory,
+            tables:game.tables.directory,
+            playlists:game.playlists.directory, 
+        };
     }
 
-
+    /**
+     * 
+     */
     static get defaultOptions(){
         return mergeObject(super.defaultOptions, {
             title: "Bulk Tasks",
@@ -41,14 +41,56 @@ export class BulkMenu extends Application{
 
 
     getData(options = {}){
+
+        // Get directories
+        const documentTypes = this.documentTypes;
+
+        for (let documentType in documentTypes) {
+            if (documentType == "macros") {
+                const temp = this.permissionFilterer(documentTypes[documentType].documents);
+                documentTypes[documentType].documents = temp;
+
+            } else {
+                const folders = documentTypes[documentType].folders;
+                for (let folder of folders) {
+                    const temp = this.permissionFilterer(folder.content);
+                    folder.content = temp;
+                }
+
+                // Add root folder
+                const root = {
+                    data: {name: "Root"}
+                };
+
+                // Populate root folder
+                const entities = documentTypes[documentType].documents;
+                let noParent = entities.filter(entity => entity.data.folder === null);
+                noParent = this.permissionFilterer(noParent);
+                
+                root.content = noParent;
+                
+                // TODO: Fix Hacky root push
+                let push = true;
+                for (let folder of folders) {
+                    if (folder.data.name == "Root") {push = false;}
+                }
+
+                if (push) {folders.push(root);}
+            }        
+        }
+
+
+        console.log(documentTypes);
+
+
         const data = {
-            actors: this.actors,
-            journals: this.journals,
-            items: this.items,
-            macros: this.macros,
-            scenes: this.scenes,
-            tables: this.tables,
-            playlists: this.playlists,
+            actors: documentTypes.actors.folders,
+            journals: documentTypes.journals.folders,
+            items: documentTypes.items.folders,
+            macros: documentTypes.macros.documents,
+            scenes: documentTypes.scenes.folders,
+            tables: documentTypes.tables.folders,
+            playlists: documentTypes.playlists.folders,
         };
 
         return data;
@@ -83,7 +125,6 @@ export class BulkMenu extends Application{
                 no: () => {this.close()},
                 defaultYes: false
             });
-
         });
 
 
@@ -97,12 +138,19 @@ export class BulkMenu extends Application{
             this.close();
         });
 
+        
+        // Collapsible folders
+        html.on("click", ".bm-collapsable", async (button) => {
+            // button.currentTarget.classList.toggle("active");
+            var content = button.currentTarget.nextElementSibling;
+            if (content.style.display === "block") {content.style.display = "none";}
+             else {content.style.display = "block";}
+        });
+
     }
 
 
-    async _updateObject(event, formData){
- 
-    }
+    async _updateObject(event, formData){}
 
 
     async deleteObjs(choices) {
@@ -119,8 +167,9 @@ export class BulkMenu extends Application{
     }
 
     
-    permissionFilterer(inputArray, userID) {
-        return inputArray.filter(entity => (entity.permission.default == 3 || entity.permission[userID] == 3));
+    permissionFilterer(inputArray) {
+        return inputArray.filter(entity => (entity.data.permission.default == 3 
+            || entity.data.permission[this.userID] == 3));
     }
 
 }

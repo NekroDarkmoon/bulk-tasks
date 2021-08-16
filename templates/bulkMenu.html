@@ -10,113 +10,179 @@
         <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a>
     </nav>
 
+
     <section class="tab" data-tab="actors">
         <hr>
         <fieldset class="bulk-display">
-            {{#each this.actors}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="actors" data-name="{{this.name}}">
+            <ul class="bm-ul">
+                {{#each this.actors}}
+                <li class="bm-li">
+                    <button type="button" class="bm-collapsable">
+                    {{this.data.name}}
+                    </button>
+                <div class="bm-content">
+                    {{#each this.content}}
+                    {{#with this}}
+                    <span> 
+                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="actors" data-name="{{this.name}}"> 
                         <label for="{{this._id}}">{{this.name}}</label> <br />
                     </span>
-                {{/with}}
-            {{/each}}
+                    {{/with}}
+                    {{/each}}
+                </div>
+                </li>
+                {{/each}}
+            </ul>
         </fieldset>
-
     </section>
+
 
     <section class="tab" data-tab="journal">
         <hr>
         <fieldset class="bulk-display">
-            {{#each this.journals}}
-                {{#with this}}
-                    <span>
+            <ul class="bm-ul">
+                {{#each this.journals}}
+                <li class="bm-li">
+                    <button type="button" class="bm-collapsable">
+                    {{this.data.name}}
+                    </button>
+                <div class="bm-content">
+                    {{#each this.content}}
+                    {{#with this}}
+                    <span> 
                         <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="journal" data-name="{{this.name}}" >
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
+                        <label for="{{this._id}}">{{this.name}}</label> <br />                               
                     </span>
-                {{/with}}
-            {{/each}}
+                    {{/with}}
+                    {{/each}}
+                </div>
+                </li>
+                {{/each}}
+            </ul>
         </fieldset>
-
     </section>
+
 
     <section class="tab" data-tab="items">
         <hr>
         <fieldset class="bulk-display">
-            {{#each this.items}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="items" data-name="{{this.name}}" >
+            <ul class="bm-ul">
+                {{#each this.items}}
+                <li class="bm-li">
+                    <button type="button" class="bm-collapsable">
+                    {{this.data.name}}
+                    </button>
+                <div class="bm-content">
+                    {{#each this.content}}
+                    {{#with this}}
+                    <span> 
+                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="items" data-name="{{this.name}}"> 
                         <label for="{{this._id}}">{{this.name}}</label> <br />
                     </span>
-                {{/with}}
-            {{/each}}
+                    {{/with}}
+                    {{/each}}
+                </div>
+                </li>
+                {{/each}}
+            </ul>
         </fieldset>
-
     </section>
 
 
-        <section class="tab" data-tab="scenes">
+    <section class="tab" data-tab="scenes">
         <hr>
         <fieldset class="bulk-display">
-            {{#each this.scenes}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="scenes" data-name="{{this.name}}" >
+            <ul class="bm-ul">
+                {{#each this.scenes}}
+                <li class="bm-li">
+                    <button type="button" class="bm-collapsable">
+                    {{this.data.name}}
+                    </button>
+                <div class="bm-content">
+                    {{#each this.content}}
+                    {{#with this}}
+                    <span> 
+                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="scenes" data-name="{{this.name}}"> 
                         <label for="{{this._id}}">{{this.name}}</label> <br />
                     </span>
-                {{/with}}
-            {{/each}}
+                    {{/with}}
+                    {{/each}}
+                </div>
+                </li>
+                {{/each}}
+            </ul>
         </fieldset>
-
     </section>
 
 
     <section class="tab" data-tab="tables">
         <hr>
         <fieldset class="bulk-display">
-            {{#each this.tables}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="tables" data-name="{{this.name}}" >
+            <ul class="bm-ul">
+                {{#each this.tables}}
+                <li class="bm-li">
+                    <button type="button" class="bm-collapsable">
+                    {{this.data.name}}
+                    </button>
+                <div class="bm-content">
+                    {{#each this.content}}
+                    {{#with this}}
+                    <span> 
+                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="tables" data-name="{{this.name}}"> 
                         <label for="{{this._id}}">{{this.name}}</label> <br />
                     </span>
-                {{/with}}
-            {{/each}}
+                    {{/with}}
+                    {{/each}}
+                </div>
+                </li>
+                {{/each}}
+            </ul>
         </fieldset>
-
     </section>
 
 
     <section class="tab" data-tab="playlists">
         <hr>
         <fieldset class="bulk-display">
-            {{#each this.playlists}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="playlists" data-name="{{this.name}}" >
+            <ul class="bm-ul">
+                {{#each this.playlists}}
+                <li class="bm-li">
+                    <button type="button" class="bm-collapsable">
+                    {{this.data.name}}
+                    </button>
+                <div class="bm-content">
+                    {{#each this.content}}
+                    {{#with this}}
+                    <span> 
+                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="playlists" data-name="{{this.name}}"> 
                         <label for="{{this._id}}">{{this.name}}</label> <br />
                     </span>
-                {{/with}}
-            {{/each}}
+                    {{/with}}
+                    {{/each}}
+                </div>
+                </li>
+                {{/each}}
+            </ul>
         </fieldset>
-
     </section>
+
 
     <section class="tab" data-tab="macros">
         <hr>
         <fieldset class="bulk-display">
             {{#each this.macros}}
-                {{#with this}}
-                    <span>
-                        <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="macros" data-name="{{this.name}}" >
-                        <label for="{{this._id}}">{{this.name}}</label> <br />
-                    </span>
-                {{/with}}
+            {{#with this}}
+            <div>
+                <span> 
+                    <input type="checkbox" class="bm-check" name="{{this._id}}" data-id="{{this._id}}" data-type="macros" data-name="{{this.name}}"> 
+                    <label for="{{this._id}}">{{this.name}}</label> <br />
+                </span>
+            </div>
+            {{/with}}
             {{/each}}
         </fieldset>
-
     </section>
+
 
     <footer class="bulk-footer">
         <!-- Move Button -->

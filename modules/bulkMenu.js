@@ -12,6 +12,15 @@ export class BulkMenu extends Application{
         this.data = dialogData;
         this.userID = game.user.id;
 
+        this.documentTypes = {
+            actors: game.actors.directory,
+            journals:game.journal.directory,
+            items:game.items.directory,
+            macros: game.macros.directory,
+            scenes:game.scenes.directory,
+            tables:game.tables.directory,
+            playlists:game.playlists.directory, 
+        };
     }
 
     /**
@@ -34,22 +43,15 @@ export class BulkMenu extends Application{
     getData(options = {}){
 
         // Get directories
-        const documentTypes = {
-            actors: game.actors.directory,
-            journals:game.journal.directory,
-            items:game.items.directory,
-            macros: game.macros.directory.documents,
-            scenes:game.scenes.directory,
-            tables:game.tables.directory,
-            playlists:game.playlists.directory, 
-        }
-
-        console.log(documentTypes);
+        const documentTypes = this.documentTypes;
 
         for (let documentType in documentTypes) {
-            if (documentType !== "macros") {
+            if (documentType == "macros") {
+                const temp = this.permissionFilterer(documentTypes[documentType].documents);
+                documentTypes[documentType].documents = temp;
+
+            } else {
                 const folders = documentTypes[documentType].folders;
-                console.log(folders);
                 for (let folder of folders) {
                     const temp = this.permissionFilterer(folder.content);
                     folder.content = temp;
@@ -65,10 +67,15 @@ export class BulkMenu extends Application{
                 let noParent = entities.filter(entity => entity.data.folder === null);
                 noParent = this.permissionFilterer(noParent);
                 
-                console.log(noParent);
-
                 root.content = noParent;
-                folders.push(root);
+                
+                // TODO: Fix Hacky root push
+                let push = true;
+                for (let folder of folders) {
+                    if (folder.data.name == "Root") {push = false;}
+                }
+
+                if (push) {folders.push(root);}
             }        
         }
 
@@ -80,7 +87,7 @@ export class BulkMenu extends Application{
             actors: documentTypes.actors.folders,
             journals: documentTypes.journals.folders,
             items: documentTypes.items.folders,
-            macros: documentTypes.macros.folders,
+            macros: documentTypes.macros.documents,
             scenes: documentTypes.scenes.folders,
             tables: documentTypes.tables.folders,
             playlists: documentTypes.playlists.folders,
@@ -129,6 +136,15 @@ export class BulkMenu extends Application{
 
         html.on('click', '#bm-cancel', async(event) => {
             this.close();
+        });
+
+        
+        // Collapsible folders
+        html.on("click", ".bm-collapsable", async (button) => {
+            // button.currentTarget.classList.toggle("active");
+            var content = button.currentTarget.nextElementSibling;
+            if (content.style.display === "block") {content.style.display = "none";}
+             else {content.style.display = "block";}
         });
 
     }

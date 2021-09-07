@@ -47,10 +47,8 @@ function addBulkButton(app, html) {
     const forGm = game.settings.get(moduleName, 'gmOnly');
     if (forGm && !game.user.isGM) {return;} 
 
-    if((app.options.id == "scenes" || app.options.id == "actors" 
-        || app.options.id == "items" || app.options.id == "journal" 
-        || app.options.id == "tables")){
-        let button = $("<div class='header-actions action-buttons flexrow'><button><i class='fas fa-edit'></i></i> Bulk Tasks</button></div>");
+    if(['scenes', 'actors', 'items', 'journal', 'tables', 'playlists', 'macros-popout'].includes(app.tabName)){
+        let button = $("<button class='bulk-tasks'><i class='fas fa-edit'></i></i> Bulk Tasks</button>");
         
         button.click(async () => {
             // Render Menu
@@ -59,7 +57,7 @@ function addBulkButton(app, html) {
     
 
         // Render Button
-        $(html).find(".directory-header").append(button);
+        $(html).find(".header-actions").append(button);
     }
 
 

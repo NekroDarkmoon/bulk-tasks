@@ -20,6 +20,11 @@
     color: white;
 }
 
+/* Ensures buttons in action-buttons do not shrink */
+.action-buttons button {
+    min-width: max-content;
+    white-space: nowrap;
+}
 
 /* Main Menu Content css */
 .bm-collapsable {

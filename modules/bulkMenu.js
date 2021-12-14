@@ -17,7 +17,7 @@ export class BulkMenu extends Application {
 		return mergeObject(super.defaultOptions, {
 			title: 'Bulk Tasks',
 			id: 'bulk-tasks-meneu',
-			template: `modules/${moduleName}/templates/bulkMenu.html`,
+			template: `modules/${moduleName}/templates/bulkMenu.hbs`,
 			width: 580,
 			height: 'auto',
 			resizeable: true,
@@ -88,5 +88,29 @@ export class BulkMenu extends Application {
 		return inputArray.filter(
 			e => e.data.permission.default == 3 || e.data.permission[this.userID] == 3
 		);
+	}
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                                    Move Menu
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+export class MoveMenu extends Application {
+	constructor(dialogData = {}, options = {}, selected = {}) {
+		super(dialogData, options);
+
+		this.data = dialogData;
+		this.choices = selected;
+	}
+
+	static get defaultOptions() {
+		return mergeObject(super.defaultOptions, {
+			title: 'Move Entities',
+			id: 'bulk-tasks-move',
+			template: `modules/${moduleName}/templates/bulkMove.html`,
+			width: 500,
+			height: 'auto',
+			resizable: true,
+			closeOnSubmit: false,
+		});
 	}
 }

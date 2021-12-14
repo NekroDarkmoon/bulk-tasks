@@ -1,33 +1,35 @@
 /* Main Menu css */
 
 .bulk-display {
-    height: 600px;
-    overflow-y: scroll;   
-    margin-bottom: 0.25em;
+	height: 600px;
+	overflow-y: scroll;
+	margin-bottom: 0.25em;
 }
 
-.bulk-footer{
-    display: grid;
-    grid-template-columns:  1fr 1fr 1fr ;
+.bulk-footer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
-#bm-delete, #bm-move, #bm-cancel {
-    border: thin black 2px;
+#bm-delete,
+#bm-move,
+#bm-cancel {
+	border: thin black 2px;
 }
 
 #bm-delete {
-    background-color: #b50f00;
-    color: white;
+	background-color: #b50f00;
+	color: white;
 }
 
 /* Ensures buttons in action-buttons do not shrink */
 .action-buttons button {
-    min-width: max-content;
-    white-space: nowrap;
+	min-width: max-content;
+	white-space: nowrap;
 }
 
 /* Main Menu Content css */
-.bm-collapsable {
+/* .bm-collapsable {
     all: unset;
     width: 100%;
     cursor: pointer;
@@ -58,22 +60,21 @@
 
 .bm-ul, .bm-li {
     all: unset;
-}
-
+} */
 
 /* Move Menu Css */
 .bmove-choices {
-    min-height: 200px;
-    max-height: 400px;
-    overflow-y: scroll;
-    margin-bottom: 0.25em;
+	min-height: 200px;
+	max-height: 400px;
+	overflow-y: scroll;
+	margin-bottom: 0.25em;
 }
 
 .bmove-destination {
-    margin-bottom: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 .bulk-move-footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 }

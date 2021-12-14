@@ -1,0 +1,116 @@
+{{#*inline "insertTab"}}
+  <hr >
+  <fieldset class="bulk-dsiplay">
+    <ul class="bm-ul">
+      {{#each this.folders}}
+      <li class="bm-li">
+        <button type="button" class="bm-collapsable">
+          {{this.name}}
+        </button>
+
+        <div class="bm-content">
+          {{#each this.content}}
+          {{#with this}}
+            <span>
+              <input 
+                type="checkbox" 
+                class="bm-check"
+                name="{{this.id}}" 
+                data-id="{{this.id}}"
+                data-type="{{this.type}}"
+                data-name="{{this.name}}"
+              >
+              <label for="{{this.id}}"> 
+                {{this.name}}
+              </label>
+
+              <br />
+            </span>
+          {{/with}}
+          {{/each}}
+        </div>
+
+      </li>
+      {{/each}}
+      <li>
+        <div class="bm-content">
+          {{#each this.orphans}}
+          {{#with this}}
+            <span>
+              <input 
+                type="checkbox" 
+                class="bm-check"
+                name="{{this.id}}" 
+                data-id="{{this.id}}"
+                data-name="{{this.name}}"
+              >
+              <label for="{{this.id}}"> 
+                {{this.name}}
+              </label>
+
+              <br />
+            </span>
+          {{/with}}  
+          {{/each}}
+        </div>
+      </li>
+    </ul>
+  </fieldset>
+
+{{/inline}}
+
+
+<form class="flexcol" autocomplete="off">
+  <nav class="sheet-tabs tabs">
+    <a class="item active" data-tab="actors"><i class="fas fa-users"></i> Actors</a>
+    <a class="item" data-tab="journal"><i class="fas fa-book"></i> Journals</a>
+    <a class="item" data-tab="items"><i class="fas fa-shield-alt"></i> Items</a>
+    <a class="item" data-tab="macros"><i class="fas fa-code"></i> Macros</a>
+    <a class="item" data-tab="scenes"><i class="fas fa-map"></i> Scenes</a>
+    <a class="item" data-tab="tables"><i class="fas fa-table"></i> RollTables</a>
+    <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a> 
+  </nav>
+
+  <section class="tab" data-tab="actors">
+    {{#with this.actors}}
+      {{> insertTab}}
+    {{/with}}
+  </section>
+  
+  <section class="tab" data-tab="journal">
+    {{#with this.journal}}
+      {{> insertTab}}
+    {{/with}}
+  </section>
+
+  <section class="tab" data-tab="items">
+    {{#with this.items}}
+      {{> insertTab}}
+    {{/with}}
+  </section>
+
+  <section class="tab" data-tab="macros">
+    {{#with this.macros}}
+      {{> insertTab}}
+    {{/with}}
+  </section>
+  <section class="tab" data-tab="scenes">
+    {{#with this.scenes
+    }}
+      {{> insertTab}}
+    {{/with}}
+  </section>
+
+  <section class="tab" data-tab="tables">
+    {{#with this.tables}}
+      {{> insertTab}}
+    {{/with}}
+  </section>
+
+  <section class="tab" data-tab="playlists">
+    {{#with this.playlists}}
+      {{> insertTab}}
+    {{/with}}
+  </section>
+
+</form>

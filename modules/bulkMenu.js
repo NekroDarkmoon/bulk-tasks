@@ -84,16 +84,18 @@ export class BulkMenu extends Application {
 		super.activateListeners($parent);
 		const directory = this.directory;
 		const $section = $parent.find(`section[data-tab="actors"]`);
-		console.log($section);
 		const $searchWrapper = $section.find(`.bm-search-wrapper`);
-		console.log($searchWrapper);
 		const $input = $searchWrapper.find(`input[type="text"]`);
-		console.log($input);
+		const $fieldset = $section.find(`.bulk-display`);
+		const $resultBox = $section.find(`.bm-search-result-box`);
 		let displayArray;
 
+		// Hide resultBox
+		$resultBox.hide();
+
+		// Create a filter list
 		$input.on('keyup', e => {
 			const userInput = e.target.value.toLowerCase();
-			console.log(userInput);
 
 			if (userInput) {
 				const searchAbleArray = [...directory.actors.orphans];
@@ -101,10 +103,20 @@ export class BulkMenu extends Application {
 					val.name.includes(userInput)
 				);
 
-				$searchWrapper.addClass('active');
-			} else $searchWrapper.removeClass('active');
+				$resultBox.text(displayArray);
+				$searchWrapper.addClass('active').trigger('classChange');
+			} else $searchWrapper.removeClass('active').trigger('classChange');
+		});
 
-			console.log(displayArray);
+		// Change content based on search
+		$searchWrapper.on('classChange', e => {
+			if ($searchWrapper.hasClass('active')) {
+				$fieldset.hide();
+				$resultBox.show();
+			} else {
+				$resultBox.hide();
+				$fieldset.show();
+			}
 		});
 	}
 

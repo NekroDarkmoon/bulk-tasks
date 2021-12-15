@@ -1,62 +1,77 @@
 {{#*inline "insertTab"}}
-  <hr >
-  <fieldset class="bulk-dsiplay">
-    <ul class="bm-ul">
-      {{#each this.folders}}
-      <li class="bm-li">
-        <button type="button" class="bm-collapsable">
-          {{this.name}}
-        </button>
+  <ul class="bm-ul">
+    {{#each this.folders}}
+    <li class="bm-li">
+      <button type="button" class="bm-collapsable">
+        {{this.name}}
+      </button>
 
-        <div class="bm-content">
-          {{#each this.content}}
-          {{#with this}}
-            <span>
-              <input 
-                type="checkbox" 
-                class="bm-check"
-                name="{{this.id}}" 
-                data-id="{{this.id}}"
-                data-type="{{this.type}}"
-                data-name="{{this.name}}"
-              >
-              <label for="{{this.id}}"> 
-                {{this.name}}
-              </label>
+      <div class="bm-content">
+        {{#each this.content}}
+        {{#with this}}
+          <span>
+            <input 
+              type="checkbox" 
+              class="bm-check"
+              name="{{this.id}}" 
+              data-id="{{this.id}}"
+              data-type="{{this.type}}"
+              data-name="{{this.name}}"
+            >
+            <label for="{{this.id}}"> 
+              {{this.name}}
+            </label>
 
-              <br />
-            </span>
-          {{/with}}
-          {{/each}}
-        </div>
+            <br />
+          </span>
+        {{/with}}
+        {{/each}}
+      </div>
 
-      </li>
-      {{/each}}
-      <li>
-        <div class="bm-content">
-          {{#each this.orphans}}
-          {{#with this}}
-            <span>
-              <input 
-                type="checkbox" 
-                class="bm-check"
-                name="{{this.id}}" 
-                data-id="{{this.id}}"
-                data-name="{{this.name}}"
-              >
-              <label for="{{this.id}}"> 
-                {{this.name}}
-              </label>
+    </li>
+    {{/each}}
+    <li>
+      <div class="bm-content">
+        {{#each this.orphans}}
+        {{#with this}}
+          <span>
+            <input 
+              type="checkbox" 
+              class="bm-check"
+              name="{{this.id}}" 
+              data-id="{{this.id}}"
+              data-name="{{this.name}}"
+            >
+            <label for="{{this.id}}"> 
+              {{this.name}}
+            </label>
 
-              <br />
-            </span>
-          {{/with}}  
-          {{/each}}
-        </div>
-      </li>
-    </ul>
-  </fieldset>
+            <br />
+          </span>
+        {{/with}}  
+        {{/each}}
+      </div>
+    </li>
+  </ul>
+{{/inline}}
 
+
+{{#*inline "insertSearch"}}
+  <div class="bm-search-wrapper">
+    <div class="bm-search-area">
+      <i class="fas fa-search bm-search-fa"></i>
+      <input type="text" placeholder="Type to Search...">
+    </div>
+
+    <hr >
+    <fieldset class="bulk-display">
+      {{> insertTab}}
+    </fieldset>
+
+    <div class="bm-search-result-box">
+      {{!-- Inserted from js --}}
+    </div>
+  </div>
 {{/inline}}
 
 
@@ -73,11 +88,11 @@
 
   <section class="tab" data-tab="actors">
     {{#with this.actors}}
-      {{> insertTab}}
+      {{> insertSearch}}
     {{/with}}
   </section>
   
-  <section class="tab" data-tab="journal">
+  {{!-- <section class="tab" data-tab="journal">
     {{#with this.journal}}
       {{> insertTab}}
     {{/with}}
@@ -111,6 +126,6 @@
     {{#with this.playlists}}
       {{> insertTab}}
     {{/with}}
-  </section>
+  </section> --}}
 
 </form>

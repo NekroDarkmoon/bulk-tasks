@@ -10,6 +10,8 @@ export class BulkMenu extends Application {
 	constructor(dialogData = {}, options = {}) {
 		super(dialogData, options);
 		this.data = dialogData;
+
+		this.directory = null;
 		this.userID = game.user.id;
 	}
 
@@ -73,11 +75,37 @@ export class BulkMenu extends Application {
 
 		const data = directory;
 		console.info(directory);
+
+		this.directory = directory;
 		return data;
 	}
 
-	activateListeners(html) {
-		super.activateListeners(html);
+	activateListeners($parent) {
+		super.activateListeners($parent);
+		const directory = this.directory;
+		const $section = $parent.find(`section[data-tab="actors"]`);
+		console.log($section);
+		const $searchWrapper = $section.find(`.bm-search-wrapper`);
+		console.log($searchWrapper);
+		const $input = $searchWrapper.find(`input[type="text"]`);
+		console.log($input);
+		let displayArray;
+
+		$input.on('keyup', e => {
+			const userInput = e.target.value.toLowerCase();
+			console.log(userInput);
+
+			if (userInput) {
+				const searchAbleArray = [...directory.actors.orphans];
+				displayArray = searchAbleArray.filter(val =>
+					val.name.includes(userInput)
+				);
+
+				$searchWrapper.addClass('active');
+			} else $searchWrapper.removeClass('active');
+
+			console.log(displayArray);
+		});
 	}
 
 	/**

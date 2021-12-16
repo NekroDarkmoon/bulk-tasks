@@ -9,7 +9,7 @@
       <div class="bm-content">
         {{#each this.content}}
         {{#with this}}
-          <span>
+          <span class="bm-entity">
             <input 
               type="checkbox" 
               class="bm-check"
@@ -34,7 +34,7 @@
       <div class="bm-content">
         {{#each this.orphans}}
         {{#with this}}
-          <span>
+          <span class="bm-entity">
             <input 
               type="checkbox" 
               class="bm-check"
@@ -60,7 +60,7 @@
   <div class="bm-search-wrapper">
     <div class="bm-search-area">
       <i class="fas fa-search bm-search-fa"></i>
-      <input type="text" placeholder="Type to Search...">
+      <input name="search" type="text" placeholder="Type to Search...">
     </div>
 
     <hr >

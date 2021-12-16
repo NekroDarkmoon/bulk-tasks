@@ -30,37 +30,41 @@
 
 /* Main Menu Content css */
 /* .bm-collapsable {
-    all: unset;
-    width: 100%;
-    cursor: pointer;
-    text-align: left;
-    outline: none;
-    font-size: 1.05rem;
-    padding: 0.25em 0.25em 0em 0.25em;
-    border-bottom: 0.15em solid gray ;
-    margin-bottom: 0.25em;
-    font-weight: bold;
+	all: unset;
+	width: 100%;
+	cursor: pointer;
+	text-align: left;
+	outline: none;
+	font-size: 1.05rem;
+	padding: 0.25em 0.25em 0em 0.25em;
+	border-bottom: 0.15em solid gray;
+	margin-bottom: 0.25em;
+	font-weight: bold;
 }
 
-.bm-collapsable:hover, .bm-collapsable:focus {
-    box-shadow: none;
+.bm-collapsable:hover,
+.bm-collapsable:focus {
+	box-shadow: none;
 }
 
 .bm-collapsable::before {
-    content: "\002B";
+	content: '\002B';
 }
-
 
 .bm-content {
-    padding-top: 0.55rem;
-    padding-bottom: 0.75rem;
-    display: none;
+	padding-top: 0.55rem;
+	padding-bottom: 0.75rem;
+	display: none;
 }
 
-
-.bm-ul, .bm-li {
-    all: unset;
+.bm-ul,
+.bm-li {
+	all: unset;
 } */
+
+.hidden {
+	display: none;
+}
 
 /* Move Menu Css */
 .bmove-choices {

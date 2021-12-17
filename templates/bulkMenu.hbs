@@ -3,11 +3,10 @@
     <ul class="bm-ul">
       {{#each this.folders}}
       <li class="bm-li">
-        <span>
+        <span class="bm-folder">
           <input 
             type="checkbox" 
             class="bm-check"
-            name="{{this.id}}" 
             id="{{this.id}}"
             data-id="{{this.id}}"
             data-type="{{this.type}}"
@@ -19,6 +18,7 @@
             </button>
           </label>
         </span>
+
         <div class="bm-content">
           {{#each this.content}}
           {{#with this}}
@@ -26,7 +26,6 @@
               <input 
                 type="checkbox" 
                 class="bm-check"
-                name="{{this.id}}" 
                 id="{{this.id}}"
                 data-id="{{this.id}}"
                 data-type="{{this.type}}"
@@ -41,9 +40,9 @@
           {{/with}}
           {{/each}}
         </div>
-
       </li>
       {{/each}}
+
       <li>
         <div class="bm-content">
           {{#each this.orphans}}
@@ -65,8 +64,9 @@
             </span>
           {{/with}}  
           {{/each}}
-        </div>
-      </li>
+        </div> 
+      </li> <!-- End of orphans-->
+
     </ul>
   </fieldset>
 {{/inline}}

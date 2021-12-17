@@ -93,14 +93,13 @@ export class BulkMenu extends Application {
 	_onSearchFilter(event, query, rgx, $parent) {
 		for (const $entity of $parent.querySelectorAll('.bm-entity')) {
 			if (!query) {
-				$entity.classList.remove('hiden');
+				$entity.classList.remove('bm-hiden');
 				continue;
 			}
 
 			const title = $entity.querySelector(`.bm-check`).dataset.name;
-			console.log(title);
 			const match = rgx.test(SearchFilter.cleanQuery(title));
-			$entity.classList.toggle('hidden', !match);
+			$entity.classList.toggle('bm-hidden', !match);
 		}
 	}
 

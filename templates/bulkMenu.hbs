@@ -2,10 +2,22 @@
   <ul class="bm-ul">
     {{#each this.folders}}
     <li class="bm-li">
-      <button type="button" class="bm-collapsable">
-        {{this.name}}
-      </button>
-
+      <span>
+        <input 
+          type="checkbox" 
+          class="bm-check"
+          name="{{this.id}}" 
+          id="{{this.id}}"
+          data-id="{{this.id}}"
+          data-type="{{this.type}}"
+          data-name="{{this.name}}"
+        >
+        <label for="{{this.id}}">
+          <button type="button" class="bm-collapsable">
+            {{this.name}}
+          </button>
+        </label>
+      </span>
       <div class="bm-content">
         {{#each this.content}}
         {{#with this}}
@@ -14,6 +26,7 @@
               type="checkbox" 
               class="bm-check"
               name="{{this.id}}" 
+              id="{{this.id}}"
               data-id="{{this.id}}"
               data-type="{{this.type}}"
               data-name="{{this.name}}"
@@ -39,6 +52,7 @@
               type="checkbox" 
               class="bm-check"
               name="{{this.id}}" 
+              id="{{this.id}}"
               data-id="{{this.id}}"
               data-name="{{this.name}}"
             >
@@ -68,10 +82,6 @@
       {{> insertTab}}
     </fieldset>
 
-    <div class="bm-search-result-box">
-      {{!-- Inserted from js --}}
-      <p>Test</p>
-    </div>
   </div>
 {{/inline}}
 
@@ -93,40 +103,40 @@
     {{/with}}
   </section>
   
-  {{!-- <section class="tab" data-tab="journal">
-    {{#with this.journal}}
-      {{> insertTab}}
+  <section class="tab" data-tab="journal">
+    {{#with this.journals}}
+      {{> insertSearch}}
     {{/with}}
   </section>
 
   <section class="tab" data-tab="items">
     {{#with this.items}}
-      {{> insertTab}}
+      {{> insertSearch}}
     {{/with}}
   </section>
 
   <section class="tab" data-tab="macros">
     {{#with this.macros}}
-      {{> insertTab}}
+      {{> insertSearch}}
     {{/with}}
   </section>
+
   <section class="tab" data-tab="scenes">
-    {{#with this.scenes
-    }}
-      {{> insertTab}}
+    {{#with this.scenes}}
+      {{> insertSearch}}
     {{/with}}
   </section>
 
   <section class="tab" data-tab="tables">
     {{#with this.tables}}
-      {{> insertTab}}
+      {{> insertSearch}}
     {{/with}}
   </section>
 
   <section class="tab" data-tab="playlists">
     {{#with this.playlists}}
-      {{> insertTab}}
+      {{> insertSearch}}
     {{/with}}
-  </section> --}}
+  </section>
 
 </form>

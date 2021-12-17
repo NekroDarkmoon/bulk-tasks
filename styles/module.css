@@ -62,7 +62,7 @@
 	all: unset;
 } */
 
-.hidden {
+.bm-hidden {
 	display: none;
 }
 

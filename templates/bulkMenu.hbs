@@ -1,72 +1,74 @@
 {{#*inline "insertTab"}}
-  <ul class="bm-ul">
-    {{#each this.folders}}
-    <li class="bm-li">
-      <span>
-        <input 
-          type="checkbox" 
-          class="bm-check"
-          name="{{this.id}}" 
-          id="{{this.id}}"
-          data-id="{{this.id}}"
-          data-type="{{this.type}}"
-          data-name="{{this.name}}"
-        >
-        <label for="{{this.id}}">
-          <button type="button" class="bm-collapsable">
-            {{this.name}}
-          </button>
-        </label>
-      </span>
-      <div class="bm-content">
-        {{#each this.content}}
-        {{#with this}}
-          <span class="bm-entity">
-            <input 
-              type="checkbox" 
-              class="bm-check"
-              name="{{this.id}}" 
-              id="{{this.id}}"
-              data-id="{{this.id}}"
-              data-type="{{this.type}}"
-              data-name="{{this.name}}"
-            >
-            <label for="{{this.id}}"> 
+  <fieldset class="bulk-display">
+    <ul class="bm-ul">
+      {{#each this.folders}}
+      <li class="bm-li">
+        <span>
+          <input 
+            type="checkbox" 
+            class="bm-check"
+            name="{{this.id}}" 
+            id="{{this.id}}"
+            data-id="{{this.id}}"
+            data-type="{{this.type}}"
+            data-name="{{this.name}}"
+          >
+          <label for="{{this.id}}">
+            <button type="button" class="bm-collapsable">
               {{this.name}}
-            </label>
+            </button>
+          </label>
+        </span>
+        <div class="bm-content">
+          {{#each this.content}}
+          {{#with this}}
+            <span class="bm-entity">
+              <input 
+                type="checkbox" 
+                class="bm-check"
+                name="{{this.id}}" 
+                id="{{this.id}}"
+                data-id="{{this.id}}"
+                data-type="{{this.type}}"
+                data-name="{{this.name}}"
+              >
+              <label for="{{this.id}}"> 
+                {{this.name}}
+              </label>
 
-            <br />
-          </span>
-        {{/with}}
-        {{/each}}
-      </div>
+              <br />
+            </span>
+          {{/with}}
+          {{/each}}
+        </div>
 
-    </li>
-    {{/each}}
-    <li>
-      <div class="bm-content">
-        {{#each this.orphans}}
-        {{#with this}}
-          <span class="bm-entity">
-            <input 
-              type="checkbox" 
-              class="bm-check"
-              name="{{this.id}}" 
-              id="{{this.id}}"
-              data-id="{{this.id}}"
-              data-name="{{this.name}}"
-            >
-            <label for="{{this.id}}"> 
-              {{this.name}}
-            </label>
+      </li>
+      {{/each}}
+      <li>
+        <div class="bm-content">
+          {{#each this.orphans}}
+          {{#with this}}
+            <span class="bm-entity">
+              <input 
+                type="checkbox" 
+                class="bm-check"
+                name="{{this.id}}" 
+                id="{{this.id}}"
+                data-id="{{this.id}}"
+                data-name="{{this.name}}"
+              >
+              <label for="{{this.id}}"> 
+                {{this.name}}
+              </label>
 
-            <br />
-          </span>
-        {{/with}}  
-        {{/each}}
-      </div>
-    </li>
-  </ul>
+              <br />
+            </span>
+          {{/with}}  
+          {{/each}}
+        </div>
+      </li>
+    </ul>
+  </fieldset>
 {{/inline}}
 
 
@@ -76,12 +78,7 @@
       <i class="fas fa-search bm-search-fa"></i>
       <input name="search" type="text" placeholder="Type to Search...">
     </div>
-
     <hr >
-    <fieldset class="bulk-display">
-      {{> insertTab}}
-    </fieldset>
-
   </div>
 {{/inline}}
 
@@ -97,46 +94,49 @@
     <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a> 
   </nav>
 
-  <section class="tab" data-tab="actors">
-    {{#with this.actors}}
-      {{> insertSearch}}
-    {{/with}}
-  </section>
-  
-  <section class="tab" data-tab="journal">
-    {{#with this.journals}}
-      {{> insertSearch}}
-    {{/with}}
-  </section>
+  {{> insertSearch}}
 
-  <section class="tab" data-tab="items">
-    {{#with this.items}}
-      {{> insertSearch}}
-    {{/with}}
-  </section>
+  <section class="bm-data"> 
+    <section class="tab" data-tab="actors">
+      {{#with this.actors}}
+        {{> insertTab}}
+      {{/with}}
+    </section>
+    
+    <section class="tab" data-tab="journal">
+      {{#with this.journals}}
+        {{> insertTab}}
+      {{/with}}
+    </section>
 
-  <section class="tab" data-tab="macros">
-    {{#with this.macros}}
-      {{> insertSearch}}
-    {{/with}}
-  </section>
+    <section class="tab" data-tab="items">
+      {{#with this.items}}
+        {{> insertTab}}
+      {{/with}}
+    </section>
 
-  <section class="tab" data-tab="scenes">
-    {{#with this.scenes}}
-      {{> insertSearch}}
-    {{/with}}
-  </section>
+    <section class="tab" data-tab="macros">
+      {{#with this.macros}}
+        {{> insertTab}}
+      {{/with}}
+    </section>
 
-  <section class="tab" data-tab="tables">
-    {{#with this.tables}}
-      {{> insertSearch}}
-    {{/with}}
-  </section>
+    <section class="tab" data-tab="scenes">
+      {{#with this.scenes}}
+        {{> insertTab}}
+      {{/with}}
+    </section>
 
-  <section class="tab" data-tab="playlists">
-    {{#with this.playlists}}
-      {{> insertSearch}}
-    {{/with}}
-  </section>
+    <section class="tab" data-tab="tables">
+      {{#with this.tables}}
+        {{> insertTab}}
+      {{/with}}
+    </section>
 
+    <section class="tab" data-tab="playlists">
+      {{#with this.playlists}}
+        {{> insertTab}}
+      {{/with}}
+    </section>
+  </section>
 </form>

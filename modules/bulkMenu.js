@@ -30,7 +30,7 @@ export class BulkMenu extends Application {
 			filters: [
 				{
 					inputSelector: 'input[name="search"]',
-					contentSelector: '.bulk-display',
+					contentSelector: '.bm-data',
 				},
 			],
 		});
@@ -93,7 +93,7 @@ export class BulkMenu extends Application {
 	_onSearchFilter(event, query, rgx, $parent) {
 		for (const $entity of $parent.querySelectorAll('.bm-entity')) {
 			if (!query) {
-				$entity.classList.remove('bm-hiden');
+				$entity.classList.remove('bm-hidden');
 				continue;
 			}
 

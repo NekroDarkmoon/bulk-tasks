@@ -86,10 +86,64 @@ export class BulkMenu extends Application {
 		return data;
 	}
 
+	/**
+	 * @param {*} $parent
+	 */
 	activateListeners($parent) {
 		super.activateListeners($parent);
+
+		const choices = new Set();
+
+		// On check entity
+		$parent.find(`.bm-check`).on('change', event => {
+			const entity = event.currentTarget.dataset;
+			const isChecked = event.currentTarget.checked;
+
+			if (isChecked) choices.add(entity);
+			else choices.delete(entity);
+		});
+
+		// TODO: On check folder
+
+		// TODO: On Select All
+
+		// TODO: On DeSelect All
+
+		// On delete
+		$parent.on('click', '#bm-delete', async event => {
+			console.log(choices);
+			Dialog.confirm({
+				title: 'Delete Selected',
+				content:
+					'Are you sure? </br> This action is permanent and cannot be undone.',
+				yes: () => {
+					this.deleteObjs(choices);
+				},
+				no: () => {
+					this.cloe();
+				},
+				defaultValue: false,
+			});
+		});
+
+		// On move
+		$parent.on('click', '#bm-move', async event => {
+			const moveMenu = new MoveMenu({}, {}, choices).render(true);
+			this.close();
+		});
+
+		// On cancel
+		$parent.on('click', '#bm-cancel', event => {
+			this.close();
+		});
 	}
 
+	/**
+	 * @param {*} event
+	 * @param {*} query
+	 * @param {*} rgx
+	 * @param {*} $parent
+	 */
 	_onSearchFilter(event, query, rgx, $parent) {
 		for (const $entity of $parent.querySelectorAll('.bm-entity')) {
 			if (!query) {
@@ -101,6 +155,7 @@ export class BulkMenu extends Application {
 			const match = rgx.test(SearchFilter.cleanQuery(title));
 			$entity.classList.toggle('bm-hidden', !match);
 		}
+		// TODO: Hide folders with no children
 	}
 
 	/**
@@ -112,6 +167,8 @@ export class BulkMenu extends Application {
 			e => e.data.permission.default == 3 || e.data.permission[this.userID] == 3
 		);
 	}
+
+	async deleteObjs(choices) {}
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

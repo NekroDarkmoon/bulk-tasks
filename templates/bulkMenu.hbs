@@ -1,3 +1,4 @@
+{{!-- Render Data --}}
 {{#*inline "insertTab"}}
   <fieldset class="bulk-display">
     <ul class="bm-ul">
@@ -28,7 +29,7 @@
                 class="bm-check"
                 id="{{this.id}}"
                 data-id="{{this.id}}"
-                data-type="{{this.type}}"
+                data-type="{{../type}}"
                 data-name="{{this.name}}"
               >
               <label for="{{this.id}}"> 
@@ -72,6 +73,7 @@
 {{/inline}}
 
 
+{{!-- Search --}}
 {{#*inline "insertSearch"}}
   <div class="bm-search-wrapper">
     <div class="bm-search-area">
@@ -83,6 +85,20 @@
 {{/inline}}
 
 
+{{!-- Add Select All and Deselect All --}}
+{{#*inline "insertSelector"}}
+  <div class="bm-selector-area">
+    <button class="bm-selector-sa" type="button">
+      Select All
+    </button>
+    <button class="bm-selector-dsa" type="reset">
+      De-Select All 
+    </button>
+  </div>
+{{/inline}}
+
+
+{{!-- Main Content --}}
 <form class="flexcol" autocomplete="off">
   <nav class="sheet-tabs tabs">
     <a class="item active" data-tab="actors"><i class="fas fa-users"></i> Actors</a>
@@ -94,10 +110,12 @@
     <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a> 
   </nav>
 
+  {{!-- Add Search --}}
   {{> insertSearch}}
 
   <section class="bm-data"> 
     <section class="tab" data-tab="actors">
+      {{> insertSelector}}
       {{#with this.actors}}
         {{> insertTab}}
       {{/with}}
@@ -139,4 +157,24 @@
       {{/with}}
     </section>
   </section>
+
+  {{!-- Footer and Buttons --}}
+  <footer class="bulk-footer">
+    {{!-- Move Button --}}
+    <button type="button" id="bm-move">
+      <i class="fas fa-truck-moving">Move</i>
+    </button>
+
+    {{!-- Delete Button --}}
+    <button type="button" id="bm-delete">
+      <i class="fas fa-trash">Delete</i>
+    </button>
+
+    {{!-- Cancel Button --}}
+    <button type="reset" id="bm-cancel">
+      <i class="fas fa-times">Cancel</i>
+    </button>
+
+  </footer>
+
 </form>

@@ -237,6 +237,7 @@ export class MoveMenu extends Application {
 		const mostType = Object.keys(entityTypes).reduce((a, b) =>
 			entityTypes[a].length > entityTypes[b].length ? a : b
 		);
+
 		this.mostType = mostType;
 
 		const folderTypes = {

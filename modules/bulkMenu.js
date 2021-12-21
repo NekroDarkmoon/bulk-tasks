@@ -95,19 +95,62 @@ export class BulkMenu extends Application {
 		const choices = new Set();
 
 		// On check entity
-		$parent.find(`.bm-check`).on('change', event => {
-			const entity = event.currentTarget.dataset;
-			const isChecked = event.currentTarget.checked;
+		$parent.find(`.bm-check`).on('change', $event => {
+			const entity = $event.currentTarget.dataset;
+			const isChecked = $event.currentTarget.checked;
 
 			if (isChecked) choices.add(entity);
 			else choices.delete(entity);
 		});
 
-		// TODO: On check folder
+		// On check folder
+		$parent.find(`.bm-check-folder`).on('change', $event => {
+			const $content =
+				$event.currentTarget.parentElement.nextElementSibling.children;
+			console.log($content);
 
-		// TODO: On Select All
+			for (const $c of $content) {
+				const $entity = $c.querySelector('.bm-check');
+				const isChecked = $event.currentTarget.checked ? true : false;
+				const data = $entity.dataset;
 
-		// TODO: On DeSelect All
+				$($entity).prop('checked', isChecked);
+				if (isChecked) choices.add(data);
+				else choices.delete(data);
+			}
+		});
+
+		// On Select All
+		$parent.on('click', '.bm-selector-sa', $event => {
+			const $section = $event.currentTarget.parentElement.parentElement;
+			const $content = $section.querySelectorAll(`.bm-check`);
+			const $folders = $section.querySelectorAll(`.bm-check-folder`);
+
+			// Select each element
+			for (const $c of $content) {
+				const data = $c.dataset;
+				$($c).prop('checked', true);
+				choices.add(data);
+			}
+
+			for (const $folder of $folders) $($folder).prop('checked', true);
+		});
+
+		// On DeSelect All
+		$parent.on('click', '.bm-selector-dsa', $event => {
+			const $section = $event.currentTarget.parentElement.parentElement;
+			const $content = $section.querySelectorAll(`.bm-check`);
+			const $folders = $section.querySelectorAll(`.bm-check-folder`);
+
+			// Select each element
+			for (const $c of $content) {
+				const data = $c.dataset;
+				$($c).prop('checked', false);
+				choices.delete(data);
+			}
+
+			for (const $folder of $folders) $($folder).prop('checked', false);
+		});
 
 		// On delete
 		$parent.on('click', '#bm-delete', async event => {
@@ -120,7 +163,7 @@ export class BulkMenu extends Application {
 					this.deleteObjs(choices);
 				},
 				no: () => {
-					this.cloe();
+					this.close();
 				},
 				defaultValue: false,
 			});
@@ -155,8 +198,8 @@ export class BulkMenu extends Application {
 			const match = rgx.test(SearchFilter.cleanQuery(title));
 			$entity.classList.toggle('bm-hidden', !match);
 		}
-		// TODO: Hide folders with no children
 
+		// Hide folders with no children
 		for (const $entity of $parent.querySelectorAll('.bm-li')) {
 			if (!query) {
 				$entity.classList.remove('bm-hidden');
@@ -186,23 +229,3 @@ export class BulkMenu extends Application {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Move Menu
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-export class MoveMenu extends Application {
-	constructor(dialogData = {}, options = {}, selected = {}) {
-		super(dialogData, options);
-
-		this.data = dialogData;
-		this.choices = selected;
-	}
-
-	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
-			title: 'Move Entities',
-			id: 'bulk-tasks-move',
-			template: `modules/${moduleName}/templates/bulkMove.html`,
-			width: 500,
-			height: 'auto',
-			resizable: true,
-			closeOnSubmit: false,
-		});
-	}
-}

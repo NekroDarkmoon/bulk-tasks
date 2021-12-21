@@ -29,7 +29,7 @@
                 class="bm-check"
                 id="{{this.id}}"
                 data-id="{{this.id}}"
-                data-type="{{../type}}"
+                data-type="{{@../../key}}"
                 data-name="{{this.name}}"
               >
               <label for="{{this.id}}"> 
@@ -56,6 +56,7 @@
                 id="{{this.id}}"
                 data-id="{{this.id}}"
                 data-name="{{this.name}}"
+                data-type="{{@../key}}"
               >
               <label for="{{this.id}}"> 
                 {{this.name}}
@@ -113,49 +114,14 @@
   {{!-- Add Search --}}
   {{> insertSearch}}
 
-  <section class="bm-data"> 
-    <section class="tab" data-tab="actors">
+  {{!-- Add Sections --}}
+  <section class="bm-data">
+    {{#each this}}
+    <section class="tab" data-tab="{{@key}}">
       {{> insertSelector}}
-      {{#with this.actors}}
-        {{> insertTab}}
-      {{/with}}
+      {{> insertTab}}
     </section>
-    
-    <section class="tab" data-tab="journal">
-      {{#with this.journals}}
-        {{> insertTab}}
-      {{/with}}
-    </section>
-
-    <section class="tab" data-tab="items">
-      {{#with this.items}}
-        {{> insertTab}}
-      {{/with}}
-    </section>
-
-    <section class="tab" data-tab="macros">
-      {{#with this.macros}}
-        {{> insertTab}}
-      {{/with}}
-    </section>
-
-    <section class="tab" data-tab="scenes">
-      {{#with this.scenes}}
-        {{> insertTab}}
-      {{/with}}
-    </section>
-
-    <section class="tab" data-tab="tables">
-      {{#with this.tables}}
-        {{> insertTab}}
-      {{/with}}
-    </section>
-
-    <section class="tab" data-tab="playlists">
-      {{#with this.playlists}}
-        {{> insertTab}}
-      {{/with}}
-    </section>
+    {{/each}}
   </section>
 
   {{!-- Footer and Buttons --}}

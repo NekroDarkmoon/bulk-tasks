@@ -40,7 +40,7 @@ export class BulkMenu extends Application {
 		// Get Directories
 		const docTypes = {
 			actors: game.actors.directory,
-			journals: game.journal.directory,
+			journal: game.journal.directory,
 			items: game.items.directory,
 			macros: game.macros.directory,
 			scenes: game.scenes.directory,
@@ -92,7 +92,9 @@ export class BulkMenu extends Application {
 	activateListeners($parent) {
 		super.activateListeners($parent);
 
+		// Global params
 		const choices = new Set();
+		let lastChecked = null;
 
 		// On check entity
 		$parent.find(`.bm-check`).on('change', $event => {
@@ -118,6 +120,37 @@ export class BulkMenu extends Application {
 				if (isChecked) choices.add(data);
 				else choices.delete(data);
 			}
+		});
+
+		// On Shift Select
+		$parent.find('.bm-check').on('click', e => {
+			console.log(lastChecked);
+			if (!lastChecked) {
+				lastChecked = e.currentTarget;
+				return;
+			}
+
+			// Get all checkboxes in scope
+			const $section = e.currentTarget.closest('.tab');
+			const checks = [
+				...$section.querySelectorAll(':not(.bm-hidden) >.bm-check'),
+			];
+
+			if (e.shiftKey) {
+				const startTemp = checks.indexOf(e.currentTarget);
+				const endTemp = checks.indexOf(lastChecked);
+
+				const start = Math.min(startTemp, endTemp);
+				const end = Math.max(startTemp, endTemp);
+
+				for (let i = start; i <= end; i++) {
+					$(checks[i]).prop('checked', lastChecked.checked);
+					const data = checks[i].dataset;
+					if (lastChecked.checked) choices.add(data);
+					else choices.delete(data);
+				}
+			}
+			lastChecked = e.currentTarget;
 		});
 
 		// On Select All
@@ -154,7 +187,6 @@ export class BulkMenu extends Application {
 
 		// On delete
 		$parent.on('click', '#bm-delete', async event => {
-			console.log(choices);
 			Dialog.confirm({
 				title: 'Delete Selected',
 				content:
@@ -223,7 +255,13 @@ export class BulkMenu extends Application {
 		);
 	}
 
-	async deleteObjs(choices) {}
+	async deleteObjs(choices) {
+		console.log(choices);
+
+		for (let item of choices) {
+			console.log(game[item.type].get(item.id));
+		}
+	}
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

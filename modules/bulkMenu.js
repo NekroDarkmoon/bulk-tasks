@@ -156,6 +156,18 @@ export class BulkMenu extends Application {
 			$entity.classList.toggle('bm-hidden', !match);
 		}
 		// TODO: Hide folders with no children
+
+		for (const $entity of $parent.querySelectorAll('.bm-li')) {
+			if (!query) {
+				$entity.classList.remove('bm-hidden');
+				continue;
+			}
+
+			const $content = $($entity.querySelector('.bm-content'));
+
+			const match = $content.children(':visible').length === 0;
+			$entity.classList.toggle('bm-hidden', match);
+		}
 	}
 
 	/**

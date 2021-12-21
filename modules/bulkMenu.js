@@ -260,7 +260,11 @@ export class BulkMenu extends Application {
 
 		for (let item of choices) {
 			console.log(game[item.type].get(item.id));
+			await game[item.type].get(item.id).delete();
+			console.log(`${moduleTag} | Deleted ${item.name}`);
 		}
+
+		this.render(true);
 	}
 }
 

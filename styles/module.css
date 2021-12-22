@@ -1,14 +1,83 @@
-/* Main Menu css */
-
-.bulk-display {
-	height: 600px;
-	overflow-y: scroll;
-	margin-bottom: 0.25em;
+/* Ensures buttons in action-buttons do not shrink */
+.action-buttons button {
+	min-width: max-content;
+	white-space: nowrap;
 }
 
-.bulk-footer {
+/* Bulk Menu css */
+.bm__btn {
+	border: thin black 0.125em;
+}
+
+.bm__data {
+	border: 1px outset gray;
+}
+
+.bm__search-area {
+	display: flex;
+	gap: 0.5em;
+	padding-inline: 1em;
+	margin-top: 1em;
+}
+
+.bm__search-fa {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bm__selector-area {
+	display: flex;
+}
+
+.bm__display {
+	height: 37.5em;
+	overflow-y: scroll;
+	margin-bottom: 0.25em;
+	border: none;
+}
+
+/** Bulk Menu Items */
+.bm__ul,
+.bm__li {
+	all: unset;
+}
+
+.bm__folder {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 2em 1fr;
+}
+
+.bm__btn--collapsable {
+	all: unset;
+	width: 100%;
+	cursor: pointer;
+	text-align: left;
+	outline: none;
+	font-size: 1.05rem;
+	padding: 0.25em 0.25em 0em 0.25em;
+	border-bottom: 0.15em solid gray;
+	margin-bottom: 0.25em;
+	font-weight: bold;
+}
+
+.bm__btn--collapsable:hover,
+.bm__btn--collapsable:focus {
+	box-shadow: none;
+}
+
+.bm__content {
+	padding-top: 0.55rem;
+	padding-bottom: 0.75rem;
+	display: none;
+}
+
+/** Footer Styles*/
+.bm__footer {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1em;
 }
 
 #bm-delete,
@@ -22,48 +91,25 @@
 	color: white;
 }
 
-/* Ensures buttons in action-buttons do not shrink */
-.action-buttons button {
-	min-width: max-content;
-	white-space: nowrap;
-}
-
 /* Main Menu Content css */
-/* .bm-collapsable {
-	all: unset;
-	width: 100%;
-	cursor: pointer;
-	text-align: left;
-	outline: none;
-	font-size: 1.05rem;
-	padding: 0.25em 0.25em 0em 0.25em;
-	border-bottom: 0.15em solid gray;
-	margin-bottom: 0.25em;
-	font-weight: bold;
-}
-
-.bm-collapsable:hover,
-.bm-collapsable:focus {
-	box-shadow: none;
-}
-
-.bm-collapsable::before {
-	content: '\002B';
-}
-
-.bm-content {
+/* 
+.bm__content {
 	padding-top: 0.55rem;
 	padding-bottom: 0.75rem;
-	display: none;
-}
+	display: none; 
+} 
 
-.bm-ul,
-.bm-li {
+.bm__ul,
+.bm__li {
 	all: unset;
 } */
 
-.bm-hidden {
+.bm--hidden {
 	display: none;
+}
+
+.bm--show {
+	display: block;
 }
 
 /* Move Menu Css */

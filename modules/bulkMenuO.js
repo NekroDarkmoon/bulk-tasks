@@ -142,7 +142,7 @@ export class BulkMenu extends Application {
 		});
 
 		// Collapsible folders
-		html.on('click', '.bm-collapsable', async button => {
+		html.on('click', '.bm__btn--collapsable', async button => {
 			// button.currentTarget.classList.toggle("active");
 			var content = button.currentTarget.nextElementSibling;
 			if (content.style.display === 'block') {

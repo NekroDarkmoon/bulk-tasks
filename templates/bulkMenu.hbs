@@ -1,10 +1,10 @@
 {{!-- Render Data --}}
 {{#*inline "insertTab"}}
-  <fieldset class="bulk-display">
-    <ul class="bm-ul">
+  <fieldset class="bm__display">
+    <ul class="bm__ul">
       {{#each this.folders}}
-      <li class="bm-li">
-        <span class="bm-folder">
+      <li class="bm__li">
+        <span class="bm__folder">
           <input 
             type="checkbox" 
             class="bm-check-folder"
@@ -14,13 +14,13 @@
             data-name="{{this.name}}"
           >
           <label for="{{this.id}}">
-            <button type="button" class="bm-collapsable">
+            <button type="button" class="bm__btn--collapsable">
               {{this.name}}
             </button>
           </label>
         </span>
 
-        <div class="bm-content">
+        <div class="bm__content">
           {{#each this.content}}
           {{#with this}}
             <span class="bm-entity">
@@ -44,8 +44,8 @@
       </li>
       {{/each}}
 
-      <li class="bm-li">
-        <div class="bm-content">
+      <li class="bm__li">
+        <div class="bm__content bm--show">
           {{#each this.orphans}}
           {{#with this}}
             <span class="bm-entity">
@@ -76,9 +76,9 @@
 
 {{!-- Search --}}
 {{#*inline "insertSearch"}}
-  <div class="bm-search-wrapper">
-    <div class="bm-search-area">
-      <i class="fas fa-search bm-search-fa"></i>
+  <div class="bm__search-wrapper">
+    <div class="bm__search-area">
+      <i class="bm__search-fa fas fa-search"></i>
       <input name="search" type="text" placeholder="Type to Search...">
     </div>
     <hr >
@@ -88,11 +88,11 @@
 
 {{!-- Add Select All and Deselect All --}}
 {{#*inline "insertSelector"}}
-  <div class="bm-selector-area">
-    <button class="bm-selector-sa" type="button">
+  <div class="bm__selector-area">
+    <button class="bm__btn bm-selector-sa" type="button">
       Select All
     </button>
-    <button class="bm-selector-dsa" type="button">
+    <button class="bm__btn bm-selector-dsa" type="button">
       De-Select All 
     </button>
   </div>
@@ -108,6 +108,7 @@
     <a class="item" data-tab="macros"><i class="fas fa-code"></i> Macros</a>
     <a class="item" data-tab="scenes"><i class="fas fa-map"></i> Scenes</a>
     <a class="item" data-tab="tables"><i class="fas fa-table"></i> RollTables</a>
+    <a class="item" data-tab="cards"><i class="fas fa-cards"></i> Cards</a>
     <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a> 
   </nav>
 
@@ -115,7 +116,7 @@
   {{> insertSearch}}
 
   {{!-- Add Sections --}}
-  <section class="bm-data">
+  <section class="bm__data">
     {{#each this}}
     <section class="tab" data-tab="{{@key}}">
       {{> insertSelector}}
@@ -125,19 +126,19 @@
   </section>
 
   {{!-- Footer and Buttons --}}
-  <footer class="bulk-footer">
+  <footer class="bm__footer">
     {{!-- Move Button --}}
-    <button type="button" id="bm-move">
+    <button class="bm__btn" type="button" id="bm-move">
       <i class="fas fa-truck-moving">Move</i>
     </button>
 
     {{!-- Delete Button --}}
-    <button type="button" id="bm-delete">
+    <button class="bm__btn" type="button" id="bm-delete">
       <i class="fas fa-trash">Delete</i>
     </button>
 
     {{!-- Cancel Button --}}
-    <button type="reset" id="bm-cancel">
+    <button class="bm__btn" type="reset" id="bm-cancel">
       <i class="fas fa-times">Cancel</i>
     </button>
 

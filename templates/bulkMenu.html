@@ -13,14 +13,14 @@
 
     <section class="tab" data-tab="actors">
         <hr>
-        <fieldset class="bulk-display">
-            <ul class="bm-ul">
+        <fieldset class="bm__display">
+            <ul class="bm__ul">
                 {{#each this.actors}}
-                <li class="bm-li">
-                    <button type="button" class="bm-collapsable">
+                <li class="bm__li">
+                    <button type="button" class="bm__btn--collapsable">
                     {{this.data.name}}
                     </button>
-                <div class="bm-content">
+                <div class="bm__content">
                     {{#each this.content}}
                     {{#with this}}
                     <span> 
@@ -39,14 +39,14 @@
 
     <section class="tab" data-tab="journal">
         <hr>
-        <fieldset class="bulk-display">
-            <ul class="bm-ul">
+        <fieldset class="bm__display">
+            <ul class="bm__ul">
                 {{#each this.journals}}
-                <li class="bm-li">
-                    <button type="button" class="bm-collapsable">
+                <li class="bm__li">
+                    <button type="button" class="bm__btn--collapsable">
                     {{this.data.name}}
                     </button>
-                <div class="bm-content">
+                <div class="bm__content">
                     {{#each this.content}}
                     {{#with this}}
                     <span> 
@@ -65,14 +65,14 @@
 
     <section class="tab" data-tab="items">
         <hr>
-        <fieldset class="bulk-display">
-            <ul class="bm-ul">
+        <fieldset class="bm__display">
+            <ul class="bm__ul">
                 {{#each this.items}}
-                <li class="bm-li">
-                    <button type="button" class="bm-collapsable">
+                <li class="bm__li">
+                    <button type="button" class="bm__btn--collapsable">
                     {{this.data.name}}
                     </button>
-                <div class="bm-content">
+                <div class="bm__content">
                     {{#each this.content}}
                     {{#with this}}
                     <span> 
@@ -91,14 +91,14 @@
 
     <section class="tab" data-tab="scenes">
         <hr>
-        <fieldset class="bulk-display">
-            <ul class="bm-ul">
+        <fieldset class="bm__display">
+            <ul class="bm__ul">
                 {{#each this.scenes}}
-                <li class="bm-li">
-                    <button type="button" class="bm-collapsable">
+                <li class="bm__li">
+                    <button type="button" class="bm__btn--collapsable">
                     {{this.data.name}}
                     </button>
-                <div class="bm-content">
+                <div class="bm__content">
                     {{#each this.content}}
                     {{#with this}}
                     <span> 
@@ -117,14 +117,14 @@
 
     <section class="tab" data-tab="tables">
         <hr>
-        <fieldset class="bulk-display">
-            <ul class="bm-ul">
+        <fieldset class="bm__display">
+            <ul class="bm__ul">
                 {{#each this.tables}}
-                <li class="bm-li">
-                    <button type="button" class="bm-collapsable">
+                <li class="bm__li">
+                    <button type="button" class="bm__btn--collapsable">
                     {{this.data.name}}
                     </button>
-                <div class="bm-content">
+                <div class="bm__content">
                     {{#each this.content}}
                     {{#with this}}
                     <span> 
@@ -143,14 +143,14 @@
 
     <section class="tab" data-tab="playlists">
         <hr>
-        <fieldset class="bulk-display">
-            <ul class="bm-ul">
+        <fieldset class="bm__display">
+            <ul class="bm__ul">
                 {{#each this.playlists}}
-                <li class="bm-li">
-                    <button type="button" class="bm-collapsable">
+                <li class="bm__li">
+                    <button type="button" class="bm__btn--collapsable">
                     {{this.data.name}}
                     </button>
-                <div class="bm-content">
+                <div class="bm__content">
                     {{#each this.content}}
                     {{#with this}}
                     <span> 
@@ -169,7 +169,7 @@
 
     <section class="tab" data-tab="macros">
         <hr>
-        <fieldset class="bulk-display">
+        <fieldset class="bm__display">
             {{#each this.macros}}
             {{#with this}}
             <div>
@@ -184,7 +184,7 @@
     </section>
 
 
-    <footer class="bulk-footer">
+    <footer class="bm__footer">
         <!-- Move Button -->
         <button type="button" id="bm-move"><i class="fas fa-truck-moving"></i>Move</button>
 

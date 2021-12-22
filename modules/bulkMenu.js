@@ -30,7 +30,7 @@ export class BulkMenu extends Application {
 			filters: [
 				{
 					inputSelector: 'input[name="search"]',
-					contentSelector: '.bm-data',
+					contentSelector: '.bm__data',
 				},
 			],
 		});
@@ -40,6 +40,7 @@ export class BulkMenu extends Application {
 		// Get Directories
 		const docTypes = {
 			actors: game.actors.directory,
+			cards: game.cards.directory,
 			journal: game.journal.directory,
 			items: game.items.directory,
 			macros: game.macros.directory,
@@ -133,7 +134,7 @@ export class BulkMenu extends Application {
 			// Get all checkboxes in scope
 			const $section = e.currentTarget.closest('.tab');
 			const checks = [
-				...$section.querySelectorAll(':not(.bm-hidden) >.bm-check'),
+				...$section.querySelectorAll(':not(.bm--hidden) >.bm-check'),
 			];
 
 			if (e.shiftKey) {
@@ -211,6 +212,15 @@ export class BulkMenu extends Application {
 		$parent.on('click', '#bm-cancel', event => {
 			this.close();
 		});
+
+		// Collapsable folders
+		$parent.on('click', '.bm__btn--collapsable', btn => {
+			const $content =
+				btn.currentTarget.parentElement.parentElement.nextElementSibling;
+
+			if ($content.style.display === 'block') $content.style.display = 'none';
+			else $content.style.display = 'block';
+		});
 	}
 
 	/**
@@ -220,28 +230,34 @@ export class BulkMenu extends Application {
 	 * @param {*} $parent
 	 */
 	_onSearchFilter(event, query, rgx, $parent) {
+		// Expand all folders on query
+		for (const $f of $parent.querySelectorAll('.bm__content:not(.bm--show)')) {
+			if (query) $f.style.display = 'block';
+			else $f.style.display = 'none';
+		}
+
+		// Hide elements
 		for (const $entity of $parent.querySelectorAll('.bm-entity')) {
 			if (!query) {
-				$entity.classList.remove('bm-hidden');
+				$entity.classList.remove('bm--hidden');
 				continue;
 			}
 
 			const title = $entity.querySelector(`.bm-check`).dataset.name;
 			const match = rgx.test(SearchFilter.cleanQuery(title));
-			$entity.classList.toggle('bm-hidden', !match);
+			$entity.classList.toggle('bm--hidden', !match);
 		}
 
 		// Hide folders with no children
-		for (const $entity of $parent.querySelectorAll('.bm-li')) {
+		for (const $entity of $parent.querySelectorAll('.bm__li')) {
 			if (!query) {
-				$entity.classList.remove('bm-hidden');
+				$entity.classList.remove('bm--hidden');
 				continue;
 			}
 
-			const $content = $($entity.querySelector('.bm-content'));
-
+			const $content = $($entity.querySelector('.bm__content'));
 			const match = $content.children(':visible').length === 0;
-			$entity.classList.toggle('bm-hidden', match);
+			$entity.classList.toggle('bm--hidden', match);
 		}
 	}
 

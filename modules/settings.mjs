@@ -1,28 +1,27 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports 
+//                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-import { moduleName, moduleTag } from "./constants.js";
-
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import { moduleName, moduleTag } from './constants.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                 Helper Functions 
+//                                    Imports
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                                 Helper Functions
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const debounceReload = debounce(() => window.location.reload(), 100);
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Settings 
+//                                    Settings
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 export async function registerSettings() {
-    await game.settings.register(moduleName, "gmOnly", {
-        name: "Hide menu from players",
-        scope: 'world',
-        config: true,
-        type: Boolean,
-        default: false,
-        onChange: debounceReload
-    });
+	await game.settings.register(moduleName, 'gmOnly', {
+		name: 'Hide menu from players',
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: false,
+		onChange: debounceReload,
+	});
 }

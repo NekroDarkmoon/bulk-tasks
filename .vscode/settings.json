@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  
+  "json.format.enable": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.singleQuote": true,
+  "prettier.useTabs": true,
+  "prettier.bracketSpacing": true,
+}

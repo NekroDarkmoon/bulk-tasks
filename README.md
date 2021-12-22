@@ -4,7 +4,7 @@ Delete/Move actors, journals, items, macros, scenes, tables, playlists en masse.
 
 The module currently allows for users to delete multiple entity types at a single time, however the same isn't possible for the move functionality.
 
-![](https://github.com/NekroDarkmoon/bulk-tasks/blob/main/imgs/Bulk-menu.png?raw=true)
+![](https://media.discordapp.net/attachments/648215359895240715/923302318831710218/unknown.png)
 
 
 ### Limitations

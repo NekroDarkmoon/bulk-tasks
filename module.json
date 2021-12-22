@@ -2,11 +2,11 @@
   "name": "bulk-tasks",
   "title": "Bulk Tasks",
   "description": "Delete/Move entities en masse.",
-  "version": "0.1.1",
+  "version": "Replaced",
   "library": "false",
   "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "0.8.5",
-  "compatibleCoreVersion": "0.8.9",
+  "minimumCoreVersion": "9.000",
+  "compatibleCoreVersion": "9.238",
   "authors": [
     {
       "name": "NekroDarkmoon",

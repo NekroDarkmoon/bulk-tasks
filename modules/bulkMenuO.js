@@ -105,7 +105,7 @@ export class BulkMenu extends Application {
 		let choices = new Set();
 
 		// Add on checked
-		html.find('.bm-check').on('change', async event => {
+		html.find('.bm__check').on('change', async event => {
 			const selected = event.currentTarget.dataset;
 			const checked = event.currentTarget.checked;
 

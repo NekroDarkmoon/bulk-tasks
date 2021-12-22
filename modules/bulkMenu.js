@@ -98,7 +98,7 @@ export class BulkMenu extends Application {
 		let lastChecked = null;
 
 		// On check entity
-		$parent.find(`.bm-check`).on('change', $event => {
+		$parent.find(`.bm__check`).on('change', $event => {
 			const entity = $event.currentTarget.dataset;
 			const isChecked = $event.currentTarget.checked;
 
@@ -107,13 +107,13 @@ export class BulkMenu extends Application {
 		});
 
 		// On check folder
-		$parent.find(`.bm-check-folder`).on('change', $event => {
+		$parent.find(`.bm__check__folder`).on('change', $event => {
 			const $content =
 				$event.currentTarget.parentElement.nextElementSibling.children;
 			console.log($content);
 
 			for (const $c of $content) {
-				const $entity = $c.querySelector('.bm-check');
+				const $entity = $c.querySelector('.bm__check');
 				const isChecked = $event.currentTarget.checked ? true : false;
 				const data = $entity.dataset;
 
@@ -124,7 +124,7 @@ export class BulkMenu extends Application {
 		});
 
 		// On Shift Select
-		$parent.find('.bm-check').on('click', e => {
+		$parent.find('.bm__check').on('click', e => {
 			console.log(lastChecked);
 			if (!lastChecked) {
 				lastChecked = e.currentTarget;
@@ -134,7 +134,7 @@ export class BulkMenu extends Application {
 			// Get all checkboxes in scope
 			const $section = e.currentTarget.closest('.tab');
 			const checks = [
-				...$section.querySelectorAll(':not(.bm--hidden) >.bm-check'),
+				...$section.querySelectorAll(':not(.bm--hidden) >.bm__check'),
 			];
 
 			if (e.shiftKey) {
@@ -157,8 +157,8 @@ export class BulkMenu extends Application {
 		// On Select All
 		$parent.on('click', '.bm-selector-sa', $event => {
 			const $section = $event.currentTarget.parentElement.parentElement;
-			const $content = $section.querySelectorAll(`.bm-check`);
-			const $folders = $section.querySelectorAll(`.bm-check-folder`);
+			const $content = $section.querySelectorAll(`.bm__check`);
+			const $folders = $section.querySelectorAll(`.bm__check__folder`);
 
 			// Select each element
 			for (const $c of $content) {
@@ -173,8 +173,8 @@ export class BulkMenu extends Application {
 		// On DeSelect All
 		$parent.on('click', '.bm-selector-dsa', $event => {
 			const $section = $event.currentTarget.parentElement.parentElement;
-			const $content = $section.querySelectorAll(`.bm-check`);
-			const $folders = $section.querySelectorAll(`.bm-check-folder`);
+			const $content = $section.querySelectorAll(`.bm__check`);
+			const $folders = $section.querySelectorAll(`.bm__check__folder`);
 
 			// Select each element
 			for (const $c of $content) {
@@ -237,13 +237,13 @@ export class BulkMenu extends Application {
 		}
 
 		// Hide elements
-		for (const $entity of $parent.querySelectorAll('.bm-entity')) {
+		for (const $entity of $parent.querySelectorAll('.bm__entity')) {
 			if (!query) {
 				$entity.classList.remove('bm--hidden');
 				continue;
 			}
 
-			const title = $entity.querySelector(`.bm-check`).dataset.name;
+			const title = $entity.querySelector(`.bm__check`).dataset.name;
 			const match = rgx.test(SearchFilter.cleanQuery(title));
 			$entity.classList.toggle('bm--hidden', !match);
 		}

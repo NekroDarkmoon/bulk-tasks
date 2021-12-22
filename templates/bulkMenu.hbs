@@ -7,7 +7,7 @@
         <span class="bm__folder">
           <input 
             type="checkbox" 
-            class="bm-check-folder"
+            class="bm__check__folder"
             id="{{this.id}}"
             data-id="{{this.id}}"
             data-type="{{this.type}}"
@@ -23,10 +23,10 @@
         <div class="bm__content">
           {{#each this.content}}
           {{#with this}}
-            <span class="bm-entity">
+            <span class="bm__entity">
               <input 
                 type="checkbox" 
-                class="bm-check"
+                class="bm__check"
                 id="{{this.id}}"
                 data-id="{{this.id}}"
                 data-type="{{@../../key}}"
@@ -48,10 +48,10 @@
         <div class="bm__content bm--show">
           {{#each this.orphans}}
           {{#with this}}
-            <span class="bm-entity">
+            <span class="bm__entity bm--no-padding">
               <input 
                 type="checkbox" 
-                class="bm-check"
+                class="bm__check"
                 name="{{this.id}}" 
                 id="{{this.id}}"
                 data-id="{{this.id}}"
@@ -104,11 +104,11 @@
   <nav class="sheet-tabs tabs">
     <a class="item active" data-tab="actors"><i class="fas fa-users"></i> Actors</a>
     <a class="item" data-tab="journal"><i class="fas fa-book"></i> Journals</a>
-    <a class="item" data-tab="items"><i class="fas fa-shield-alt"></i> Items</a>
+    <a class="item" data-tab="items"><i class="fas fa-suitcase"></i> Items</a>
     <a class="item" data-tab="macros"><i class="fas fa-code"></i> Macros</a>
     <a class="item" data-tab="scenes"><i class="fas fa-map"></i> Scenes</a>
-    <a class="item" data-tab="tables"><i class="fas fa-table"></i> RollTables</a>
-    <a class="item" data-tab="cards"><i class="fas fa-cards"></i> Cards</a>
+    <a class="item" data-tab="tables"><i class="fas fa-th-list"></i> RollTables</a>
+    <a class="item" data-tab="cards"><i class="fas fa-id-badge"></i> Cards</a>
     <a class="item" data-tab="playlists"><i class="fas fa-music"></i> Playlists</a> 
   </nav>
 
@@ -129,17 +129,17 @@
   <footer class="bm__footer">
     {{!-- Move Button --}}
     <button class="bm__btn" type="button" id="bm-move">
-      <i class="fas fa-truck-moving">Move</i>
+      <i class="fas fa-truck-moving"> Move</i>
     </button>
 
     {{!-- Delete Button --}}
     <button class="bm__btn" type="button" id="bm-delete">
-      <i class="fas fa-trash">Delete</i>
+      <i class="fas fa-trash"> Delete</i>
     </button>
 
     {{!-- Cancel Button --}}
     <button class="bm__btn" type="reset" id="bm-cancel">
-      <i class="fas fa-times">Cancel</i>
+      <i class="fas fa-times"> Cancel</i>
     </button>
 
   </footer>

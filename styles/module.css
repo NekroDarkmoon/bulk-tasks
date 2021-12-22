@@ -6,7 +6,7 @@
 
 /* Bulk Menu css */
 .bm__btn {
-	border: thin black 0.125em;
+	border: 0.125em outset black;
 }
 
 .bm__data {
@@ -15,26 +15,25 @@
 
 .bm__search-area {
 	display: flex;
-	gap: 0.5em;
-	padding-inline: 1em;
-	margin-top: 1em;
-}
-
-.bm__search-fa {
-	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 0.5em;
+	margin-top: 1em;
+	padding-inline: 1em;
 }
 
 .bm__selector-area {
 	display: flex;
+	gap: 0.125em;
 }
 
 .bm__display {
 	height: 37.5em;
+	overflow-x: hidden;
 	overflow-y: scroll;
 	margin-bottom: 0.25em;
 	border: none;
+	padding-inline: 0;
 }
 
 /** Bulk Menu Items */
@@ -46,6 +45,13 @@
 .bm__folder {
 	display: grid;
 	align-items: center;
+	grid-template-columns: 2em 1fr;
+}
+
+.bm__entity {
+	display: grid;
+	align-items: center;
+	padding-left: 2em;
 	grid-template-columns: 2em 1fr;
 }
 
@@ -78,12 +84,7 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 1em;
-}
-
-#bm-delete,
-#bm-move,
-#bm-cancel {
-	border: thin black 2px;
+	margin-top: 0.25em;
 }
 
 #bm-delete {
@@ -91,25 +92,16 @@
 	color: white;
 }
 
-/* Main Menu Content css */
-/* 
-.bm__content {
-	padding-top: 0.55rem;
-	padding-bottom: 0.75rem;
-	display: none; 
-} 
-
-.bm__ul,
-.bm__li {
-	all: unset;
-} */
-
 .bm--hidden {
 	display: none;
 }
 
 .bm--show {
 	display: block;
+}
+
+.bm--no-padding {
+	padding: 0;
 }
 
 /* Move Menu Css */

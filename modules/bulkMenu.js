@@ -110,7 +110,6 @@ export class BulkMenu extends Application {
 		$parent.find(`.bm__check__folder`).on('change', $event => {
 			const $content =
 				$event.currentTarget.parentElement.nextElementSibling.children;
-			console.log($content);
 
 			for (const $c of $content) {
 				const $entity = $c.querySelector('.bm__check');
@@ -125,7 +124,6 @@ export class BulkMenu extends Application {
 
 		// On Shift Select
 		$parent.find('.bm__check').on('click', e => {
-			console.log(lastChecked);
 			if (!lastChecked) {
 				lastChecked = e.currentTarget;
 				return;
@@ -272,10 +270,7 @@ export class BulkMenu extends Application {
 	}
 
 	async deleteObjs(choices) {
-		console.log(choices);
-
 		for (let item of choices) {
-			console.log(game[item.type].get(item.id));
 			await game[item.type].get(item.id).delete();
 			console.log(`${moduleTag} | Deleted ${item.name}`);
 		}

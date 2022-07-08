@@ -93,7 +93,7 @@ export class DataSelector {
 		for (const $c of $content) {
 			const data = $c.dataset;
 			$($c).prop('checked', true);
-			choices.add(data);
+			this.choices.add(data);
 		}
 
 		for (const $folder of $folders) $($folder).prop('checked', true);
@@ -110,7 +110,7 @@ export class DataSelector {
 		for (const $c of $content) {
 			const data = $c.dataset;
 			$($c).prop('checked', false);
-			choices.delete(data);
+			this.choices.delete(data);
 		}
 
 		for (const $folder of $folders) $($folder).prop('checked', false);

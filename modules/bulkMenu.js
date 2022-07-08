@@ -2,6 +2,7 @@
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from './constants.js';
+import { DataSelector } from './partials/DataSelector.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Bulk Menu
@@ -93,96 +94,8 @@ export class BulkMenu extends Application {
 	activateListeners($parent) {
 		super.activateListeners($parent);
 
-		// Global params
-		const choices = new Set();
-		let lastChecked = null;
-
-		// On check entity
-		$parent.find(`.bm__check`).on('change', $event => {
-			const entity = $event.currentTarget.dataset;
-			const isChecked = $event.currentTarget.checked;
-
-			if (isChecked) choices.add(entity);
-			else choices.delete(entity);
-		});
-
-		// On check folder
-		$parent.find(`.bm__check__folder`).on('change', $event => {
-			const $content =
-				$event.currentTarget.parentElement.nextElementSibling.children;
-
-			for (const $c of $content) {
-				const $entity = $c.querySelector('.bm__check');
-				const isChecked = $event.currentTarget.checked ? true : false;
-				const data = $entity.dataset;
-
-				$($entity).prop('checked', isChecked);
-				if (isChecked) choices.add(data);
-				else choices.delete(data);
-			}
-		});
-
-		// On Shift Select
-		$parent.find('.bm__check').on('click', e => {
-			if (!lastChecked) {
-				lastChecked = e.currentTarget;
-				return;
-			}
-
-			// Get all checkboxes in scope
-			const $section = e.currentTarget.closest('.tab');
-			const checks = [
-				...$section.querySelectorAll(':not(.bm--hidden) >.bm__check'),
-			];
-
-			if (e.shiftKey) {
-				const startTemp = checks.indexOf(e.currentTarget);
-				const endTemp = checks.indexOf(lastChecked);
-
-				const start = Math.min(startTemp, endTemp);
-				const end = Math.max(startTemp, endTemp);
-
-				for (let i = start; i <= end; i++) {
-					$(checks[i]).prop('checked', lastChecked.checked);
-					const data = checks[i].dataset;
-					if (lastChecked.checked) choices.add(data);
-					else choices.delete(data);
-				}
-			}
-			lastChecked = e.currentTarget;
-		});
-
-		// On Select All
-		$parent.on('click', '.bm-selector-sa', $event => {
-			const $section = $event.currentTarget.parentElement.parentElement;
-			const $content = $section.querySelectorAll(`.bm__check`);
-			const $folders = $section.querySelectorAll(`.bm__check__folder`);
-
-			// Select each element
-			for (const $c of $content) {
-				const data = $c.dataset;
-				$($c).prop('checked', true);
-				choices.add(data);
-			}
-
-			for (const $folder of $folders) $($folder).prop('checked', true);
-		});
-
-		// On DeSelect All
-		$parent.on('click', '.bm-selector-dsa', $event => {
-			const $section = $event.currentTarget.parentElement.parentElement;
-			const $content = $section.querySelectorAll(`.bm__check`);
-			const $folders = $section.querySelectorAll(`.bm__check__folder`);
-
-			// Select each element
-			for (const $c of $content) {
-				const data = $c.dataset;
-				$($c).prop('checked', false);
-				choices.delete(data);
-			}
-
-			for (const $folder of $folders) $($folder).prop('checked', false);
-		});
+		// Data Selection
+		const data = new DataSelector($parent);
 
 		// On delete
 		$parent.on('click', '#bm-delete', async event => {
@@ -191,7 +104,7 @@ export class BulkMenu extends Application {
 				content:
 					'Are you sure? </br> This action is permanent and cannot be undone.',
 				yes: () => {
-					this.deleteObjs(choices);
+					this.deleteObjs(data.choices);
 				},
 				no: () => {
 					this.close();
@@ -202,7 +115,7 @@ export class BulkMenu extends Application {
 
 		// On move
 		$parent.on('click', '#bm-move', async event => {
-			new MoveMenu({}, {}, choices).render(true);
+			new MoveMenu({}, {}, data.choices).render(true);
 			this.close();
 		});
 

@@ -2,11 +2,6 @@
   "name": "bulk-tasks",
   "title": "Bulk Tasks",
   "description": "Delete/Move entities en masse.",
-  "version": "Replaced",
-  "library": "false",
-  "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "9.000",
-  "compatibleCoreVersion": "9.238",
   "authors": [
     {
       "name": "NekroDarkmoon",
@@ -15,7 +10,12 @@
       "ko-fi": "https://ko-fi.com/nekrodarkmoon"
     }
   ],
-  "dependencies": [],
+  "url": "https://github.com/NekroDarkmoon/bulk-tasks",
+  "flags": {},
+  "version": "Replaced",
+  "minimumCoreVersion": "9.000",
+  "compatibleCoreVersion": "9.238",
+  "scripts": [],
   "esmodules": [
     "index.js"
   ],
@@ -29,13 +29,13 @@
       "path": "languages/en.json"
     }
   ],
-  "url": "https://github.com/NekroDarkmoon/bulk-tasks",
+  "packs": [],
+  "system": [],
+  "dependencies": [],
+  "socket": false,
   "manifest": "https://github.com/NekroDarkmoon/bulk-tasks/releases/latest/download/module.json",
-  "download": "auto-replaced",
-  "media": [
-    {
-      "type": "icon",
-      "url": ""
-    }
-  ]
+  "download": "https://github.com/NekroDarkmoon/bulk-tasks/releases/download/0.3.0/module.zip",
+  "protected": false,
+  "coreTranslation": false,
+  "library": "false"
 }

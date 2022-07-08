@@ -1,7 +1,7 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-import { defaultPermDisplay, moduleName, moduleTag } from './constants.js';
+import { moduleName, moduleTag } from './constants.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports
@@ -35,6 +35,5 @@ export async function registerSettings() {
 			all: 'BM.Settings.permDefaultAll',
 		},
 		default: 'gmOnly',
-		onChange: val => (defaultPermDisplay = val),
 	});
 }

@@ -2,11 +2,7 @@
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { BulkMenu } from './modules/bulkMenu.js';
-import {
-	defaultPermDisplay,
-	moduleTag,
-	moduleName,
-} from './modules/constants.js';
+import { moduleTag, moduleName } from './modules/constants.js';
 import { registerSettings } from './modules/settings.mjs';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -22,7 +18,6 @@ Hooks.on('renderSidebarTab', async (app, html) => {
 });
 
 Hooks.on('setup', async () => {
-	defaultPermDisplay = game.settings.get(moduleName, 'defaultPermDisplay');
 	console.log(`${moduleTag} | Setup Complete.`);
 });
 

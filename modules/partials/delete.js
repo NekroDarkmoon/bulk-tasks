@@ -21,6 +21,8 @@ export async function onDelete(choices) {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 async function deleteDocuments(docs) {
 	// Display notif
+	ui.notifications.info(`Deleting ${docs.size} documents. Please be patient.`);
+
 	const folders = new Set();
 
 	// Delete Items
@@ -37,6 +39,8 @@ async function deleteDocuments(docs) {
 		if (!folders.has(folder.id)) continue;
 		await deleteFolder(folder);
 	}
+
+	ui.notifications.info(`Deleted ${docs.size} documents.`);
 
 	this.render(true);
 }

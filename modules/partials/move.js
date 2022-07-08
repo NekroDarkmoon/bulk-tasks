@@ -96,11 +96,20 @@ export class MoveMenu extends Application {
 			const destFolder = $('.bm-destination-select').find(':selected')[0]
 				.dataset;
 
+			ui.notifications.info(
+				`Moving ${
+					this.docTypes[this.mostType].length
+				} documents. Please be patient.`
+			);
+
 			for (let item of this.docTypes[this.mostType]) {
 				await game[item.type].get(item.id).update({ folder: destFolder.id });
 				console.log(`${moduleTag} | Moving ${item.name} to ${destFolder.name}`);
 			}
 
+			ui.notifications.info(
+				`Moved ${this.docTypes[this.mostType].length} documents.`
+			);
 			this.close();
 		});
 

@@ -1,3 +1,5 @@
 {
-    
+  "BM.delete": "Delete",
+  "BM.deleteTitle": "Delete Selected",
+  "BM.deleteContent": "Are you sure? <br /> This action is permanent and cannot be undone."
 }

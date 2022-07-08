@@ -3,6 +3,7 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from './constants.js';
 import { DataSelector } from './partials/DataSelector.js';
+import { onDelete } from './partials/delete.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Bulk Menu
@@ -99,18 +100,7 @@ export class BulkMenu extends Application {
 
 		// On delete
 		$parent.on('click', '#bm-delete', async event => {
-			Dialog.confirm({
-				title: 'Delete Selected',
-				content:
-					'Are you sure? </br> This action is permanent and cannot be undone.',
-				yes: () => {
-					this.deleteObjs(data.choices);
-				},
-				no: () => {
-					this.close();
-				},
-				defaultValue: false,
-			});
+			await onDelete.call(this, data.choices);
 		});
 
 		// On move
@@ -180,15 +170,6 @@ export class BulkMenu extends Application {
 		return inputArray.filter(
 			e => e.data.permission.default == 3 || e.data.permission[this.userID] == 3
 		);
-	}
-
-	async deleteObjs(choices) {
-		for (let item of choices) {
-			await game[item.type].get(item.id).delete();
-			console.log(`${moduleTag} | Deleted ${item.name}`);
-		}
-
-		this.render(true);
 	}
 }
 

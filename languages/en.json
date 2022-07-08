@@ -1,5 +1,9 @@
 {
   "BM.delete": "Delete",
   "BM.deleteTitle": "Delete Selected",
-  "BM.deleteContent": "Are you sure? <br /> This action is permanent and cannot be undone."
+  "BM.deleteContent": "Are you sure? <br /> This action is permanent and cannot be undone.",
+  "BM.Settings.gmOnly": "Hide menu from players",
+  "BM.Settings.permDefaultName": "Default Behavior for documents with undefined permissions.",
+  "BM.Settings.permDefaultGMOnly": "GM Only",
+  "BM.Settings.permDefaultAll": "Everyone"
 }

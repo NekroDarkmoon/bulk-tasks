@@ -2,6 +2,7 @@
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from './constants.js';
+import { collapseFolder } from './partials/collapseFolder.js';
 import { DataSelector } from './partials/DataSelector.js';
 import { onDelete } from './partials/delete.js';
 import { MoveMenu } from './partials/move.js';
@@ -116,12 +117,8 @@ export class BulkMenu extends Application {
 		});
 
 		// Collapsable folders
-		$parent.on('click', '.bm__btn--collapsable', btn => {
-			const $content =
-				btn.currentTarget.parentElement.parentElement.nextElementSibling;
-
-			if ($content.style.display === 'block') $content.style.display = 'none';
-			else $content.style.display = 'block';
+		$parent.on('click', '.bm__btn--collapsable', $btn => {
+			collapseFolder($btn);
 		});
 	}
 

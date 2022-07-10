@@ -9,6 +9,7 @@ import { moduleName, moduleTag } from '../constants.js';
 export class DataSelector {
 	constructor($parent) {
 		this.choices = new Set();
+		this.folders = new Set();
 		this.lastChecked = null;
 
 		// Initiate listeners
@@ -36,10 +37,10 @@ export class DataSelector {
 	folderSelect($event) {
 		const $content =
 			$event.currentTarget.parentElement.nextElementSibling.children;
+		const isChecked = $event.currentTarget.checked ? true : false;
 
 		for (const $c of $content) {
 			const $entity = $c.querySelector('.bm__check');
-			const isChecked = $event.currentTarget.checked ? true : false;
 			const data = $entity.dataset;
 
 			$($entity).prop('checked', isChecked);
@@ -47,6 +48,9 @@ export class DataSelector {
 			if (isChecked) this.choices.add(data);
 			else this.choices.delete(data);
 		}
+
+		if (isChecked) this.folders.add($event.currentTarget.dataset);
+		else this.folders.delete($event.currentTarget.dataset);
 	}
 
 	// =================================================================

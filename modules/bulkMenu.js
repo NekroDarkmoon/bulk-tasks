@@ -106,7 +106,7 @@ export class BulkMenu extends Application {
 
 		// On delete
 		$parent.on('click', '#bm-delete', async event => {
-			await onDelete.call(this, data.choices);
+			await onDelete.call(this, [data.choices, data.folders]);
 		});
 
 		// On move

@@ -19,16 +19,17 @@ export async function onDelete(choices) {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                         Delete Documents
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-async function deleteDocuments(docs) {
+async function deleteDocuments(data) {
+	const [docs, folders, ..._] = data;
 	// Display notif
 	ui.notifications.info(`Deleting ${docs.size} documents. Please be patient.`);
 
-	const folders = new Set();
+	const dFolders = new Set();
 
 	// Delete Items
 	for (const doc of docs) {
 		const d = game[doc.type].get(doc.id);
-		if (d?.folder?.id) folders.add(d.folder.id);
+		if (d?.folder?.id) dFolders.add(d.folder.id);
 
 		await d.delete();
 		console.info(`${moduleTag} | Deleted ${doc.name}`);
@@ -36,9 +37,11 @@ async function deleteDocuments(docs) {
 
 	// Cascade delete empty folders
 	for (const folder of game.folders) {
-		if (!folders.has(folder.id)) continue;
+		if (!dFolders.has(folder.id)) continue;
 		await deleteFolder(folder);
 	}
+
+	for (const folder of folders) await deleteFolder(game.folders.get(folder.id));
 
 	ui.notifications.info(`Deleted ${docs.size} documents.`);
 
@@ -49,6 +52,7 @@ async function deleteDocuments(docs) {
 //                         Delete Folders
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 async function deleteFolder(folder) {
+	if (!folder) return;
 	const parent = folder.folder;
 	if (folder.content.length == 0) await folder.delete();
 

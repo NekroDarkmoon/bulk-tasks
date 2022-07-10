@@ -27,7 +27,7 @@ export class MoveMenu extends Application {
 
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			title: 'Move Entities',
+			title: 'Move Documents',
 			id: 'bulk-tasks-move',
 			template: `modules/${moduleName}/templates/bulkMove.html`,
 			width: 500,

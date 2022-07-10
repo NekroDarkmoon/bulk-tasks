@@ -2,10 +2,12 @@
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from './constants.js';
+
 import { collapseFolder } from './partials/collapseFolder.js';
 import { DataSelector } from './partials/DataSelector.js';
 import { onDelete } from './partials/delete.js';
 import { MoveMenu } from './partials/move.js';
+import { permsFilter } from './partials/permsFilter.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Bulk Menu
@@ -16,7 +18,9 @@ export class BulkMenu extends Application {
 		this.data = dialogData;
 
 		this.directory = null;
-		this.userID = game.user.id;
+
+		// Instantiate listeners
+		Hooks.on('renderSidebarTab', this._refreshContent.bind(this));
 	}
 
 	static get defaultOptions() {
@@ -63,7 +67,7 @@ export class BulkMenu extends Application {
 			directory[docType] = { folders: [], orphans: [] };
 
 			folders.forEach(folder => {
-				const temp = this.permsFilter(folder.content);
+				const temp = permsFilter(folder.content);
 
 				// Create our own object
 				const customFolder = {
@@ -77,7 +81,7 @@ export class BulkMenu extends Application {
 
 			// Add content not in folder
 			const entities = docTypes[docType].documents;
-			const noParent = this.permsFilter(
+			const noParent = permsFilter(
 				entities.filter(e => e.data.folder === null)
 			);
 
@@ -160,13 +164,7 @@ export class BulkMenu extends Application {
 		}
 	}
 
-	/**
-	 * @param {Array<Object>} inputArray
-	 * @returns {Array<Object>}
-	 */
-	permsFilter(inputArray) {
-		return inputArray.filter(
-			e => e.data.permission.default == 3 || e.data.permission[this.userID] == 3
-		);
+	_refreshContent() {
+		this.render(true);
 	}
 }

@@ -90,7 +90,6 @@ export class BulkMenu extends Application {
 		}
 
 		const data = directory;
-		console.info(directory);
 
 		this.directory = directory;
 		return data;

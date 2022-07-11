@@ -40,11 +40,14 @@ export class DataSelector {
 		const isChecked = $event.currentTarget.checked ? true : false;
 
 		for (const $c of $content) {
+			// Skip if hidden
+			console.log($c);
+			if ($c.classList.contains('bm--hidden')) continue;
+
 			const $entity = $c.querySelector('.bm__check');
 			const data = $entity.dataset;
 
 			$($entity).prop('checked', isChecked);
-
 			if (isChecked) this.choices.add(data);
 			else this.choices.delete(data);
 		}
@@ -64,8 +67,10 @@ export class DataSelector {
 		// Get all checkboxes in scope
 		const $section = $event.currentTarget.closest('.tab');
 		const checks = [
-			...$section.querySelectorAll(':not(.bm--hidden) >.bm__check'),
+			...$section.querySelectorAll('.bm__check:not(.bm--hidden > .bm__check)'),
 		];
+
+		// console.log(checks);
 
 		if ($event.shiftKey) {
 			const startTemp = checks.indexOf($event.currentTarget);
@@ -75,7 +80,10 @@ export class DataSelector {
 			const end = Math.max(startTemp, endTemp);
 
 			for (let i = start; i <= end; i++) {
+				// Check checkboxes but skip if not elements of the folder are selected.
+				checks[i];
 				$(checks[i]).prop('checked', this.lastChecked.checked);
+
 				const data = checks[i].dataset;
 
 				if (this.lastChecked.checked) this.choices.add(data);

@@ -3,7 +3,7 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from './constants.js';
 
-import { collapseFolder } from './partials/collapseFolder.js';
+import { collapseFolder } from './partials/viewUtils.js';
 import { DataSelector } from './partials/DataSelector.js';
 import { onDelete } from './partials/delete.js';
 import { MoveMenu } from './partials/move.js';
@@ -26,7 +26,7 @@ export class BulkMenu extends Application {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			title: 'Bulk Tasks',
-			id: 'bulk-tasks-meneu',
+			id: 'bulk-tasks-menu',
 			template: `modules/${moduleName}/templates/bulkMenu.hbs`,
 			width: 580,
 			height: 'auto',

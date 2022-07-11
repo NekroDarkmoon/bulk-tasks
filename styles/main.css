@@ -1,0 +1,9 @@
+#bulk-tasks-menu {
+  background-color: rgba(246, 242, 235, 0.6); }
+
+.bm__btn {
+  border: 0.125em outset black; }
+
+.action-buttons button {
+  min-width: max-content;
+  white-space: nowrap; }

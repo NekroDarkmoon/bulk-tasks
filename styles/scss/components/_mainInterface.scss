@@ -1,0 +1,19 @@
+// Main window
+#bulk-tasks-menu{
+  background-color: $color-sheet-background;
+}
+
+.bm__btn {
+  border: 0.125em outset black;
+}
+
+.bm__data {
+  border: 1px outset gray;
+}
+
+.bm__search-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}

@@ -1,0 +1,22 @@
+{
+  "name": "bulk-tasks",
+  "version": "1.0.0",
+  "description": "Delete/Move actors, journals, items, macros, scenes, tables, playlists en masse.",
+  "main": "index.js",
+  "scripts": {
+    "sass": "node-sass -w styles/scss/ -o styles/ --recursive" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NekroDarkmoon/bulk-tasks.git"
+  },
+  "author": "NekroDarkmoon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NekroDarkmoon/bulk-tasks/issues"
+  },
+  "homepage": "https://github.com/NekroDarkmoon/bulk-tasks#readme",
+   "devDependencies": {
+    "node-sass": "^7.0.1"
+  }
+}

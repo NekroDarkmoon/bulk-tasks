@@ -1,10 +1,16 @@
+@import './bulkItems';
+
+
 // Main window
-#bulk-tasks-menu{
-  background-color: $color-sheet-background;
+.bulk-tasks-main > .window-content{
+  background: none;
+  background-color: $color-light-background;
 }
 
 .bm__btn {
   border: 0.125em outset black;
+  font-family: $font-secondary;
+  font-size: $font-size-md;
 }
 
 .bm__data {
@@ -12,8 +18,30 @@
 }
 
 .bm__search-area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5em;
+	margin-top: 1em;
+	padding-inline: 1em;
+}
+
+.bm__selector-area {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  
+  gap: 0.125em;
+}
+
+.bm__display {
+  height: 37.5em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-block-end: 0.25em;
+  border: none;
+}
+
+.bm__footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.25em;
+  margin-block-start: 0.25em;
 }

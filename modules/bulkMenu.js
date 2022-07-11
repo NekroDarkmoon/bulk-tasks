@@ -27,6 +27,7 @@ export class BulkMenu extends Application {
 		return mergeObject(super.defaultOptions, {
 			title: 'Bulk Tasks',
 			id: 'bulk-tasks-menu',
+			classes: ['bulk-tasks-main'],
 			template: `modules/${moduleName}/templates/bulkMenu.hbs`,
 			width: 580,
 			height: 'auto',
@@ -120,8 +121,8 @@ export class BulkMenu extends Application {
 			this.close();
 		});
 
-		// Collapsable folders
-		$parent.on('click', '.bm__btn--collapsable', $btn => {
+		// Collapsible folders
+		$parent.on('click', '.bm__btn--collapsible', $btn => {
 			collapseFolder($btn);
 		});
 	}

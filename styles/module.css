@@ -55,7 +55,7 @@
 	grid-template-columns: 2em 1fr;
 }
 
-.bm__btn--collapsable {
+.bm__btn--collapsible {
 	all: unset;
 	width: 100%;
 	cursor: pointer;
@@ -68,8 +68,8 @@
 	font-weight: bold;
 }
 
-.bm__btn--collapsable:hover,
-.bm__btn--collapsable:focus {
+.bm__btn--collapsible:hover,
+.bm__btn--collapsible:focus {
 	box-shadow: none;
 }
 

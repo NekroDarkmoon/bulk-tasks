@@ -1,0 +1,45 @@
+.bm__ul, .bm__li {
+  all: unset;
+}
+
+.bm__folder {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2em 1fr;
+}
+
+.bm__content {
+  padding-block-start: 0.55em;
+  padding-block-end: 0.75em;
+  display: none;
+}
+
+.bm__entity {
+  display: grid;
+  align-items: center;
+  padding-inline-start: 2em;
+  grid-template-columns: 2em 1fr; 
+  column-gap: 0.25em;
+}
+
+.bm__btn--collapsible {
+  all: unset;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  font-size: 1.05rem;
+  padding: 0.25em;
+
+
+  &:before{
+    content: '\f07b';
+    font-family: 'Font Awesome 5 Free';
+}
+
+}
+
+.bm__btn--collapsible:hover,
+.bm__btn--collapsible:focus {
+  box-shadow: none;
+}

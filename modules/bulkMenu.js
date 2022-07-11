@@ -3,10 +3,11 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from './constants.js';
 
+import { BulkImporter } from './partials/bulkImport.js';
 import { collapseFolder } from './partials/viewUtils.js';
 import { DataSelector } from './partials/DataSelector.js';
-import { onDelete } from './partials/delete.js';
 import { MoveMenu } from './partials/move.js';
+import { onDelete } from './partials/delete.js';
 import { permsFilter } from './partials/permsFilter.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -123,6 +124,11 @@ export class BulkMenu extends Application {
 		// Collapsible folders
 		$parent.on('click', '.bm__btn--collapsible', $btn => {
 			collapseFolder($btn);
+		});
+
+		// Importer
+		$parent.on('click', '#bm-import', event => {
+			new BulkImporter().render(true);
 		});
 	}
 

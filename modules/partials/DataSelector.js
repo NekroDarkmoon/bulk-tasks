@@ -17,7 +17,9 @@ export class DataSelector {
 		$parent
 			.find(`.bm__check__folder`)
 			.on('change', this.folderSelect.bind(this));
-		$parent.find(`.bm__check`).on('click', this.shiftSelect.bind(this));
+		$parent
+			.find(`.bm__check__folder, .bm__check`)
+			.on('click', this.shiftSelect.bind(this));
 		$parent.on('click', `.bm-selector-sa`, this.selectAll.bind(this));
 		$parent.on('click', `.bm-selector-dsa`, this.deselectAll.bind(this));
 	}
@@ -41,7 +43,6 @@ export class DataSelector {
 
 		for (const $c of $content) {
 			// Skip if hidden
-			console.log($c);
 			if ($c.classList.contains('bm--hidden')) continue;
 
 			const $entity = $c.querySelector('.bm__check');
@@ -67,10 +68,11 @@ export class DataSelector {
 		// Get all checkboxes in scope
 		const $section = $event.currentTarget.closest('.tab');
 		const checks = [
-			...$section.querySelectorAll('.bm__check:not(.bm--hidden > .bm__check)'),
+			...$section.querySelectorAll(
+				`.bm__li:not(.bm--hidden) > .bm__folder > .bm__check__folder,
+				 .bm__check:not(.bm--hidden > .bm__check)`
+			),
 		];
-
-		// console.log(checks);
 
 		if ($event.shiftKey) {
 			const startTemp = checks.indexOf($event.currentTarget);
@@ -81,10 +83,12 @@ export class DataSelector {
 
 			for (let i = start; i <= end; i++) {
 				// Check checkboxes but skip if not elements of the folder are selected.
-				checks[i];
 				$(checks[i]).prop('checked', this.lastChecked.checked);
 
 				const data = checks[i].dataset;
+
+				// Skip if folder
+				if (CONST.DOCUMENT_TYPES.includes(data.type)) continue;
 
 				if (this.lastChecked.checked) this.choices.add(data);
 				else this.choices.delete(data);

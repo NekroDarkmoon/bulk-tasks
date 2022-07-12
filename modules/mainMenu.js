@@ -1,6 +1,7 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import { DeleteExportApp } from './apps/deleteExport.js';
 import { moduleName, moduleTag } from './constants.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -32,6 +33,13 @@ export class MainMenu extends Application {
 
 	activateListeners($parent) {
 		super.activateListeners($parent);
+
+		// Make cards clickable
+		const prefix = '#bm__task-card--';
+		$(`${prefix}delete`).click(e => {
+			this.close();
+			new DeleteExportApp().render(true);
+		});
 	}
 }
 

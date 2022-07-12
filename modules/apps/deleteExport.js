@@ -1,19 +1,19 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-import { moduleName, moduleTag } from './constants.js';
+import { moduleName, moduleTag } from '../constants.js';
 
-import { BulkImporter } from './partials/bulkImport.js';
-import { collapseFolder } from './partials/viewUtils.js';
-import { DataSelector } from './partials/DataSelector.js';
-import { MoveMenu } from './partials/move.js';
-import { onDelete } from './partials/delete.js';
-import { permsFilter } from './partials/permsFilter.js';
+import { BulkImporter } from '../partials/bulkImport.js';
+import { collapseFolder } from '../partials/viewUtils.js';
+import { DataSelector } from '../partials/DataSelector.js';
+import { MoveMenu } from '../partials/move.js';
+import { onDelete } from '../partials/delete.js';
+import { permsFilter } from '../partials/permsFilter.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Bulk Menu
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-export class BulkMenu extends Application {
+export class DeleteExportApp extends Application {
 	constructor(dialogData = {}, options = {}) {
 		super(dialogData, options);
 		this.data = dialogData;

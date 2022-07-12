@@ -3,12 +3,12 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from '../constants.js';
 
-import { BulkImporter } from '../partials/bulkImport.js';
 import { collapseFolder } from '../partials/viewUtils.js';
 import { DataSelector } from '../partials/DataSelector.js';
 import { MoveMenu } from '../partials/move.js';
 import { onDelete } from '../partials/delete.js';
 import { permsFilter } from '../partials/permsFilter.js';
+import { MainMenu } from '../mainMenu.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Bulk Menu
@@ -116,19 +116,16 @@ export class DeleteExportApp extends Application {
 			this.close();
 		});
 
+		// TODO: Convert to back
 		// On cancel
 		$parent.on('click', '#bm-cancel', event => {
 			this.close();
+			new MainMenu().render(true);
 		});
 
 		// Collapsible folders
 		$parent.on('click', '.bm__btn--collapsible', $btn => {
 			collapseFolder($btn);
-		});
-
-		// Importer
-		$parent.on('click', '#bm-import', event => {
-			new BulkImporter().render(true);
 		});
 	}
 

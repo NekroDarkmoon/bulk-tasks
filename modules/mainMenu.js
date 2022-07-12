@@ -1,8 +1,10 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-import { DeleteExportApp } from './apps/deleteExport.js';
 import { moduleName, moduleTag } from './constants.js';
+
+import { DeleteExportApp } from './apps/deleteExport.js';
+import { ImportApp } from './apps/import.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Application
@@ -36,10 +38,14 @@ export class MainMenu extends Application {
 
 		// Make cards clickable
 		const prefix = '#bm__task-card--';
-		$(`${prefix}delete`).click(e => {
+		function navigate(app) {
 			this.close();
-			new DeleteExportApp().render(true);
-		});
+			new app().render(true);
+		}
+
+		$(`${prefix}delete`).click(e => navigate.call(this, DeleteExportApp));
+		$(`${prefix}import`).click(e => navigate.call(this, ImportApp));
+		$(`${prefix}move`).click(e => navigate.call(this, DeleteExportApp));
 	}
 }
 

@@ -3,6 +3,7 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { BulkMenu } from './modules/bulkMenu.js';
 import { moduleTag, moduleName } from './modules/constants.js';
+import { MainMenu } from './modules/mainMenu.js';
 import { registerSettings } from './modules/settings.mjs';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -58,7 +59,8 @@ function addBulkButton(app, html) {
 
 		button.click(async () => {
 			// Render Menu
-			new BulkMenu().render(true);
+			// new BulkMenu().render(true);
+			new MainMenu().render(true);
 		});
 
 		// Render Button

@@ -1,3 +1,62 @@
+.bm__title {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 2em; }
+  .bm__title h1 {
+    border: none;
+    text-align: center;
+    padding-inline: 1em;
+    padding-block-end: .25em;
+    border-bottom: 2px solid #753BBD;
+    text-align: center; }
+
+.bm__tasks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(15em, 1fr));
+  gap: 1.5em;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 3em; }
+
+.bm__tasks__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 12em;
+  height: 12em;
+  background-color: white;
+  border-radius: 0.5em;
+  text-decoration: none;
+  padding: 2.75em 2.5em;
+  box-shadow: 0 1.5em 2.5em -0.5em rgba(0, 0, 0, 0.1);
+  transition: transform .45s ease, background .45s ease; }
+  .bm__tasks__card h3 {
+    color: 2E3C40;
+    font-size: 1.728rem;
+    line-height: 1;
+    margin-block-end: 0;
+    transition: color .45s ease, border .45s ease; }
+  .bm__tasks__card:hover {
+    background-color: #753BBD;
+    transform: scale(1.1); }
+    .bm__tasks__card:hover h3 {
+      color: #FFFFFF;
+      padding-bottom: .5em;
+      border-bottom: 2px solid #FFFFFF; }
+
+.bm__main-menu__footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+  justify-items: center;
+  margin-inline: 18em;
+  margin-block-start: 3em;
+  margin-block-end: 2em; }
+
 .bm__ul, .bm__li {
   all: unset; }
 

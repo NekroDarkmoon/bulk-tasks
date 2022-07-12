@@ -19,9 +19,9 @@ export class MainMenu extends Application {
 			id: 'bulk-tasks-main-menu',
 			classes: ['bulk-tasks-main'],
 			template: `modules/${moduleName}/templates/mainMenu.hbs`,
-			width: 'auto',
+			width: 780,
 			height: 'auto',
-			resizeable: true,
+			resizable: true,
 			closeOnSubmit: false,
 		});
 	}

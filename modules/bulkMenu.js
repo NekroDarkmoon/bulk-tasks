@@ -20,7 +20,7 @@ export class BulkMenu extends Application {
 		this.directory = null;
 
 		// Instantiate listeners
-		Hooks.on('renderSidebarTab', this._refreshContent.bind(this));
+		this.hookID = Hooks.on('renderSidebarTab', this._refreshContent.bind(this));
 	}
 
 	static get defaultOptions() {
@@ -166,5 +166,10 @@ export class BulkMenu extends Application {
 
 	_refreshContent() {
 		this.render(true);
+	}
+
+	async close() {
+		Hooks.off('renderSidebarTab', this.hookID);
+		super.close();
 	}
 }

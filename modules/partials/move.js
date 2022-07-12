@@ -110,6 +110,7 @@ export class MoveMenu extends Application {
 			ui.notifications.info(
 				`Moved ${this.docTypes[this.mostType].length} documents.`
 			);
+
 			this.close();
 		});
 

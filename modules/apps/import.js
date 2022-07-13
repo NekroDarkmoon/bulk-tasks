@@ -2,6 +2,7 @@
 //                                    Imports
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from '../constants.js';
+import { MainMenu } from '../mainMenu.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                  Single Select
@@ -11,6 +12,8 @@ export class ImportApp extends Application {
 		super(dialogData, options);
 
 		this.data = dialogData;
+
+		this.chosen = new Set();
 		this.selected = new Set();
 	}
 
@@ -40,7 +43,9 @@ export class ImportApp extends Application {
 			macros: 'Macro',
 		};
 
-		data.documentTypes;
+		this.documentTypes = CONST.DOCUMENT_LINK_TYPES;
+		data.chosen = [...this.chosen];
+		data.selected = [...this.selected];
 
 		return data;
 	}
@@ -48,6 +53,24 @@ export class ImportApp extends Application {
 	activateListeners($parent) {
 		super.activateListeners($parent);
 
-		const choices = new Set();
+		// Showcase selected files.
+		$('#bm__import-files').change(event => {
+			const files = [...event.currentTarget.files].filter(
+				file => file.type === 'application/json'
+			);
+
+			// Add files to chosen.
+			files.forEach(f => this.chosen.add(f));
+			console.log(this.chosen);
+
+			this.render(true);
+		});
+
+		// TODO: Convert to back
+		// On cancel
+		$parent.on('click', '#bm-cancel', event => {
+			this.close();
+			new MainMenu().render(true);
+		});
 	}
 }

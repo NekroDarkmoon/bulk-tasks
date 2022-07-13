@@ -68,8 +68,15 @@ function addBulkButton(app, html) {
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Imports
+//                                HandleBar Helpers
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Handlebars.registerHelper('notIsEmpty', (v1, options) => {
+	if (v1.size !== 0) {
+		return options.fn(v1);
+	}
+
+	return options.inverse(v1);
+});
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports

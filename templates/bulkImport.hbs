@@ -24,6 +24,7 @@
 
   <div class="bm__import-selector__container">
     <div class="bm__import-arrow">🠒</div>
+
     <select name="bm__import-type" id="bm__import-type">
       {{#each this.documentTypes}}
       {{#with this }}
@@ -31,6 +32,10 @@
       {{/with}}
       {{/each}}
     </select>
+
+    <button class="bm__btn" type="button" id="bm__import-queue">
+      Queue
+    </button>
   </div>
 
   <div class="bm__import-view">
@@ -38,6 +43,23 @@
 
     <div class="bm__import-items">
       {{!-- Ready to Import Items Here --}}
+      {{#each this.selected}}
+      {{#notIsEmpty this}}
+
+        <h4>{{@key}}</h4>
+        {{#each this}}
+          <li>
+            <span 
+              class="bm__import-selected"
+              id="{{this.name}}"
+            >
+              {{this.name}}
+            </span>  
+          </li>
+        {{/each}}
+
+      {{/notIsEmpty}}
+      {{/each}}
     </div>
 
     <button class="bm_btn" type="button" id="bm-import-reset">

@@ -14,7 +14,12 @@ export class ImportApp extends Application {
 		this.data = dialogData;
 
 		this.chosen = new Set();
-		this.selected = new Set();
+		this.selected = CONST.DOCUMENT_LINK_TYPES.reduce(
+			(o, key) => Object.assign(o, { [key]: new Set() }),
+			{}
+		);
+
+		console.log(this.selected);
 	}
 
 	static get defaultOptions() {
@@ -43,9 +48,11 @@ export class ImportApp extends Application {
 			macros: 'Macro',
 		};
 
-		this.documentTypes = CONST.DOCUMENT_LINK_TYPES;
+		data.documentTypes = CONST.DOCUMENT_LINK_TYPES;
 		data.chosen = [...this.chosen];
-		data.selected = [...this.selected];
+
+		// Filter Selected
+		data.selected = this.selected;
 
 		return data;
 	}
@@ -53,6 +60,7 @@ export class ImportApp extends Application {
 	activateListeners($parent) {
 		super.activateListeners($parent);
 
+		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// Showcase selected files.
 		$('#bm__import-files').change(event => {
 			const files = [...event.currentTarget.files].filter(
@@ -66,6 +74,22 @@ export class ImportApp extends Application {
 			this.render(true);
 		});
 
+		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// Queue Button
+		$parent.on('click', '#bm__import-queue', event => {
+			const selectMenu = event.currentTarget.previousElementSibling;
+			const type = selectMenu.options[selectMenu.selectedIndex].value;
+
+			this.chosen.forEach(f => {
+				this.selected[type].add(f);
+				this.chosen.delete(f);
+			});
+
+			// console.log(this.selected);
+			this.render(true);
+		});
+
+		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// TODO: Convert to back
 		// On cancel
 		$parent.on('click', '#bm-cancel', event => {

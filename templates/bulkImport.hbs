@@ -3,14 +3,16 @@
     <h1>Bulk Importer</h1>
   </div>
 
-  <div class="bm__import-file-picker">
+  {{!-- File Picker --}}
+  <div class="bm__import--file-picker">
     <h3>File Picker</h3>
     {{!-- Add chosen files here --}}
     {{#each this.chosen}}
       <li class="bm__li">
         {{#with this}}
+        <span class="bm__import--remove-choices">❌</span>
         <span 
-          class="bm__import-chosen"
+          class="bm__import--chosen"
           id="{{this.name}}"
         >
           {{this.name}}
@@ -19,13 +21,14 @@
       </li>
     {{/each}}
 
-    <input type="file" id="bm__import-files" name="files" multiple>
+    <input type="file" id="bm__import--files" name="files" multiple>
   </div>
 
+  {{!-- Selector --}}
   <div class="bm__import-selector__container">
-    <div class="bm__import-arrow">🠒</div>
+    <div class="bm__import--arrow">🠒</div>
 
-    <select name="bm__import-type" id="bm__import-type">
+    <select name="bm__import-type" id="bm__import--type">
       {{#each this.documentTypes}}
       {{#with this }}
         <option value="{{this}}">{{this}}</option>
@@ -33,15 +36,16 @@
       {{/each}}
     </select>
 
-    <button class="bm__btn" type="button" id="bm__import-queue">
+    <button class="bm__btn" type="button" id="bm__import--queue">
       Queue
     </button>
   </div>
 
-  <div class="bm__import-view">
+  {{!-- Selections --}}
+  <div class="bm__import--view">
     <h3>Selected</h3>
 
-    <div class="bm__import-items">
+    <div class="bm__import--items">
       {{!-- Ready to Import Items Here --}}
       {{#each this.selected}}
       {{#notIsEmpty this}}
@@ -49,8 +53,9 @@
         <h4>{{@key}}</h4>
         {{#each this}}
           <li>
+            <span class="bm__import--remove-selected">❌</span>
             <span 
-              class="bm__import-selected"
+              class="bm__import--selected"
               id="{{this.name}}"
             >
               {{this.name}}
@@ -62,16 +67,18 @@
       {{/each}}
     </div>
 
-    <button class="bm_btn" type="button" id="bm-import-reset">
+    <button class="bm_btn" type="button" id="bm__import--reset">
       Remove All
     </button>
   </div>
 
-  <button class="bm__btn" type="button" id="bm-import-confirm">
+  {{!-- Footer --}}
+
+  <button class="bm__btn" type="button" id="bm__import--confirm">
     <i class="fas fa-file-import"></i> Import
   </button>
   
-  <button class="bm__btn" type="button" id="bm-cancel">
+  <button class="bm__btn" type="button" id="bm--cancel">
     <i class="fas fa-times"></i> Cancel
   </button>
 

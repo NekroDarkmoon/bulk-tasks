@@ -62,7 +62,7 @@ export class ImportApp extends Application {
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// Showcase selected files.
-		$('#bm__import-files').change(event => {
+		$parent.on('change', '#bm__import--files', event => {
 			const files = [...event.currentTarget.files].filter(
 				file => file.type === 'application/json'
 			);
@@ -76,7 +76,7 @@ export class ImportApp extends Application {
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// Queue Button
-		$parent.on('click', '#bm__import-queue', event => {
+		$parent.on('click', '#bm__import--queue', event => {
 			const selectMenu = event.currentTarget.previousElementSibling;
 			const type = selectMenu.options[selectMenu.selectedIndex].value;
 
@@ -90,9 +90,30 @@ export class ImportApp extends Application {
 		});
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// X Choices Button
+		$parent.on('click', '.bm__import--remove-choices', event => {});
+
+		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// X Selected Button
+		$parent.on('click', '.bm__import--remove-selected', event => {});
+
+		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// Remove All Button
+		$parent.on('click', '#bm__import--reset', event => {
+			for (const [type, files] of Object.entries(this.selected)) files.clear();
+			this.render(true);
+		});
+
+		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// Import Button
+		$parent.on('click', '#bm__import--confirm', event => {
+			console.log(event);
+		});
+
+		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// TODO: Convert to back
 		// On cancel
-		$parent.on('click', '#bm-cancel', event => {
+		$parent.on('click', '#bm--cancel', event => {
 			this.close();
 			new MainMenu().render(true);
 		});

@@ -26,8 +26,9 @@ export class ImportApp extends Application {
 		return mergeObject(super.defaultOptions, {
 			title: 'Bulk Import',
 			id: 'bulk-tasks-import',
+			classes: ['bulk-tasks-main'],
 			template: `modules/${moduleName}/templates/bulkImport.hbs`,
-			width: 500,
+			width: 650,
 			height: 'auto',
 			resizable: true,
 			closeOnSubmit: false,

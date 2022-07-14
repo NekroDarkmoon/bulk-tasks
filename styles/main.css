@@ -57,6 +57,53 @@
   margin-block-start: 3em;
   margin-block-end: 2em; }
 
+.bm__import-app__container {
+  display: grid;
+  grid-template-columns: 1fr 9em 1fr;
+  gap: 1em;
+  justify-items: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 9em 1fr;
+  gap: 1em;
+  justify-items: center; }
+  .bm__import-app__container .bm__title {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2; }
+  .bm__import-app__container .bm__import--file-picker {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3; }
+  .bm__import-app__container .bm__import-selector__container {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3; }
+  .bm__import-app__container .bm__import--view {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3; }
+  .bm__import-app__container .bm__import__footer {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3; }
+
+.bm__import--file-picker {
+  display: grid;
+  grid-template-rows: 3em 25em 3em;
+  align-items: center;
+  border: 2px solid gray; }
+  .bm__import--file-picker h3 {
+    text-align: center;
+    font-size: 1.2rem; }
+  .bm__import--file-picker .bm__import__chosen-items {
+    position: relative;
+    padding-inline: 0.5em;
+    padding-block: 0.5em;
+    overflow-y: scroll;
+    height: 100%; }
+  .bm__import--file-picker .bm__li {
+    display: block;
+    margin-block-end: 0.5em; }
+  .bm__import--file-picker #bm__import--files {
+    padding-inline: 0.5em;
+    overflow: hidden; }
+
 .bm__ul, .bm__li {
   all: unset; }
 

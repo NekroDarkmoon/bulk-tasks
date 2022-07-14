@@ -7,19 +7,21 @@
   <div class="bm__import--file-picker">
     <h3>File Picker</h3>
     {{!-- Add chosen files here --}}
-    {{#each this.chosen}}
-      <li class="bm__li">
-        {{#with this}}
-        <span class="bm__import--remove-choices">❌</span>
-        <span 
-          class="bm__import--chosen"
-          id="{{this.name}}"
-        >
-          {{this.name}}
-        </span>
-        {{/with}}
-      </li>
-    {{/each}}
+    <div class="bm__import__chosen-items">
+      {{#each this.chosen}}
+        <li class="bm__li">
+          {{#with this}}
+          <span class="bm__import--remove-choices">❌</span>
+          <span 
+            class="bm__import--chosen"
+            id="{{this.name}}"
+          >
+            {{this.name}}
+          </span>
+          {{/with}}
+        </li>
+      {{/each}}
+    </div>
 
     <input type="file" id="bm__import--files" name="files" multiple>
   </div>
@@ -39,13 +41,16 @@
     <button class="bm__btn" type="button" id="bm__import--queue">
       Queue
     </button>
+    <button class="bm_btn" type="button" id="bm__import--reset">
+      Remove All
+    </button>
   </div>
 
   {{!-- Selections --}}
   <div class="bm__import--view">
     <h3>Selected</h3>
 
-    <div class="bm__import--items">
+    <div class="bm__import__selected-items">
       {{!-- Ready to Import Items Here --}}
       {{#each this.selected}}
       {{#notIsEmpty this}}
@@ -66,21 +71,18 @@
       {{/notIsEmpty}}
       {{/each}}
     </div>
-
-    <button class="bm_btn" type="button" id="bm__import--reset">
-      Remove All
-    </button>
   </div>
 
   {{!-- Footer --}}
 
-  <button class="bm__btn" type="button" id="bm__import--confirm">
-    <i class="fas fa-file-import"></i> Import
-  </button>
-  
-  <button class="bm__btn" type="button" id="bm--cancel">
-    <i class="fas fa-times"></i> Cancel
-  </button>
-
+  <footer class="bm__import__footer">
+    <button class="bm__btn" type="button" id="bm__import--confirm">
+      <i class="fas fa-file-import"></i> Import
+    </button>
+    
+    <button class="bm__btn" type="button" id="bm--cancel">
+      <i class="fas fa-times"></i> Cancel
+    </button>
+  </footer>
 
 </section>

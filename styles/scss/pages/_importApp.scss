@@ -59,6 +59,10 @@
     margin-block-end: 0.5em;
   }
 
+  .bm__import--remove-choices{
+    cursor: pointer;
+  }
+
   #bm__import--files {
     padding-inline: 0.5em;
     overflow: hidden;

@@ -92,11 +92,20 @@ export class ImportApp extends Application {
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// X Choices Button
-		$parent.on('click', '.bm__import--remove-choices', event => {});
+		$parent.on('click', '.bm__import--remove-choices', event => {
+			const name = event.currentTarget.nextElementSibling.id;
+			const toDelete = [...this.chosen].find(obj => obj.name == name);
+
+			this.chosen.delete(toDelete);
+			this.render(true);
+		});
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// X Selected Button
-		$parent.on('click', '.bm__import--remove-selected', event => {});
+		$parent.on('click', '.bm__import--remove-selected', event => {
+			console.log(event);
+			const name = event.currentTarget.nextElementSibling.id;
+		});
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// Remove All Button

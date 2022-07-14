@@ -38,17 +38,6 @@ export class ImportApp extends Application {
 	getData(options = {}) {
 		const data = {};
 
-		const documentTypes = {
-			actors: 'Actor',
-			cards: 'Cards',
-			journal: 'JournalEntry',
-			items: 'Item',
-			scenes: 'Scene',
-			tables: 'RollTable',
-			playlists: 'Playlist',
-			macros: 'Macro',
-		};
-
 		data.documentTypes = CONST.DOCUMENT_LINK_TYPES;
 		data.chosen = [...this.chosen];
 

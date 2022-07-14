@@ -41,9 +41,7 @@
     <button class="bm__btn" type="button" id="bm__import--queue">
       Queue
     </button>
-    <button class="bm_btn" type="button" id="bm__import--reset">
-      Remove All
-    </button>
+    
   </div>
 
   {{!-- Selections --}}
@@ -62,6 +60,7 @@
             <span 
               class="bm__import--selected"
               id="{{this.name}}"
+              data-parent="{{@../key}}"
             >
               {{this.name}}
             </span>  
@@ -76,6 +75,11 @@
   {{!-- Footer --}}
 
   <footer class="bm__import__footer">
+
+    <button class="bm__btn" type="button" id="bm__import--reset">
+      Remove All
+    </button>
+
     <button class="bm__btn" type="button" id="bm__import--confirm">
       <i class="fas fa-file-import"></i> Import
     </button>

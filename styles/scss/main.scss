@@ -1,9 +1,10 @@
 @import './base/variables';
 
+@import './components/buttons';
+@import './components/actionButtons';
+
 @import './pages/_mainInterface.scss';
 @import './pages/importApp';
-
 @import './components/deleteInterface';
-@import './components/actionButtons';
 
 @import './base/utils'

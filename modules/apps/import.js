@@ -28,7 +28,7 @@ export class ImportApp extends Application {
 			id: 'bulk-tasks-import',
 			classes: ['bulk-tasks-main'],
 			template: `modules/${moduleName}/templates/bulkImport.hbs`,
-			width: 650,
+			width: 700,
 			height: 'auto',
 			resizable: true,
 			closeOnSubmit: false,
@@ -94,7 +94,7 @@ export class ImportApp extends Application {
 		// X Choices Button
 		$parent.on('click', '.bm__import--remove-choices', event => {
 			const name = event.currentTarget.nextElementSibling.id;
-			const toDelete = [...this.chosen].find(obj => obj.name == name);
+			const toDelete = [...this.chosen].find(obj => obj.name === name);
 
 			this.chosen.delete(toDelete);
 			this.render(true);
@@ -103,21 +103,55 @@ export class ImportApp extends Application {
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// X Selected Button
 		$parent.on('click', '.bm__import--remove-selected', event => {
-			console.log(event);
 			const name = event.currentTarget.nextElementSibling.id;
+			const parent = event.currentTarget.nextElementSibling.dataset.parent;
+			const toDelete = [...this.selected[parent]].find(
+				obj => obj.name === name
+			);
+
+			this.selected[parent].delete(toDelete);
+			this.render(true);
 		});
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// Remove All Button
 		$parent.on('click', '#bm__import--reset', event => {
+			this.chosen.clear();
 			for (const [type, files] of Object.entries(this.selected)) files.clear();
 			this.render(true);
 		});
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// Import Button
-		$parent.on('click', '#bm__import--confirm', event => {
-			console.log(event);
+		$parent.on('click', '#bm__import--confirm', async event => {
+			ui.notifications.info('Importing Documents. Please be patient...');
+
+			for (const [doc, files] of Object.entries(this.selected)) {
+				console.log(doc);
+				const defaultType = CONFIG[doc].documentClass.TYPES;
+				console.log(defaultType);
+
+				[...files].forEach(async file => {
+					let tempDoc = null;
+
+					if (defaultType)
+						tempDoc = await CONFIG[doc].documentClass.create({
+							name: 'Bulk Tasks Temp',
+							type: defaultType[0],
+						});
+					else
+						tempDoc = await CONFIG[doc].documentClass.create({
+							name: 'Bulk Tasks Temp',
+						});
+
+					readTextFromFile(file).then(json => tempDoc.importFromJSON(json));
+				});
+
+				files.clear();
+				this.render(true);
+			}
+
+			ui.notifications.info('Importing Complete.');
 		});
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++

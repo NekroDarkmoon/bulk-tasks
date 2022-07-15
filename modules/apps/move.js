@@ -4,9 +4,46 @@
 import { moduleName, moduleTag } from '../constants.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    Move Menu
+//                                    MoveApp
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-export class MoveMenu extends Application {
+export class MoveApp extends Application {
+	constructor(dialogData = {}, options = {}, selected = {}) {
+		super(dialogData, options);
+
+		this.data = dialogData;
+		this.choices = selected;
+		this.docTypes = null;
+		this.mostType = null;
+
+		// Get list of folders and types.
+		this.folders = game.folders._source;
+	}
+
+	static get defaultOptions() {
+		return mergeObject(super.defaultOptions, {
+			title: 'Move Documents',
+			id: 'bulk-tasks-move',
+			template: `modules/${moduleName}/templates/bulkMove.html`,
+			width: 500,
+			height: 'auto',
+			resizable: true,
+			closeOnSubmit: false,
+		});
+	}
+
+	getData(options = {}) {
+		return null;
+	}
+
+	activateListeners($parent) {
+		super.activateListeners($parent);
+	}
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                                    MoveApp
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+class Move extends Application {
 	/**
 	 *
 	 * @param {*} dialogData

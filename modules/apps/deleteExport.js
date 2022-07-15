@@ -5,7 +5,6 @@ import { moduleName, moduleTag } from '../constants.js';
 
 import { collapseFolder } from '../partials/viewUtils.js';
 import { DataSelector } from '../partials/DataSelector.js';
-import { MoveMenu } from '../partials/move.js';
 import { onDelete } from '../partials/delete.js';
 import { onExport } from '../partials/export.js';
 import { permsFilter } from '../partials/permsFilter.js';

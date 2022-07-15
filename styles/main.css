@@ -111,11 +111,13 @@
   display: grid;
   grid-template-rows: 3em 25em 3em;
   align-items: center;
-  border: 2px solid gray;
-  width: 100%; }
+  outline: 2px solid #0b5a2f;
+  width: 100%;
+  background-color: white; }
   .bm__import--file-picker h3 {
     text-align: center;
-    font-size: 1.2rem; }
+    font-size: 1.2rem;
+    text-decoration: underline; }
   .bm__import--file-picker .bm__import__chosen-items {
     position: relative;
     padding-inline: 0.5em;
@@ -141,11 +143,13 @@
   display: grid;
   grid-template-rows: 3em 25em 3em;
   align-items: center;
-  border: 2px solid gray;
-  width: 100%; }
+  outline: 2px solid #0b5a2f;
+  width: 100%;
+  background-color: white; }
   .bm__import--view h3 {
     text-align: center;
-    font-size: 1.2rem; }
+    font-size: 1.2rem;
+    text-decoration: underline; }
   .bm__import--view h4 {
     text-align: left;
     font-size: 1rem;

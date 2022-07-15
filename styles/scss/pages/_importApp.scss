@@ -39,12 +39,14 @@
   display: grid;
   grid-template-rows: 3em 25em 3em;
   align-items: center;
-  border: 2px solid gray; 
-  width: 100%;
+  outline: 2px solid $color-primary;
+  width: 100%; 
+  background-color: white;
 
   h3 {
     text-align: center;
     font-size: $font-size-lg;
+    text-decoration: underline;
   }
 
   .bm__import__chosen-items {
@@ -83,12 +85,14 @@
   display: grid;
   grid-template-rows: 3em 25em 3em;
   align-items: center;
-  border: 2px solid gray;
-  width: 100%;
+  outline: 2px solid $color-primary;
+  width: 100%; 
+  background-color: white;
 
   h3 {
     text-align: center;
     font-size:  $font-size-lg;
+    text-decoration: underline;
   }
 
   h4 {

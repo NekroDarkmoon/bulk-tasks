@@ -29,7 +29,7 @@ export class DeleteExportApp extends Application {
 			title: 'Bulk Tasks',
 			id: 'bulk-tasks-menu',
 			classes: ['bulk-tasks-main'],
-			template: `modules/${moduleName}/templates/bulkMenu.hbs`,
+			template: `modules/${moduleName}/templates/bulkDeleteExport.hbs`,
 			width: 580,
 			height: 'auto',
 			resizeable: true,

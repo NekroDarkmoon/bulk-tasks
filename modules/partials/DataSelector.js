@@ -20,8 +20,8 @@ export class DataSelector {
 		$parent
 			.find(`.bm__check__folder, .bm__check`)
 			.on('click', this.shiftSelect.bind(this));
-		$parent.on('click', `.bm-selector-sa`, this.selectAll.bind(this));
-		$parent.on('click', `.bm-selector-dsa`, this.deselectAll.bind(this));
+		$parent.on('click', `.bm__selector__btn-sa`, this.selectAll.bind(this));
+		$parent.on('click', `.bm__selector__btn-dsa`, this.deselectAll.bind(this));
 	}
 
 	// =================================================================

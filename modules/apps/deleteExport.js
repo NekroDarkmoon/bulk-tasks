@@ -35,7 +35,7 @@ export class DeleteExportApp extends Application {
 			resizeable: true,
 			closeOnSubmit: false,
 			tabs: [
-				{ navSelector: '.tabs', contentSelector: 'form', intial: 'actors' },
+				{ navSelector: '.tabs', contentSelector: 'form', initial: 'actors' },
 			],
 			filters: [
 				{

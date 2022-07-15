@@ -22,6 +22,7 @@ Hooks.on('setup', async () => {
 });
 
 Hooks.on('ready', async () => {
+	templateLoader();
 	console.log(`${moduleTag} | Ready.`);
 });
 
@@ -77,6 +78,14 @@ Handlebars.registerHelper('notIsEmpty', (v1, options) => {
 
 	return options.inverse(v1);
 });
+
+async function templateLoader() {
+	await loadTemplates([
+		'modules/bulk-tasks/templates/partials/directoryView.hbs',
+		'modules/bulk-tasks/templates/partials/search.hbs',
+		'modules/bulk-tasks/templates/partials/selectors.hbs',
+	]);
+}
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                    Imports

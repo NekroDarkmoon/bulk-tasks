@@ -214,7 +214,7 @@
   background: none;
   background-color: #f6f2eb; }
 
-.bm__data {
+.bm__directory-view-data {
   border: 1px outset gray; }
 
 .bm__search-area {
@@ -229,14 +229,14 @@
   display: flex;
   gap: 0.125em; }
 
-.bm__display {
+.bm__directory-view {
   height: 37.5em;
   overflow-x: hidden;
   overflow-y: scroll;
   margin-block-end: 0.25em;
   border: none; }
 
-.bm__footer {
+.bm__footer__delete-export {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.25em;
@@ -251,6 +251,6 @@
 .bm--no-padding {
   padding: 0; }
 
-#bm-delete {
+#bm__btn--delete {
   background-color: #b50f00;
   color: white; }

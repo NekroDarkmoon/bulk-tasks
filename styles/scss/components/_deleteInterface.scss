@@ -8,7 +8,7 @@
 }
 
 
-.bm__data {
+.bm__directory-view-data {
   border: 1px outset gray;
 }
 
@@ -26,7 +26,7 @@
   gap: 0.125em;
 }
 
-.bm__display {
+.bm__directory-view {
   height: 37.5em;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -34,7 +34,7 @@
   border: none;
 }
 
-.bm__footer {
+.bm__footer__delete-export {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.25em;

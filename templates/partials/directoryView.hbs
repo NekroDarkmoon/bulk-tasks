@@ -1,0 +1,28 @@
+{{!-- Directory View --}}
+<fieldset class="bm__directory-view">
+  <ul class="bm__ul">
+    {{#each this.folders}}
+    <li class="bm__li">
+
+      {{!-- Render Folders --}}
+      <span class="bm__folder">
+
+        <input 
+          type="checkbox"
+          class="bm__check_folder"
+          id="{{this.id}}"
+          data-id="{{this.id}}"
+          data-type="{{this.type}}"
+          data-name="{{this.name}}"
+        >
+        <label for="{{this.id}}">
+          <button type="button" class="bm__btn--collapsible">
+            {{this.name}}
+          </button>
+        </label>
+
+      </span>
+    </li>
+    {{/each}}
+  </ul>
+</fieldset>

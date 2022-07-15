@@ -1,6 +1,6 @@
 {{!-- Render Data --}}
 {{#*inline "insertTab"}}
-  <fieldset class="bm__display">
+  <fieldset class="bm__directory-view">
     <ul class="bm__ul">
       {{#each this.folders}}
       <li class="bm__li">
@@ -116,7 +116,7 @@
   {{> insertSearch}}
 
   {{!-- Add Sections --}}
-  <section class="bm__data">
+  <section class="bm__directory-view-data">
     {{#each this}}
     <section class="tab" data-tab="{{@key}}">
       {{> insertSelector}}
@@ -126,19 +126,19 @@
   </section>
 
   {{!-- Footer and Buttons --}}
-  <footer class="bm__footer">
+  <footer class="bm__footer__delete-export">
     {{!-- Move Button --}}
-    <button class="bm__btn" type="button" id="bm-move">
+    <button class="bm__btn" type="button" id="bm__btn--move">
       <i class="fas fa-truck-moving"></i> Move
     </button>
 
     {{!-- Delete Button --}}
-    <button class="bm__btn" type="button" id="bm-delete">
+    <button class="bm__btn" type="button" id="bm__btn--delete">
       <i class="fas fa-trash"></i> Delete
     </button>
 
     {{!-- Cancel Button --}}
-    <button class="bm__btn" type="reset" id="bm-cancel">
+    <button class="bm__btn" type="reset" id="bm__btn--cancel">
       <i class="fas fa-times"></i> Cancel
     </button>
   

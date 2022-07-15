@@ -1,12 +1,12 @@
-<form class="flexcol bm-move-display" autocomplete="off">
+<form class="flexcol bm__btn--move-display" autocomplete="off">
 
     <!-- Choices Section -->
     <section class="bmove-choices">
         <h4>Selected Entities: </h4>
-        <ul class="bm-move-selected">
+        <ul class="bm__btn--move-selected">
             {{#each this.choices}}
                 {{#with this}}
-                <li class="bm-move-choice">{{this.name}}</li>
+                <li class="bm__btn--move-choice">{{this.name}}</li>
                 {{/with}}
             {{/each}}
         </ul>

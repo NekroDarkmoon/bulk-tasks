@@ -9,7 +9,7 @@
 	border: 0.125em outset black;
 }
 
-.bm__data {
+.bm__directory-view-data {
 	border: 1px outset gray;
 }
 
@@ -27,7 +27,7 @@
 	gap: 0.125em;
 }
 
-.bm__display {
+.bm__directory-view {
 	height: 37.5em;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -80,14 +80,14 @@
 }
 
 /** Footer Styles*/
-.bm__footer {
+.bm__footer__delete-export {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 1em;
 	margin-top: 0.25em;
 }
 
-#bm-delete {
+#bm__btn--delete {
 	background-color: #b50f00;
 	color: white;
 }

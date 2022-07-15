@@ -40,7 +40,7 @@ export class DeleteExportApp extends Application {
 			filters: [
 				{
 					inputSelector: 'input[name="search"]',
-					contentSelector: '.bm__data',
+					contentSelector: '.bm__directory-view-data',
 				},
 			],
 		});
@@ -106,19 +106,19 @@ export class DeleteExportApp extends Application {
 		const data = new DataSelector($parent);
 
 		// On delete
-		$parent.on('click', '#bm-delete', async event => {
+		$parent.on('click', '#bm__btn--delete', async event => {
 			await onDelete.call(this, [data.choices, data.folders]);
 		});
 
 		// On move
-		$parent.on('click', '#bm-move', async event => {
+		$parent.on('click', '#bm__btn--move', async event => {
 			new MoveMenu({}, {}, data.choices).render(true);
 			this.close();
 		});
 
 		// TODO: Convert to back
 		// On cancel
-		$parent.on('click', '#bm-cancel', event => {
+		$parent.on('click', '#bm__btn--cancel', event => {
 			this.close();
 			new MainMenu().render(true);
 		});

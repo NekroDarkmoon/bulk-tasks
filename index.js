@@ -49,6 +49,7 @@ function addBulkButton(app, html) {
 			'items',
 			'journal',
 			'tables',
+			'cards',
 			'playlists',
 			'macros-popout',
 		].includes(app.tabName)

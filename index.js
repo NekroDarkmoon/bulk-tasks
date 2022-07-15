@@ -51,7 +51,7 @@ function addBulkButton(app, html) {
 			'tables',
 			'cards',
 			'playlists',
-			'macros-popout',
+			'macros',
 		].includes(app.tabName)
 	) {
 		let button = $(

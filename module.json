@@ -15,7 +15,7 @@
   "version": "Replaced",
   "minimumCoreVersion": "9.000",
   "compatibleCoreVersion": "9.238",
-  "scripts": [],
+  "scripts": ["modules/utils/JSZip.js"],
   "esmodules": [
     "index.js"
   ],

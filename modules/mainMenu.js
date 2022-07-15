@@ -44,6 +44,7 @@ export class MainMenu extends Application {
 		}
 
 		$(`${prefix}delete`).click(e => navigate.call(this, DeleteExportApp));
+		$(`${prefix}export`).click(e => navigate.call(this, DeleteExportApp));
 		$(`${prefix}import`).click(e => navigate.call(this, ImportApp));
 		$(`${prefix}move`).click(e => navigate.call(this, DeleteExportApp));
 	}

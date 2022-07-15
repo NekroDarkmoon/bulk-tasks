@@ -7,6 +7,7 @@ import { collapseFolder } from '../partials/viewUtils.js';
 import { DataSelector } from '../partials/DataSelector.js';
 import { MoveMenu } from '../partials/move.js';
 import { onDelete } from '../partials/delete.js';
+import { onExport } from '../partials/export.js';
 import { permsFilter } from '../partials/permsFilter.js';
 import { MainMenu } from '../mainMenu.js';
 
@@ -110,6 +111,14 @@ export class DeleteExportApp extends Application {
 			await onDelete.call(this, [data.choices, data.folders]);
 		});
 
+		// On Export
+		$parent.on('click', '#bm__btn--export', async event => {
+			onExport(data.choices);
+			data.choices.clear();
+			this.render(true);
+		});
+
+		// TODO: Remove
 		// On move
 		$parent.on('click', '#bm__btn--move', async event => {
 			new MoveMenu({}, {}, data.choices).render(true);

@@ -5,11 +5,11 @@
     <li class="bm__li">
 
       {{!-- Render Folders --}}
-      <span class="bm__folder">
+      <span class="bm__directory__folder">
 
         <input 
           type="checkbox"
-          class="bm__check_folder"
+          class="bm__check__folder"
           id="{{this.id}}"
           data-id="{{this.id}}"
           data-type="{{this.type}}"
@@ -22,7 +22,62 @@
         </label>
 
       </span>
+
+      {{!-- Content for Each Folder --}}
+      <div class="bm__directory__folder-content">
+        {{#each this.content}}
+        {{#with this}}
+          
+          <span class="bm__directory__entity">
+            
+            <input 
+              type="checkbox"
+              class="bm__directory__check"
+              id="{{this.id}}"
+              data-id="{{this.id}}"
+              data-name="{{this.name}}"
+              data-type="{{@../../key}}"
+            >
+            <label for="{{this.id}}">
+              {{this.name}}
+            </label>
+
+            <br />
+          </span>
+
+        {{/with}}
+        {{/each}}
+      </div>
     </li>
     {{/each}}
+
+    {{!-- Orphan Documents --}}
+    <li class="bm__li">
+      <div class="bm__directory__folder-content bm--show">
+        {{#each this.orphans}}
+        {{#with this}}
+        
+          <span class="bm__directory__entity bm--no-padding">
+
+            <input 
+              type="checkbox"
+              class="bm__directory__check"
+              id="{{this.id}}"
+              data-id="{{this.id}}"
+              data-name="{{this.name}}"
+              data-type="{{@../key}}"
+            >
+            <label for="{{this.id}}">
+              {{this.name}}
+            </label>
+
+            <br />
+          </span>
+        
+        {{/with}}
+        {{/each}}
+      </div>
+    </li>
+  
   </ul>
 </fieldset>

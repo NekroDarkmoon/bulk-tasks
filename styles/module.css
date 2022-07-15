@@ -42,13 +42,13 @@
 	all: unset;
 }
 
-.bm__folder {
+.bm__directory__folder {
 	display: grid;
 	align-items: center;
 	grid-template-columns: 2em 1fr;
 }
 
-.bm__entity {
+.bm__directory__entity {
 	display: grid;
 	align-items: center;
 	padding-left: 2em;
@@ -73,7 +73,7 @@
 	box-shadow: none;
 }
 
-.bm__content {
+.bm__directory__folder-content {
 	padding-top: 0.55rem;
 	padding-bottom: 0.75rem;
 	display: none;

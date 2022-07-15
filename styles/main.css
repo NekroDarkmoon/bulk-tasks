@@ -177,17 +177,17 @@
 .bm__ul, .bm__li {
   all: unset; }
 
-.bm__folder {
+.bm__directory__folder {
   display: grid;
   align-items: center;
   grid-template-columns: 2em 1fr; }
 
-.bm__content {
+.bm__directory__folder-content {
   padding-block-start: 0.55em;
   padding-block-end: 0.75em;
   display: none; }
 
-.bm__entity {
+.bm__directory__entity {
   display: grid;
   align-items: center;
   padding-inline-start: 2em;

@@ -137,19 +137,21 @@ export class DeleteExportApp extends Application {
 	 */
 	_onSearchFilter(event, query, rgx, $parent) {
 		// Expand all folders on query
-		for (const $f of $parent.querySelectorAll('.bm__content:not(.bm--show)')) {
+		for (const $f of $parent.querySelectorAll(
+			'.bm__directory__folder-content:not(.bm--show)'
+		)) {
 			if (query) $f.style.display = 'block';
 			else $f.style.display = 'none';
 		}
 
 		// Hide elements
-		for (const $entity of $parent.querySelectorAll('.bm__entity')) {
+		for (const $entity of $parent.querySelectorAll('.bm__directory__entity')) {
 			if (!query) {
 				$entity.classList.remove('bm--hidden');
 				continue;
 			}
 
-			const title = $entity.querySelector(`.bm__check`).dataset.name;
+			const title = $entity.querySelector(`.bm__directory__check`).dataset.name;
 			const match = rgx.test(SearchFilter.cleanQuery(title));
 			$entity.classList.toggle('bm--hidden', !match);
 		}
@@ -161,7 +163,9 @@ export class DeleteExportApp extends Application {
 				continue;
 			}
 
-			const $content = $($entity.querySelector('.bm__content'));
+			const $content = $(
+				$entity.querySelector('.bm__directory__folder-content')
+			);
 			const match = $content.children(':visible').length === 0;
 			$entity.classList.toggle('bm--hidden', match);
 		}

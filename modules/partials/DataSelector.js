@@ -13,12 +13,14 @@ export class DataSelector {
 		this.lastChecked = null;
 
 		// Initiate listeners
-		$parent.find(`.bm__check`).on('change', this.singleSelect.bind(this));
+		$parent
+			.find(`.bm__directory__check`)
+			.on('change', this.singleSelect.bind(this));
 		$parent
 			.find(`.bm__check__folder`)
 			.on('change', this.folderSelect.bind(this));
 		$parent
-			.find(`.bm__check__folder, .bm__check`)
+			.find(`.bm__check__folder, .bm__directory__check`)
 			.on('click', this.shiftSelect.bind(this));
 		$parent.on('click', `.bm__selector__btn-sa`, this.selectAll.bind(this));
 		$parent.on('click', `.bm__selector__btn-dsa`, this.deselectAll.bind(this));
@@ -45,7 +47,7 @@ export class DataSelector {
 			// Skip if hidden
 			if ($c.classList.contains('bm--hidden')) continue;
 
-			const $entity = $c.querySelector('.bm__check');
+			const $entity = $c.querySelector('.bm__directory__check');
 			const data = $entity.dataset;
 
 			$($entity).prop('checked', isChecked);
@@ -69,8 +71,8 @@ export class DataSelector {
 		const $section = $event.currentTarget.closest('.tab');
 		const checks = [
 			...$section.querySelectorAll(
-				`.bm__li:not(.bm--hidden) > .bm__folder > .bm__check__folder,
-				 .bm__check:not(.bm--hidden > .bm__check)`
+				`.bm__li:not(.bm--hidden) > .bm__directory__folder > .bm__check__folder,
+				 .bm__directory__check:not(.bm--hidden > .bm__directory__check)`
 			),
 		];
 
@@ -102,7 +104,7 @@ export class DataSelector {
 	//                          Select All
 	selectAll($event) {
 		const $section = $event.currentTarget.parentElement.parentElement;
-		const $content = $section.querySelectorAll(`.bm__check`);
+		const $content = $section.querySelectorAll(`.bm__directory__check`);
 		const $folders = $section.querySelectorAll(`.bm__check__folder`);
 
 		// Select each element
@@ -119,7 +121,7 @@ export class DataSelector {
 	//                         De-Select All
 	deselectAll($event) {
 		const $section = $event.currentTarget.parentElement.parentElement;
-		const $content = $section.querySelectorAll(`.bm__check`);
+		const $content = $section.querySelectorAll(`.bm__directory__check`);
 		const $folders = $section.querySelectorAll(`.bm__check__folder`);
 
 		// Select each element

@@ -4,7 +4,7 @@
     <ul class="bm__ul">
       {{#each this.folders}}
       <li class="bm__li">
-        <span class="bm__folder">
+        <span class="bm__directory__folder">
           <input 
             type="checkbox" 
             class="bm__check__folder"
@@ -20,13 +20,13 @@
           </label>
         </span>
 
-        <div class="bm__content">
+        <div class="bm__directory__folder-content">
           {{#each this.content}}
           {{#with this}}
-            <span class="bm__entity">
+            <span class="bm__directory__entity">
               <input 
                 type="checkbox" 
-                class="bm__check"
+                class="bm__directory__check"
                 id="{{this.id}}"
                 data-id="{{this.id}}"
                 data-type="{{@../../key}}"
@@ -45,13 +45,13 @@
       {{/each}}
 
       <li class="bm__li">
-        <div class="bm__content bm--show">
+        <div class="bm__directory__folder-content bm--show">
           {{#each this.orphans}}
           {{#with this}}
-            <span class="bm__entity bm--no-padding">
+            <span class="bm__directory__entity bm--no-padding">
               <input 
                 type="checkbox" 
-                class="bm__check"
+                class="bm__directory__check"
                 name="{{this.id}}" 
                 id="{{this.id}}"
                 data-id="{{this.id}}"

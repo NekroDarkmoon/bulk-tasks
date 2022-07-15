@@ -116,9 +116,7 @@ export class ImportApp extends Application {
 			ui.notifications.info('Importing Documents. Please be patient...');
 
 			for (const [doc, files] of Object.entries(this.selected)) {
-				console.log(doc);
 				const defaultType = CONFIG[doc].documentClass.TYPES;
-				console.log(defaultType);
 
 				[...files].forEach(async file => {
 					let tempDoc = null;

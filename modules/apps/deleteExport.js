@@ -5,10 +5,10 @@ import { moduleName, moduleTag } from '../constants.js';
 
 import { collapseFolder } from '../partials/viewUtils.js';
 import { DataSelector } from '../partials/DataSelector.js';
+import { MainMenu } from '../mainMenu.js';
 import { onDelete } from '../partials/delete.js';
 import { onExport } from '../partials/export.js';
 import { permsFilter } from '../partials/permsFilter.js';
-import { MainMenu } from '../mainMenu.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Bulk Menu
@@ -32,7 +32,7 @@ export class DeleteExportApp extends Application {
 			template: `modules/${moduleName}/templates/bulkDeleteExport.hbs`,
 			width: 580,
 			height: 'auto',
-			resizeable: true,
+			resizable: true,
 			closeOnSubmit: false,
 			tabs: [
 				{ navSelector: '.tabs', contentSelector: 'form', initial: 'actors' },
@@ -73,10 +73,10 @@ export class DeleteExportApp extends Application {
 
 				// Create our own object
 				const customFolder = {
-					id: folder.data._id,
-					name: folder.data.name,
+					id: folder.id,
+					name: folder.name,
 					content: temp,
-					type: folder.data.type,
+					type: folder.type,
 				};
 				directory[docType].folders.push(customFolder);
 			});

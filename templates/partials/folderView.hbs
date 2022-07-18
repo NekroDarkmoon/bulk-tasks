@@ -1,0 +1,27 @@
+<fieldset class="bm__folder-view">
+  <legend class="bm__legend"> Select destination folder</legend>
+  {{#each this}}
+
+  <li class="bm__li">
+    <span class="bm__move__folder">
+
+      <input 
+        type="radio"
+        class="bm__radio__folder"
+        id="{{this.id}}-radio"
+        name="{{this.type}}"
+        data-id="{{this.id}}"
+        data-name="{{this.name}}"
+        data-type="{{this.type}}"
+      >
+      <label for="{{this.id}}-radio">
+        <span class="bm__move__folder-name">
+          {{this.name}}
+        </span>
+      </label>
+
+    </span>
+  </li>
+
+  {{/each}}
+</fieldset>

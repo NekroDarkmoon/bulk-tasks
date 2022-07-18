@@ -83,6 +83,7 @@ Handlebars.registerHelper('notIsEmpty', (v1, options) => {
 async function templateLoader() {
 	await loadTemplates([
 		'modules/bulk-tasks/templates/partials/directoryView.hbs',
+		'modules/bulk-tasks/templates/partials/folderView.hbs',
 		'modules/bulk-tasks/templates/partials/search.hbs',
 		'modules/bulk-tasks/templates/partials/selectors.hbs',
 	]);

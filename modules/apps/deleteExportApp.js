@@ -69,7 +69,7 @@ export class DeleteExportApp extends Application {
 			directory[docType] = { folders: [], orphans: [] };
 
 			folders.forEach(folder => {
-				const temp = permsFilter(folder.content);
+				const temp = permsFilter(folder.contents);
 
 				// Create our own object
 				const customFolder = {

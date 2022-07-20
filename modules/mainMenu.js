@@ -3,9 +3,9 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import { moduleName, moduleTag } from './constants.js';
 
-import { DeleteExportApp } from './apps/deleteExport.js';
-import { ImportApp } from './apps/import.js';
-import { MoveApp } from './apps/move.js';
+import { DeleteExportApp } from './apps/deleteExportApp.js';
+import { ImportApp } from './apps/importApp.js';
+import { MoveApp } from './apps/moveApp.js';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                   Application

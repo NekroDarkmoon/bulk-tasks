@@ -26,6 +26,7 @@ export class MoveApp extends Application {
 		return mergeObject(super.defaultOptions, {
 			title: 'Move Documents',
 			id: 'bulk-tasks-move',
+			classes: ['bulk-tasks-main'],
 			template: `modules/${moduleName}/templates/bulkMove.hbs`,
 			width: 750,
 			height: 'auto',
@@ -98,7 +99,7 @@ export class MoveApp extends Application {
 
 			directory[docType].orphans = [...noParent];
 			foldersDir[docType].push({
-				id: 'root',
+				id: docTypes[docType].tabName,
 				name: 'root',
 				type: game[docTypes[docType].tabName].documentName,
 			});
@@ -108,11 +109,12 @@ export class MoveApp extends Application {
 		this.directory = directory;
 		data.foldersDir = foldersDir;
 
+		console.log(data.directory);
 		return data;
 	}
 
 	/**
-	 * @param {*} $parent
+	 * @param {Document} $parent
 	 */
 	activateListeners($parent) {
 		super.activateListeners($parent);
@@ -120,11 +122,30 @@ export class MoveApp extends Application {
 		// Data Selection
 		const data = new DataSelector($parent);
 
-		// TODO: Remove
 		// On move
-		$parent.on('click', '#bm__btn--move', async event => {
-			console.log(event);
-			console.log(data);
+		$parent.on('click', '#bm__btn--move', event => {
+			if (data.choices.size == 0)
+				return ui.notifications.error('No files selected to move.');
+
+			// Get folder choices
+			const folders = [...$parent.find('.bm__radio__folder:checked')].map(
+				f => f.dataset
+			);
+
+			if (folders.length == 0)
+				return ui.notifications.error('No folders selected.');
+
+			// Move
+			const destFolders = new Map();
+			folders.forEach(f => {
+				const _f = game.folders.get(f.id);
+				if (!_f && f.name === 'root') destFolders.set(f.id, null);
+				else destFolders.set(_f.documentClass.collectionName, _f._id);
+			});
+
+			data.choices.forEach(f =>
+				game[f.type].get(f.id).update({ folder: destFolders.get(f.type) })
+			);
 		});
 
 		// TODO: Convert to back
@@ -189,122 +210,5 @@ export class MoveApp extends Application {
 	async close() {
 		Hooks.off('renderSidebarTab', this.hookID);
 		super.close();
-	}
-}
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//                                    MoveApp
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class Move extends Application {
-	/**
-	 *
-	 * @param {*} dialogData
-	 * @param {*} options
-	 * @param {Set} selected
-	 */
-	constructor(dialogData = {}, options = {}, selected = {}) {
-		super(dialogData, options);
-
-		this.data = dialogData;
-		this.choices = selected;
-		this.docTypes = null;
-		this.mostType = null;
-
-		// Get list of folders and types.
-		this.folders = game.folders._source;
-	}
-
-	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
-			title: 'Move Documents',
-			id: 'bulk-tasks-move',
-			template: `modules/${moduleName}/templates/bulkMove.html`,
-			width: 500,
-			height: 'auto',
-			resizable: true,
-			closeOnSubmit: false,
-		});
-	}
-
-	getData(options = {}) {
-		// Define base structs
-		const docTypes = {
-			actors: [],
-			cards: [],
-			journal: [],
-			items: [],
-			scenes: [],
-			tables: [],
-			playlists: [],
-			macros: [],
-		};
-
-		const defFolderTypes = {
-			Actor: [],
-			JournalEntry: [],
-			Cards: [],
-			Item: [],
-			Scene: [],
-			RollTable: [],
-			Playlist: [],
-			Macro: [],
-		};
-
-		// Add to types
-		this.choices.forEach(c => docTypes[c.type].push(c));
-		this.docTypes = docTypes;
-
-		this.folders.forEach(f => defFolderTypes[f.type].push(f));
-
-		this.mostType = Object.keys(docTypes).reduce((a, b) =>
-			docTypes[a].length > docTypes[b].length ? a : b
-		);
-
-		// Define folders
-		const DFMapping = {
-			actors: defFolderTypes.Actor,
-			cards: defFolderTypes.Cards,
-			journal: defFolderTypes.JournalEntry,
-			items: defFolderTypes.Item,
-			scenes: defFolderTypes.Scene,
-			tables: defFolderTypes.RollTable,
-			playlists: defFolderTypes.Playlist,
-			macros: defFolderTypes.Macro,
-		};
-
-		return {
-			choices: docTypes[this.mostType],
-			folders: DFMapping[this.mostType],
-		};
-	}
-
-	activateListeners($parent) {
-		super.activateListeners($parent);
-
-		$parent.on('click', '#bmove-move', async e => {
-			const destFolder = $('.bm-destination-select').find(':selected')[0]
-				.dataset;
-
-			ui.notifications.info(
-				`Moving ${
-					this.docTypes[this.mostType].length
-				} documents. Please be patient.`
-			);
-
-			for (let item of this.docTypes[this.mostType]) {
-				await game[item.type].get(item.id).update({ folder: destFolder.id });
-				console.log(`${moduleTag} | Moving ${item.name} to ${destFolder.name}`);
-			}
-
-			ui.notifications.info(
-				`Moved ${this.docTypes[this.mostType].length} documents.`
-			);
-
-			this.close();
-		});
-
-		$parent.on('click', '#bmove-cancel', e => {
-			this.close();
-		});
 	}
 }

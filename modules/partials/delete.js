@@ -26,13 +26,22 @@ async function deleteDocuments(data) {
 
 	const dFolders = new Set();
 
+	// FIXME: Make better
+	const massDelete = {};
+
 	// Delete Items
 	for (const doc of docs) {
+		if (!massDelete[doc.type]) {
+			massDelete[doc.type] = [];
+		}
+
 		const d = game[doc.type].get(doc.id);
 		if (d?.folder?.id) dFolders.add(d.folder.id);
+		massDelete[doc.type].push(doc.id);
+	}
 
-		await d.delete();
-		console.info(`${moduleTag} | Deleted ${doc.name}`);
+	for (const [doc, ids] of Object.entries(massDelete)) {
+		await game[doc].documentClass.deleteDocuments(ids);
 	}
 
 	// Cascade delete empty folders

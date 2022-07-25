@@ -16,7 +16,8 @@ export function onExport(data) {
 
 		// Add file to zip
 		zip.file(
-			`${d.documentName}-${d.name.slugify()}-bulk-tasks.json`,
+			// `${d.documentName}-${d.name.slugify()}-bulk-tasks.json`,
+			`${d.name.slugify().replace('/', '_')}.json`,
 			JSON.stringify(data, null, 2)
 		);
 	});

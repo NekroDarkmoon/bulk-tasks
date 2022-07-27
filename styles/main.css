@@ -254,3 +254,6 @@
 #bm__btn--delete {
   background-color: #b50f00;
   color: white; }
+
+.bm--disabled {
+  cursor: not-allowed; }

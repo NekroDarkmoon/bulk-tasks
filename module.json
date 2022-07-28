@@ -44,6 +44,6 @@
 
 
   "name": "bulk-tasks",
-  "minimumCoreVersion": "9.000",
-  "compatibleCoreVersion": "9.238"
+  "minimumCoreVersion": 10,
+  "compatibleCoreVersion": 10
 }

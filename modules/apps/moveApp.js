@@ -94,7 +94,7 @@ export class MoveApp extends Application {
 			// Add content not in folder
 			const entities = docTypes[docType].documents;
 			const noParent = permsFilter(
-				entities.filter(e => e.data.folder === null)
+				entities.filter(e => e.folder === null)
 			);
 
 			directory[docType].orphans = [...noParent];

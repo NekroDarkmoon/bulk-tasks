@@ -63,7 +63,7 @@ async function deleteDocuments(data) {
 async function deleteFolder(folder) {
 	if (!folder) return;
 	const parent = folder.folder;
-	if (folder.content.length == 0) await folder.delete();
+	if (folder.contents.length == 0) await folder.delete();
 
 	if (parent) await deleteFolder(parent);
 }

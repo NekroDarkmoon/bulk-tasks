@@ -131,10 +131,11 @@ export class MoveApp extends Application {
 			// const folders = [...$parent.find('.bm__radio__folder:checked')].map(
 			// 	f => f.dataset
 			// );
-			const folders = [...$parent.find('#bm__move__folders')]
+
+			const folders = [...$parent.find('.bm__move__folders')]
 				.map(e => e.options[e.selectedIndex])
 				.filter(e => e.value !== "")
-				.map(e => e.dataset)
+				.map(e => e.dataset);
 
 			if (folders.length == 0)
 				return ui.notifications.error('No folders selected.');

@@ -1,6 +1,26 @@
 <fieldset class="bm__folder-view">
   <legend class="bm__legend"> Select destination folder</legend>
-  {{#each this}}
+
+  <select name="bm__move__folders" id="bm__move__folders">
+    <option class="bm__option__folder" value=""/>
+
+    {{#each this}}
+
+      <option
+        class="bm__option__folder" 
+        value="{{this.id}}"
+        data-id="{{this.id}}"
+        data-name="{{this.name}}"
+        data-type="{{this.type}}" 
+      >
+       {{this.name}} 
+      </option>
+
+    {{/each}}
+
+  </select>
+
+  {{!-- {{#each this}}
 
   <li class="bm__li">
     <span class="bm__move__folder">
@@ -23,5 +43,5 @@
     </span>
   </li>
 
-  {{/each}}
+  {{/each}} --}}
 </fieldset>

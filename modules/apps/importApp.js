@@ -116,22 +116,28 @@ export class ImportApp extends Application {
 			ui.notifications.info('Importing Documents. Please be patient...');
 
 			for (const [doc, files] of Object.entries(this.selected)) {
-				const defaultType = CONFIG[doc].documentClass.TYPES;
-
 				[...files].forEach(async file => {
-					let tempDoc = null;
+					readTextFromFile(file).then(async json => {
 
-					if (defaultType)
-						tempDoc = await CONFIG[doc].documentClass.create({
-							name: 'Bulk Tasks Temp',
-							type: defaultType[0],
-						});
-					else
-						tempDoc = await CONFIG[doc].documentClass.create({
-							name: 'Bulk Tasks Temp',
-						});
+						// Construct a document class to (strictly) clean and validate the source data
+						const tempDoc = new CONFIG[doc].constructor(JSON.parse(json), {strict: true});
+						
+						// Treat JSON import using the same workflows that are used when importing from a compendium pack
+						const data = CONFIG[doc].collection.prototype.fromCompendium(tempDoc, {addFlags: false});
 
-					readTextFromFile(file).then(json => tempDoc.importFromJSON(json));
+    				// Preserve certain fields from the destination document
+    				const preserve = Object.fromEntries(
+							CONFIG[doc].documentClass.metadata.preserveOnImport.map(k => {
+    				  	return [k, foundry.utils.getProperty(this, k)];
+    					})
+						);
+    				
+						preserve.folder = this.folder?.id;
+    				foundry.utils.mergeObject(data, preserve);
+
+						// Create new document
+						CONFIG[doc].documentClass.create(data);
+					});
 				});
 
 				files.clear();

@@ -123,7 +123,7 @@ export class MoveApp extends Application {
 		const data = new DataSelector($parent);
 
 		// On move
-		$parent.on('click', '#bm__btn--move', event => {
+		$parent.on('click', '#bm__btn--move', async (event) => {
 			if (data.choices.size == 0)
 				return ui.notifications.error('No files selected to move.');
 
@@ -148,9 +148,19 @@ export class MoveApp extends Application {
 				else destFolders.set(_f.documentClass.collectionName, _f._id);
 			});
 
-			data.choices.forEach(f =>
-				game[f.type].get(f.id).update({ folder: destFolders.get(f.type) })
-			);
+			for await (const [collectionName, folderId] of destFolders.entries()) {
+				const updates = [];
+
+				data.choices.forEach((d) => {
+					if (d.type !== collectionName) return;
+					updates.push({_id: d.id, folder: folderId});
+				});
+
+				ui.notifications.info(`Moving ${updates.length} ${collectionName} documents.`);
+				const documentClass = game[collectionName].documentClass;
+				await documentClass.updateDocuments(updates);
+				ui.notifications.info(`Moved ${updates.length} ${collectionName} documents.`);
+			}
 		});
 
 		// TODO: Convert to back

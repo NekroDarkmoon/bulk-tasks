@@ -25,7 +25,7 @@ export class DeleteExportApp extends Application {
 	}
 
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			title: 'Bulk Tasks',
 			id: 'bulk-tasks-menu',
 			classes: ['bulk-tasks-main'],

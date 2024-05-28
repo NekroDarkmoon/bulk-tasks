@@ -18,7 +18,7 @@ export class MainMenu extends Application {
 	}
 
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			title: 'Bulk Tasks',
 			id: 'bulk-tasks-main-menu',
 			classes: ['bulk-tasks-main'],

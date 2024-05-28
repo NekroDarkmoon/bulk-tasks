@@ -23,7 +23,7 @@ export class ImportApp extends Application {
 	}
 
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			title: 'Bulk Import',
 			id: 'bulk-tasks-import',
 			classes: ['bulk-tasks-main'],
@@ -123,7 +123,7 @@ export class ImportApp extends Application {
 						const tempDoc = new CONFIG[doc].constructor(JSON.parse(json), {strict: true});
 						
 						// Treat JSON import using the same workflows that are used when importing from a compendium pack
-						const data = CONFIG[doc].collection.prototype.fromCompendium(tempDoc, {addFlags: false});
+						const data = CONFIG[doc].collection.prototype.fromCompendium(tempDoc);
 
     				// Preserve certain fields from the destination document
     				const preserve = Object.fromEntries(

@@ -23,7 +23,7 @@ export class MoveApp extends Application {
 	}
 
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			title: 'Move Documents',
 			id: 'bulk-tasks-move',
 			classes: ['bulk-tasks-main'],

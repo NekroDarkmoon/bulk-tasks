@@ -4,7 +4,7 @@
   "description": "Delete/Move actors, journals, items, macros, scenes, tables, playlists en masse.",
   "main": "index.js",
   "scripts": {
-    "sass": "node-sass -w styles/scss/ -o styles/ --recursive" 
+    "sass:build": "sass styles/scss/main.scss styles/main.css"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "url": "https://github.com/NekroDarkmoon/bulk-tasks/issues"
   },
   "homepage": "https://github.com/NekroDarkmoon/bulk-tasks#readme",
-   "devDependencies": {
-    "node-sass": "^7.0.1"
+  "devDependencies": {
+    "sass": "^1.77.2"
   }
 }

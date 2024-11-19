@@ -3,6 +3,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import './scss/main.scss';
 import { moduleId, moduleName } from './constants.ts';
+import { registerSettings } from './settings.ts';
 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -10,6 +11,7 @@ import { moduleId, moduleName } from './constants.ts';
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Hooks.on('init', () => {
   // TODO: Register settings
+  registerSettings();
   console.log(`${moduleName} | Initialized.`);
 });
 

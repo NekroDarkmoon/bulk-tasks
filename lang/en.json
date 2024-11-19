@@ -1,5 +1,6 @@
 {
   "BulkTasks": {
+    "title": "Bulk Tasks",
     "settings": {
       "gmOnly": {
         "name": "Hide menu from players",

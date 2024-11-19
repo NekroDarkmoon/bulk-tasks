@@ -27,7 +27,16 @@ const config = {
       name: 'Bulk Tasks',
       entry: path.resolve(__dirname, 'src/bulkTasks.ts'),
       formats: ['es'],
-      fileName: 'bulkTasks'
+      fileName: 'bulkTasks',
+    },
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name == 'style.css')
+            return 'bulk-tasks.css';
+          return assetInfo.name;
+        },
+      }
     }
   },
   esbuild: {

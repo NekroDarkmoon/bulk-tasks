@@ -1,9 +1,11 @@
 import { moduleId } from "../constants.ts"
+import { BulkTaskDialog } from "../dialogs/BulkTasks.svelte.ts";
 import { localize } from "./localize.ts";
 
 const TABS = ['scenes', 'actors', 'items', 'journal', 'tables', 'cards', 'playlists', 'macros'] as const;
 
 export function addBulkButton(app, html: JQuery) {
+  // @ts-expect-error
   const forGMOnly = game.settings?.get(moduleId, 'gmOnly');
 
   if (forGMOnly && !game.user?.isGM) return;
@@ -26,6 +28,7 @@ export function addBulkButton(app, html: JQuery) {
 
   // Add Event Listener
   button.addEventListener('click', (e) => {
-    console.log('I a big boy.')
+    e.preventDefault();
+    new BulkTaskDialog().render(true);
   });
 }

@@ -1,6 +1,10 @@
 {
   "recommendations": [
-    "esbenp.prettier-vscode",
-    "wayou.vscode-todo-highlight"
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "sibiraj-s.vscode-scss-formatter",
+    "svelte.svelte-vscode",
+    "wayou.vscode-todo-highlight",
+    "yoavbls.pretty-ts-errors"
   ]
 }

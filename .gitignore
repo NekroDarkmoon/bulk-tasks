@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 *.lock
+
+bulkTasks.js
+bulkTasks.js.map

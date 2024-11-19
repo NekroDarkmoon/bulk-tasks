@@ -1,0 +1,45 @@
+:root { 
+  /** FONTS **/
+  --bulk-tasks-primary-font: "Roboto Condensed", sans-serif;
+  --bulk-tasks-mono-font: "Source Code Pro", mono;
+
+  --bulk-tasks-heading-font: var(--bulk-tasks-primary-font);
+
+  /** TEXT SIZEs **/
+  --bulk-tasks-xxs-text: 0.579rem;
+  --bulk-tasks-xs-text: 0.694rem;
+  --bulk-tasks-sm-text: 0.833rem;
+  --bulk-tasks-md-text: 1rem;
+  --bulk-tasks-lg-text: 1.2rem;
+  --bulk-tasks-xl-text: 1.44rem;
+  --bulk-tasks-xxl-text: 1.728rem;
+  --bulk-tasks-xxxl-text: 2.074rem;
+
+  --bulk-tasks-base-font-size: 16px;
+
+  /** TEXT COLORS **/
+  --bulk-tasks-dark-text-color: hsl(50, 14%, 9%);
+  --bulk-tasks-light-text-color: hsl(38, 38%, 94%);
+  --bulk-tasks-medium-text-color: hsl(50, 14%, 44%);
+
+  --bulk-tasks-dark-text-hover-color: hsl(50, 14%, 9%);
+  --bulk-tasks-light-text-hover-color: hsl(38, 38%, 94%);
+  --bulk-tasks-medium-text-hover-color: hsl(50, 14%, 44%);
+
+  --bulk-tasks-dark-text-glow-color: hsl(0, 66%, 53%);
+
+  --bulk-tasks-navigation-text-color: hsl(38, 38%, 94%);
+  --bulk-tasks-navigation-active-text-color: hsl(38, 38%, 94%);
+
+  --bulk-tasks-secondary-navigation-text-color: var(--bulk-tasks-medium-text-color);
+  --bulk-tasks-secondary-navigation-active-text-color: hsl(1, 51%, 34%);
+
+  --bulk-tasks-sidebar-text-color: hsl(36, 53%, 80%);
+  --bulk-tasks-search-input-border-color: hsl(41, 18%, 54%);
+  --bulk-tasks-currency-input-border-color: var(--bulk-tasks-search-input-border-color);
+  --bulk-tasks-dark-input-text-color: var(--bulk-tasks-light-text-color);
+
+   /** ANIMATION **/
+  --bulk-tasks-standard-transition: all 0.15s ease-in-out;
+  --bulk-tasks-slow-transition: all 0.25s ease-in-out;
+}

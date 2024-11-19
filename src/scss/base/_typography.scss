@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/fonts/RobotoCondensed-VariableFont_wght.woff2") format("woff2");
+  font-weight: 1 999;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/fonts/RobotoCondensed-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 1 999;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodePro-VariableFont_wght.woff2") format("woff2");
+  font-weight: 1 999;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/fonts/SourceCodePro-Italic-VariableFont_wght.woff2") format("woff2");
+  font-weight: 1 999;
+  font-style: italic;
+  font-display: swap;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

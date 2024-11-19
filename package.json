@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Perform CRUD operations on documents en masse.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "vite build",
     "dev": "vite",

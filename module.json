@@ -19,7 +19,7 @@
   },
  "scripts": ["modules/utils/JSZip.js"],
   "esmodules": [
-    "index.js"
+    "bulkTasks.js"
   ],
   "styles": [
     "main.css"

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { buildDirectory } from "../utils/buildDirectory.ts";
     import { localize } from "../utils/localize.ts";
 
     import Delete from "./Delete.svelte";
@@ -14,6 +15,7 @@
 
     function changeSecondaryTab(id: string) {
         currentSecondaryTab = id;
+        directory = buildDirectory(id);
     }
 
     const primaryTabs = {
@@ -90,6 +92,9 @@
 
     let currentPrimaryTab = $state(primaryTabs.delete);
     let currentSecondaryTab = $state("actors");
+
+    // svelte-ignore state_referenced_locally
+    let directory = $state(buildDirectory(currentSecondaryTab));
 </script>
 
 <article class="bm-dialog-container">
@@ -122,7 +127,7 @@
 
         {currentPrimaryTab.label}
         {currentSecondaryTab}
-        <currentPrimaryTab.component />
+        <currentPrimaryTab.component {directory} />
     </section>
 </article>
 

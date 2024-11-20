@@ -43,6 +43,5 @@ Hooks.on('setup', async () => {
 
 Hooks.on('ready', async () => {
   console.log(`${moduleName} | Ready.`);
-
   new BulkTaskDialog().render(true);
 });

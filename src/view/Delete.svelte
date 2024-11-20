@@ -8,7 +8,28 @@
     let selected = new Set<string>();
 </script>
 
-<FolderView {directory} {selected} />
+<!-- Add Select All  -->
+<div>
+    <header>
+        <button> Select All</button>
+        <button>De-Select All</button>
+    </header>
+
+    <div class="bm-directory-view">
+        <FolderView {directory} {selected} />
+    </div>
+
+    <!-- Add Delete All -->
+    <footer>
+        <button> Delete </button>
+    </footer>
+</div>
 
 <style lang="scss">
+    header {
+        display: flex;
+    }
+
+    .bm-directory-view {
+    }
 </style>

@@ -23,7 +23,7 @@
     let { directory, selected } = $props();
 </script>
 
-<ul class="bm-folder-view">
+<ul>
     {#each directory.folders as folder}
         <li
             class="bm-tree-view bm-tree-view__folder"

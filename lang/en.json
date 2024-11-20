@@ -1,6 +1,12 @@
 {
   "BulkTasks": {
     "title": "Bulk Tasks",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "export": "Export",
+    "import": "Import",
+    "move": "Move",
+    "rename": "Rename",
     "settings": {
       "gmOnly": {
         "name": "Hide menu from players",
@@ -16,7 +22,6 @@
       }
     }
   },
-  "BM.delete": "Delete",
   "BM.deleteTitle": "Delete Selected",
   "BM.deleteContent": "Are you sure? <br /> This action is permanent and cannot be undone."
 }

@@ -5,6 +5,7 @@ import './scss/main.scss';
 import { moduleId, moduleName } from './constants.ts';
 import { registerSettings } from './settings.ts';
 import { addBulkButton } from './utils/addBulkButton.ts';
+import { BulkTaskDialog } from './dialogs/BulkTasks.svelte.ts';
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                     Type Helpers
@@ -42,4 +43,6 @@ Hooks.on('setup', async () => {
 
 Hooks.on('ready', async () => {
   console.log(`${moduleName} | Ready.`);
+
+  new BulkTaskDialog().render(true);
 });

@@ -36,7 +36,7 @@ export class BulkTaskDialog extends SvelteApplicationMixin(ApplicationV2) {
     },
     position: {
       width: 600,
-      height: 'auto' as const
+      height: 600
     }
   };
 

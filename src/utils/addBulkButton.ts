@@ -12,14 +12,16 @@ export function addBulkButton(app, html: JQuery) {
   if (!TABS.includes(app.tabName)) return;
 
   const button = document.createElement('button');
-  button.classList.add('bulk-tasks-dialog-button');
-  button.textContent = localize("BulkTasks.title");
+  button.classList.add('bm-dialog-button');
 
   const i = document.createElement('i');
   i.classList.add('fa-solid');
   i.classList.add('fa-edit');
-
   button.appendChild(i);
+
+  const span = document.createElement('span');
+  span.textContent = localize("BulkTasks.title");
+  button.appendChild(span);
 
   const parent = html.find('.header-actions');
   if (!parent) return;

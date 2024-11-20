@@ -35,7 +35,7 @@ export class BulkTaskDialog extends SvelteApplicationMixin(ApplicationV2) {
       icon: 'fa-solid fa-edit'
     },
     position: {
-      width: 600,
+      width: 750,
       height: 600
     }
   };

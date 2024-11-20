@@ -9,10 +9,14 @@
     import Rename from "./Rename.svelte";
 
     function changePrimaryTab(id: string) {
-        currentTab = tabs[id] ?? tabs.delete;
+        currentPrimaryTab = primaryTabs[id] ?? primaryTabs.delete;
     }
 
-    const tabs = {
+    function changeSecondaryTab(id: string) {
+        currentSecondaryTab = id;
+    }
+
+    const primaryTabs = {
         delete: {
             label: localize("BulkTasks.delete"),
             icon: "fa-solid fa-trash",
@@ -45,15 +49,55 @@
         },
     };
 
-    let currentTab = $state(tabs.delete);
+    const secondaryTabs = {
+        scenes: {
+            label: localize("BulkTasks.secondaryNav.scenes"),
+            icon: "fa-solid fa-map",
+        },
+        actors: {
+            label: localize("BulkTasks.secondaryNav.actors"),
+            icon: "fa-solid fa-users",
+        },
+        items: {
+            label: localize("BulkTasks.secondaryNav.items"),
+            icon: "fa-solid fa-suitcase",
+        },
+        journal: {
+            label: localize("BulkTasks.secondaryNav.journal"),
+            icon: "fa-solid fa-book",
+        },
+        tables: {
+            label: localize("BulkTasks.secondaryNav.tables"),
+            icon: "fa-solid fa-th-list",
+        },
+        cards: {
+            label: localize("BulkTasks.secondaryNav.cards"),
+            icon: "fa-solid fa-id-badge",
+        },
+        playlists: {
+            label: localize("BulkTasks.secondaryNav.playlists"),
+            icon: "fa-solid fa-music",
+        },
+        compendium: {
+            label: localize("BulkTasks.secondaryNav.compendium"),
+            icon: "fa-solid fa-atlas",
+        },
+        macros: {
+            label: localize("BulkTasks.secondaryNav.macros"),
+            icon: "fa-solid fa-code",
+        },
+    };
+
+    let currentPrimaryTab = $state(primaryTabs.delete);
+    let currentSecondaryTab = $state("actors");
 </script>
 
 <article class="bm-dialog-container">
     <aside class="bm-primary-nav">
-        {#each Object.entries(tabs) as [id, { label, icon }]}
+        {#each Object.entries(primaryTabs) as [id, { label, icon }]}
             <button
                 class="bm-primary-nav__element {icon}"
-                id="bm-nav-primary-{label}"
+                id="bm-nav-primary-{id}"
                 data-tooltip={label}
                 data-tooltip-direction="RIGHT"
                 aria-label={label}
@@ -64,8 +108,21 @@
     </aside>
 
     <section>
-        {currentTab.label}
-        <currentTab.component />
+        <nav class="bm-secondary-nav">
+            {#each Object.entries(secondaryTabs) as [id, { label, icon }]}
+                <button
+                    class="bm-seconary-nav__element"
+                    id="bm-nav-secondary-{id}"
+                    onclick={() => changeSecondaryTab(id)}
+                >
+                    {label}
+                </button>
+            {/each}
+        </nav>
+
+        {currentPrimaryTab.label}
+        {currentSecondaryTab}
+        <currentPrimaryTab.component />
     </section>
 </article>
 
@@ -89,5 +146,9 @@
             aspect-ratio: 1 / 1;
             background: transparent;
         }
+    }
+
+    .bm-secondary-nav {
+        display: flex;
     }
 </style>

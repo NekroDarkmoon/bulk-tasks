@@ -34,9 +34,7 @@ export class DeleteExportApp extends Application {
 			height: 'auto',
 			resizable: true,
 			closeOnSubmit: false,
-			tabs: [
-				{ navSelector: '.tabs', contentSelector: 'form', initial: 'actors' },
-			],
+			tabs: [{ navSelector: '.tabs', contentSelector: 'form', initial: 'actors' }],
 			filters: [
 				{
 					inputSelector: 'input[name="search"]',
@@ -68,7 +66,7 @@ export class DeleteExportApp extends Application {
 			// Add to directory
 			directory[docType] = { folders: [], orphans: [] };
 
-			folders.forEach(folder => {
+			folders.forEach((folder) => {
 				const temp = permsFilter(folder.contents);
 
 				// Create our own object
@@ -83,9 +81,7 @@ export class DeleteExportApp extends Application {
 
 			// Add content not in folder
 			const entities = docTypes[docType].documents;
-			const noParent = permsFilter(
-				entities.filter(e => e.folder === null)
-			);
+			const noParent = permsFilter(entities.filter((e) => e.folder === null));
 
 			directory[docType].orphans = [...noParent];
 		}
@@ -106,12 +102,12 @@ export class DeleteExportApp extends Application {
 		const data = new DataSelector($parent);
 
 		// On delete
-		$parent.on('click', '#bm__btn--delete', async event => {
+		$parent.on('click', '#bm__btn--delete', async (event) => {
 			await onDelete.call(this, [data.choices, data.folders]);
 		});
 
 		// On Export
-		$parent.on('click', '#bm__btn--export', async event => {
+		$parent.on('click', '#bm__btn--export', async (event) => {
 			onExport(data.choices);
 			data.choices.clear();
 			this.render(true);
@@ -119,20 +115,20 @@ export class DeleteExportApp extends Application {
 
 		// TODO: Remove
 		// On move
-		$parent.on('click', '#bm__btn--move', async event => {
+		$parent.on('click', '#bm__btn--move', async (event) => {
 			new MoveMenu({}, {}, data.choices).render(true);
 			this.close();
 		});
 
 		// TODO: Convert to back
 		// On cancel
-		$parent.on('click', '#bm__btn--cancel', event => {
+		$parent.on('click', '#bm__btn--cancel', (event) => {
 			this.close();
 			new MainMenu().render(true);
 		});
 
 		// Collapsible folders
-		$parent.on('click', '.bm__btn--collapsible', $btn => {
+		$parent.on('click', '.bm__btn--collapsible', ($btn) => {
 			collapseFolder($btn);
 		});
 	}
@@ -145,9 +141,7 @@ export class DeleteExportApp extends Application {
 	 */
 	_onSearchFilter(event, query, rgx, $parent) {
 		// Expand all folders on query
-		for (const $f of $parent.querySelectorAll(
-			'.bm__directory__folder-content:not(.bm--show)'
-		)) {
+		for (const $f of $parent.querySelectorAll('.bm__directory__folder-content:not(.bm--show)')) {
 			if (query) $f.style.display = 'block';
 			else $f.style.display = 'none';
 		}
@@ -171,9 +165,7 @@ export class DeleteExportApp extends Application {
 				continue;
 			}
 
-			const $content = $(
-				$entity.querySelector('.bm__directory__folder-content')
-			);
+			const $content = $($entity.querySelector('.bm__directory__folder-content'));
 			const match = $content.children(':visible').length === 0;
 			$entity.classList.toggle('bm--hidden', match);
 		}

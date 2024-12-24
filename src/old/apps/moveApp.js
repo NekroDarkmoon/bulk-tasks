@@ -32,14 +32,11 @@ export class MoveApp extends Application {
 			height: 'auto',
 			resizable: true,
 			closeOnSubmit: false,
-			tabs: [
-				{ navSelector: '.tabs', contentSelector: 'form', initial: 'actors' },
-			],
+			tabs: [{ navSelector: '.tabs', contentSelector: 'form', initial: 'actors' }],
 			filters: [
 				{
 					inputSelector: 'input[name="search"]',
-					contentSelector:
-						'.bm__directory-view-data, .bm__folder-directory-view-data',
+					contentSelector: '.bm__directory-view-data, .bm__folder-directory-view-data',
 				},
 			],
 		});
@@ -70,15 +67,15 @@ export class MoveApp extends Application {
 
 			// Add to foldersDir
 			foldersDir[docType] = folders
-				.filter(f => f.permission === 3)
-				.map(f => {
+				.filter((f) => f.permission === 3)
+				.map((f) => {
 					return { id: f.id, name: f.name, type: f.type };
 				});
 
 			// Add to directory
 			directory[docType] = { folders: [], orphans: [] };
 
-			folders.forEach(folder => {
+			folders.forEach((folder) => {
 				const temp = permsFilter(folder.contents);
 
 				// Create our own object
@@ -93,9 +90,7 @@ export class MoveApp extends Application {
 
 			// Add content not in folder
 			const entities = docTypes[docType].documents;
-			const noParent = permsFilter(
-				entities.filter(e => e.folder === null)
-			);
+			const noParent = permsFilter(entities.filter((e) => e.folder === null));
 
 			directory[docType].orphans = [...noParent];
 			foldersDir[docType].push({
@@ -124,8 +119,7 @@ export class MoveApp extends Application {
 
 		// On move
 		$parent.on('click', '#bm__btn--move', async (event) => {
-			if (data.choices.size == 0)
-				return ui.notifications.error('No files selected to move.');
+			if (data.choices.size == 0) return ui.notifications.error('No files selected to move.');
 
 			// Get folder choices
 			// const folders = [...$parent.find('.bm__radio__folder:checked')].map(
@@ -133,16 +127,15 @@ export class MoveApp extends Application {
 			// );
 
 			const folders = [...$parent.find('.bm__move__folders')]
-				.map(e => e.options[e.selectedIndex])
-				.filter(e => e.value !== "")
-				.map(e => e.dataset);
+				.map((e) => e.options[e.selectedIndex])
+				.filter((e) => e.value !== '')
+				.map((e) => e.dataset);
 
-			if (folders.length == 0)
-				return ui.notifications.error('No folders selected.');
+			if (folders.length == 0) return ui.notifications.error('No folders selected.');
 
 			// Move
 			const destFolders = new Map();
-			folders.forEach(f => {
+			folders.forEach((f) => {
 				const _f = game.folders.get(f.id);
 				if (!_f && f.name === 'root') destFolders.set(f.id, null);
 				else destFolders.set(_f.documentClass.collectionName, _f._id);
@@ -153,7 +146,7 @@ export class MoveApp extends Application {
 
 				data.choices.forEach((d) => {
 					if (d.type !== collectionName) return;
-					updates.push({_id: d.id, folder: folderId});
+					updates.push({ _id: d.id, folder: folderId });
 				});
 
 				ui.notifications.info(`Moving ${updates.length} ${collectionName} documents.`);
@@ -165,13 +158,13 @@ export class MoveApp extends Application {
 
 		// TODO: Convert to back
 		// On cancel
-		$parent.on('click', '#bm__btn--cancel', event => {
+		$parent.on('click', '#bm__btn--cancel', (event) => {
 			this.close();
 			new MainMenu().render(true);
 		});
 
 		// Collapsible folders
-		$parent.on('click', '.bm__btn--collapsible', $btn => {
+		$parent.on('click', '.bm__btn--collapsible', ($btn) => {
 			collapseFolder($btn);
 		});
 	}
@@ -184,9 +177,7 @@ export class MoveApp extends Application {
 	 */
 	_onSearchFilter(event, query, rgx, $parent) {
 		// Expand all folders on query
-		for (const $f of $parent.querySelectorAll(
-			'.bm__directory__folder-content:not(.bm--show)'
-		)) {
+		for (const $f of $parent.querySelectorAll('.bm__directory__folder-content:not(.bm--show)')) {
 			if (query) $f.style.display = 'block';
 			else $f.style.display = 'none';
 		}
@@ -210,9 +201,7 @@ export class MoveApp extends Application {
 				continue;
 			}
 
-			const $content = $(
-				$entity.querySelector('.bm__directory__folder-content')
-			);
+			const $content = $($entity.querySelector('.bm__directory__folder-content'));
 			const match = $content.children(':visible').length === 0;
 			$entity.classList.toggle('bm--hidden', match);
 		}

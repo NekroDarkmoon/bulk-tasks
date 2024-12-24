@@ -4,7 +4,7 @@ function replaceName(name) {
 
 export function onExport(data) {
 	const zip = new JSZip();
-	const documents = [...data].map(doc => game[doc.type].get(doc.id));
+	const documents = [...data].map((doc) => game[doc.type].get(doc.id));
 	console.log(documents);
 
 	const folders = documents.reduce((acc, doc) => {
@@ -13,13 +13,12 @@ export function onExport(data) {
 
 		acc[folder] ??= [];
 		acc[folder].push(doc);
-		return acc
+		return acc;
 	}, {});
-	
+
 	// Check if there are any folders
 	if (Object.keys(folders).length > 0) {
-
-		Object.keys(folders).forEach(folder => {
+		Object.keys(folders).forEach((folder) => {
 			let folderZip = zip;
 
 			if (folder !== 'root') {
@@ -58,9 +57,9 @@ export function onExport(data) {
 
 	// Download Zip
 	console.log('Generating Zip');
-	zip.generateAsync({ type: 'blob', compression: 'DEFLATE' }).then(blob => {
+	zip.generateAsync({ type: 'blob', compression: 'DEFLATE' }).then((blob) => {
 		// Create an element to trigger the download
-		let a = document.createElement('a');
+		const a = document.createElement('a');
 		a.href = window.URL.createObjectURL(blob);
 		a.download = 'bulk-tasks-export.zip';
 
@@ -70,7 +69,7 @@ export function onExport(data) {
 				bubbles: true,
 				cancelable: true,
 				view: window,
-			})
+			}),
 		);
 		setTimeout(() => window.URL.revokeObjectURL(a.href), 100);
 	});

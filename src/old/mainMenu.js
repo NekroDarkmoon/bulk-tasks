@@ -44,10 +44,10 @@ export class MainMenu extends Application {
 			new app().render(true);
 		}
 
-		$(`${prefix}delete`).click(e => navigate.call(this, DeleteExportApp));
-		$(`${prefix}export`).click(e => navigate.call(this, DeleteExportApp));
-		$(`${prefix}import`).click(e => navigate.call(this, ImportApp));
-		$(`${prefix}move`).click(e => navigate.call(this, MoveApp));
+		$(`${prefix}delete`).click((e) => navigate.call(this, DeleteExportApp));
+		$(`${prefix}export`).click((e) => navigate.call(this, DeleteExportApp));
+		$(`${prefix}import`).click((e) => navigate.call(this, ImportApp));
+		$(`${prefix}move`).click((e) => navigate.call(this, MoveApp));
 	}
 }
 

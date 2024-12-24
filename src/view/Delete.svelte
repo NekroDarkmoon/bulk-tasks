@@ -1,28 +1,28 @@
 <script lang="ts">
-    import { setContext } from "svelte";
-    import { SvelteSet } from "svelte/reactivity";
+import { setContext } from 'svelte';
+import { SvelteSet } from 'svelte/reactivity';
 
-    import { BulkTasksManager } from "../managers/TaskManager.ts";
+import { BulkTasksManager } from '../managers/TaskManager.ts';
 
-    import FolderView from "./components/FolderView.svelte";
+import FolderView from './components/FolderView.svelte';
 
-    function selectAll(folder, operation) {
-        operation ??= !selected.has(folder.uuid);
+function selectAll(folder, operation) {
+	operation ??= !selected.has(folder.uuid);
 
-        if (operation) {
-            selected.add(folder.uuid);
-            folder.documents.forEach((d) => selected.add(d.uuid));
-        } else {
-            selected.delete(folder.uuid);
-            folder.documents.forEach((d) => selected.delete(d.uuid));
-        }
+	if (operation) {
+		selected.add(folder.uuid);
+		folder.documents.forEach((d) => selected.add(d.uuid));
+	} else {
+		selected.delete(folder.uuid);
+		folder.documents.forEach((d) => selected.delete(d.uuid));
+	}
 
-        (folder.folders ?? []).forEach((f) => selectAll(f, operation));
-    }
+	(folder.folders ?? []).forEach((f) => selectAll(f, operation));
+}
 
-    let { directory } = $props();
+let { directory } = $props();
 
-    let selected = new SvelteSet<string>();
+let selected = new SvelteSet<string>();
 </script>
 
 <div>

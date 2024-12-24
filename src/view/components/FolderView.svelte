@@ -1,26 +1,26 @@
 <script lang="ts">
-    import FolderView from "./FolderView.svelte";
+import FolderView from './FolderView.svelte';
 
-    function selectDocument(uuid: string) {
-        if (selected.has(uuid)) selected.delete(uuid);
-        else selected.add(uuid);
-    }
+function selectDocument(uuid: string) {
+	if (selected.has(uuid)) selected.delete(uuid);
+	else selected.add(uuid);
+}
 
-    function selectFolder(folder, operation: boolean | undefined = undefined) {
-        operation ??= !selected.has(folder.uuid);
+function selectFolder(folder, operation: boolean | undefined = undefined) {
+	operation ??= !selected.has(folder.uuid);
 
-        if (operation) {
-            selected.add(folder.uuid);
-            folder.documents.forEach((d) => selected.add(d.uuid));
-        } else {
-            selected.delete(folder.uuid);
-            folder.documents.forEach((d) => selected.delete(d.uuid));
-        }
+	if (operation) {
+		selected.add(folder.uuid);
+		folder.documents.forEach((d) => selected.add(d.uuid));
+	} else {
+		selected.delete(folder.uuid);
+		folder.documents.forEach((d) => selected.delete(d.uuid));
+	}
 
-        (folder.folders ?? []).forEach((f) => selectFolder(f, operation));
-    }
+	(folder.folders ?? []).forEach((f) => selectFolder(f, operation));
+}
 
-    let { directory, selected } = $props();
+let { directory, selected } = $props();
 </script>
 
 <ul>

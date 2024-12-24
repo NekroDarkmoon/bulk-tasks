@@ -13,12 +13,8 @@ export class DataSelector {
 		this.lastChecked = null;
 
 		// Initiate listeners
-		$parent
-			.find(`.bm__directory__check`)
-			.on('change', this.singleSelect.bind(this));
-		$parent
-			.find(`.bm__check__folder`)
-			.on('change', this.folderSelect.bind(this));
+		$parent.find(`.bm__directory__check`).on('change', this.singleSelect.bind(this));
+		$parent.find(`.bm__check__folder`).on('change', this.folderSelect.bind(this));
 		$parent
 			.find(`.bm__check__folder, .bm__directory__check`)
 			.on('click', this.shiftSelect.bind(this));
@@ -39,8 +35,7 @@ export class DataSelector {
 	// =================================================================
 	//                          Folder Select
 	folderSelect($event) {
-		const $content =
-			$event.currentTarget.parentElement.nextElementSibling.children;
+		const $content = $event.currentTarget.parentElement.nextElementSibling.children;
 		const isChecked = $event.currentTarget.checked ? true : false;
 
 		for (const $c of $content) {
@@ -72,7 +67,7 @@ export class DataSelector {
 		const checks = [
 			...$section.querySelectorAll(
 				`.bm__li:not(.bm--hidden) > .bm__directory__folder > .bm__check__folder,
-				 .bm__directory__check:not(.bm--hidden > .bm__directory__check)`
+				 .bm__directory__check:not(.bm--hidden > .bm__directory__check)`,
 			),
 		];
 

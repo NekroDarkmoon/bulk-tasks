@@ -1,7 +1,7 @@
-:root { 
+:root {
   /** FONTS **/
-  --bulk-tasks-primary-font: "Roboto Condensed", sans-serif;
-  --bulk-tasks-mono-font: "Source Code Pro", mono;
+  --bulk-tasks-primary-font: 'Roboto Condensed', sans-serif;
+  --bulk-tasks-mono-font: 'Source Code Pro', mono;
 
   --bulk-tasks-heading-font: var(--bulk-tasks-primary-font);
 
@@ -39,7 +39,7 @@
   --bulk-tasks-currency-input-border-color: var(--bulk-tasks-search-input-border-color);
   --bulk-tasks-dark-input-text-color: var(--bulk-tasks-light-text-color);
 
-   /** ANIMATION **/
+  /** ANIMATION **/
   --bulk-tasks-standard-transition: all 0.15s ease-in-out;
   --bulk-tasks-slow-transition: all 0.25s ease-in-out;
 }

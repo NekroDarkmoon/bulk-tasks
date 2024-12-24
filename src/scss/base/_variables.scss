@@ -39,6 +39,15 @@
   --bulk-tasks-currency-input-border-color: var(--bulk-tasks-search-input-border-color);
   --bulk-tasks-dark-input-text-color: var(--bulk-tasks-light-text-color);
 
+
+  /** BASE SHEET **/
+  --bulk-tasks-application-background: hsl(0, 0%, 96%);
+
+  /** NAVIGATION **/
+  --bulk-tasks-primary-nav-background-color: hsl(240, 5%, 11%);
+  --bulk-tasks-primary-nav-element-background-color: hsl(240, 6%, 21%);
+  --bulk-tasks-secondary-nav-selected-text-color: hsl(38, 38%, 94%);
+
   /** ANIMATION **/
   --bulk-tasks-standard-transition: all 0.15s ease-in-out;
   --bulk-tasks-slow-transition: all 0.25s ease-in-out;

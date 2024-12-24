@@ -1,10 +1,11 @@
 <script lang="ts">
-import { setContext } from 'svelte';
 import { SvelteSet } from 'svelte/reactivity';
 
 import { BulkTasksManager } from '../managers/TaskManager.ts';
+import { buildDirectory } from '../utils/buildDirectory.ts';
 
 import FolderView from './components/FolderView.svelte';
+import SecondaryNav from './components/SecondaryNav.svelte';
 
 function selectAll(folder, operation) {
 	operation ??= !selected.has(folder.uuid);
@@ -20,12 +21,15 @@ function selectAll(folder, operation) {
 	(folder.folders ?? []).forEach((f) => selectAll(f, operation));
 }
 
-let { directory } = $props();
+let { currentSecondaryTab } = $props();
 
 let selected = new SvelteSet<string>();
+let directory = $state(buildDirectory(currentSecondaryTab));
 </script>
 
-<div>
+<section class="bm-dialog-body">
+    <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
+
     <header>
         <button onclick={() => selectAll(directory, true)}> Select All</button>
         <button onclick={() => selectAll(directory, false)}>De-Select All</button>
@@ -40,13 +44,25 @@ let selected = new SvelteSet<string>();
             Delete
         </button>
     </footer>
-</div>
+</section>
 
 <style lang="scss">
+    .bm-dialog-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
     header {
         display: flex;
     }
 
     .bm-directory-view {
+        overflow-y: scroll;
+        flex-grow: 1;
+    }
+
+    footer {
+
     }
 </style>

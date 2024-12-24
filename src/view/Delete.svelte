@@ -3,6 +3,7 @@ import { SvelteSet } from 'svelte/reactivity';
 
 import { BulkTasksManager } from '../managers/TaskManager.ts';
 import { buildDirectory } from '../utils/buildDirectory.ts';
+import { localize } from '../utils/localize.ts';
 
 import FolderView from './components/FolderView.svelte';
 import SecondaryNav from './components/SecondaryNav.svelte';
@@ -41,7 +42,7 @@ let directory = $state(buildDirectory(currentSecondaryTab));
 
     <footer>
         <button onclick={() => BulkTasksManager.deleteDocuments(new Set(selected))}>
-            Delete
+            {localize("BulkTasks.delete")}
         </button>
     </footer>
 </section>

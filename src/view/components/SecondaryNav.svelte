@@ -7,7 +7,7 @@ function changeSecondaryTab(id: string) {
 	directory = buildDirectory(id);
 }
 
-let { currentSecondaryTab, directory = $bindable() } = $props();
+let { currentSecondaryTab = $bindable(), directory = $bindable() } = $props();
 </script>
 
 <nav class="bm-secondary-nav">

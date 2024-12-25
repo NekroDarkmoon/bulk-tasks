@@ -133,6 +133,70 @@ class BulkTasksManager {
 		}
 	}
 
+	static moveDocuments(ids: Set<string>, folderId: string) {
+		if (!ids.size) return;
+
+		// Prepare data
+		let docType = '';
+		const docs: any[] = [];
+		const folders: any[] = [];
+		const folderIds = new Set<string>();
+
+		// Populate folderIds and docs
+		ids.forEach((uuid) => {
+			if (!uuid) return;
+
+			const { id, ...parts } = foundry.utils.parseUuid(uuid);
+			const type = parts.type as unknown as string;
+			if (!type) return;
+
+			if (type === 'Folder') {
+				folderIds.add(id);
+				folders.push(game.folders.get(id));
+				return;
+			}
+
+			docType = type; // Set main doc type
+			const doc = CONFIG[type].documentClass.get(id);
+			if (!doc) return;
+
+			docs.push(doc);
+		});
+
+		// Prepare updates for items
+		const docUpdates = docs.reduce((acc, doc) => {
+			const parentFolder = doc.folder;
+			if (!parentFolder) {
+				acc.push({ _id: doc.id ?? doc._id, folder: folderId });
+				return acc;
+			}
+
+			if (folderIds.has(parentFolder.id)) return acc;
+			if (parentFolder.ancestors.some((f) => folderIds.has(f.id))) return acc;
+
+			acc.push({ _id: doc.id ?? doc._id, folder: folderId });
+			return acc;
+		}, [] as any[]);
+
+		// Prepare updates for folders
+		const folderUpdates = folders.reduce((acc, doc) => {
+			const parentFolder = doc.folder;
+			if (!parentFolder) {
+				acc.push({ _id: doc.id ?? doc._id, folder: folderId });
+				return acc;
+			}
+
+			if (folderIds.has(parentFolder.id)) return acc;
+			if (parentFolder.ancestors.some((f) => folderIds.has(f.id))) return acc;
+
+			acc.push({ _id: doc.id ?? doc._id, folder: folderId });
+			return acc;
+		}, [] as any[]);
+
+		Folder.updateDocuments(folderUpdates);
+		CONFIG[docType]?.documentClass.updateDocuments(docUpdates);
+	}
+
 	static #cleanName(name: string): string {
 		return name.slugify({ strict: true, replacement: '-' });
 	}

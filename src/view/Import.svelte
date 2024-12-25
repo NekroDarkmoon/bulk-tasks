@@ -75,6 +75,8 @@ let documentCount = $derived(documents.length);
 
 <style lang="scss">
     header {
+        grid-area: header;
+
         display: flex;
         gap: 0.25rem;
         column-gap: 0.375rem;
@@ -140,6 +142,8 @@ let documentCount = $derived(documents.length);
     }
 
     .bm-document-list {
+        grid-area: directory;
+
         overflow-y: scroll;
         flex-grow: 1;
         padding-inline: 0.5rem;

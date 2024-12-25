@@ -49,15 +49,17 @@ let directory = $state(buildDirectory(currentSecondaryTab));
 
 <style lang="scss">
     header {
+        grid-area: header;
         display: flex;
     }
 
     .bm-directory-view {
+        grid-area: directory;
         overflow-y: scroll;
         flex-grow: 1;
     }
 
     footer {
-
+        grid-area: footer;
     }
 </style>

@@ -22,6 +22,8 @@ class BulkTasksManager {
 		}
 	}
 
+	static async duplicateDocument(ids: Set<string>, options: DuplicateOptions) {}
+
 	static async exportDocuments(ids: Set<string>) {
 		if (ids.size === 0) return;
 
@@ -200,6 +202,13 @@ class BulkTasksManager {
 	static #cleanName(name: string): string {
 		return name.slugify({ strict: true, replacement: '-' });
 	}
+}
+
+export interface DuplicateOptions {
+	namingConvention: string;
+	numCopies: number;
+	duplicateToRoot: boolean;
+	resetImages: boolean;
 }
 
 export { BulkTasksManager };

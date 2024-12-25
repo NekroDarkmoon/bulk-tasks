@@ -26,7 +26,7 @@ let { currentSecondaryTab = $bindable(), directory = $bindable() } = $props();
 
 <style lang="scss">
     .bm-secondary-nav {
-        grid: nav;
+        grid-area: nav;
 
         display: flex;
         justify-content: space-between;

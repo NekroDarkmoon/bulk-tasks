@@ -16,9 +16,10 @@
 
   &__duplicate {
     grid-template-areas:
-      'nav'
+      'nav nav'
       'directory config'
-      'footer';
+      'footer footer';
+    grid-template-columns: 1fr min-content;
     grid-template-rows: min-content 1fr min-content;
   }
 
@@ -28,9 +29,10 @@
 
   &__import {
     grid-template-areas:
-      'header'
+      'header header'
       'directory config';
     grid-template-rows: min-content 1fr;
+    grid-template-columns: 1fr min-content;
   }
 
   &__move {

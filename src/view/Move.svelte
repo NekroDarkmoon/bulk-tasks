@@ -70,11 +70,15 @@ $effect(() => {
     // }
 
     .bm-directory-view {
+        grid-area: directory;
+
         overflow-y: scroll;
         flex-grow: 1;
     }
 
     .bm-folder-select {
+        grid-area: config;
+
         display: flex;
         gap: 0.5rem;
         padding-left: 0.25rem;
@@ -92,5 +96,6 @@ $effect(() => {
     }
 
     footer {
+        grid-area: footer;
     }
 </style>

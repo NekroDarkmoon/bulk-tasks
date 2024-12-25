@@ -26,35 +26,123 @@ let { currentSecondaryTab } = $props();
 
 let selected = new SvelteSet<string>();
 let directory = $state(buildDirectory(currentSecondaryTab));
+let namingConvention = $state('{documentName} #{number}');
+let numCopies = $state(1);
+let duplicateToRoot = $state(false);
+let resetImages = $state(false);
 </script>
 
 <section class="bm-dialog-body bm-dialog-body__duplicate">
     <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
 
-    <div class="bmd-dialog-body__split-view">
-        <div class="bm-directory-view">
-            <FolderView {directory} {selected} />
-        </div>
+    <div class="bm-directory-view">
+        <FolderView {directory} {selected} />
+    </div>
 
-        <div class="bm-options-view">
+    <div class="bm-config-view">
+        <label class="bm-config-view__label">
+            <span>
+                Naming Convention
+                <i
+                    class="fa-solid fa-circle-question"
+                    data-tooltip="Help"
+                >
+                </i>
+            </span>
 
-        </div>
+            <input
+                class="bm-config-view__input"
+                type="text"
+                bind:value={namingConvention}
+            />
+        </label>
+
+        <label class="bm-config-view__label">
+            <span>Number of Copies</span>
+
+            <input
+                class="bm-config-view__input"
+                type="number"
+                bind:value={numCopies}
+            />
+        </label>
+
+        <label class="bm-config-view__label bm-config-view__label--row">
+            <input
+                class="bm-config-view__input"
+                bind:checked={duplicateToRoot}
+                type="checkbox"
+            >
+
+            <span>Duplicate to root</span>
+        </label>
+
+        <label class="bm-config-view__label bm-config-view__label--row">
+            <input
+                class="bm-config-view__input"
+                bind:checked={resetImages}
+                type="checkbox"
+            >
+
+            <span>Reset Images</span>
+        </label>
     </div>
 
     <footer>
         <button onclick={() => BulkTasksManager.deleteDocuments(new Set(selected))}>
-            {localize("BulkTasks.delete")}
+            {localize("BulkTasks.duplicate")}
         </button>
     </footer>
 </section>
 
 <style lang="scss">
     .bm-directory-view {
+        grid-area: directory;
         overflow-y: scroll;
         flex-grow: 1;
     }
 
-    footer {
+    .bm-config-view {
+        grid-area: config;
 
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        width: 15rem;
+        padding-inline: 0.5rem;
+        border-left: 1px solid #ccc;
+        font-size: var(--bulk-tasks-sm-text);
+
+        input[type="number"],
+        input[type="text"] {
+            font-size: var(--bulk-tasks-sm-text);
+            height: 1.7rem;
+        }
+
+        input[type="number"] {
+            width: 5rem;
+            text-align: center;
+        }
+
+        input[type="checkbox"] {
+            margin: 0;
+            padding: 0.125rem;
+        }
+
+        &__label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            &--row {
+                align-items: center;
+                flex-direction: row;
+            }
+        }
+    }
+
+    footer {
+        grid-area: footer;
     }
 </style>

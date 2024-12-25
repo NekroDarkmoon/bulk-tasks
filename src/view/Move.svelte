@@ -38,7 +38,7 @@ $effect(() => {
 });
 </script>
 
-<section class="bm-dialog-body">
+<section class="bm-dialog-body bm-dialog-body__move">
     <SecondaryNav bind:currentSecondaryTab={currentSecondaryTab} bind:directory={directory}/>
 
     <div class="bm-directory-view">
@@ -65,15 +65,9 @@ $effect(() => {
 </section>
 
 <style lang="scss">
-    .bm-dialog-body {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    header {
-        display: flex;
-    }
+    // header {
+    //     display: flex;
+    // }
 
     .bm-directory-view {
         overflow-y: scroll;

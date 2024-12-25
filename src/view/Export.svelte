@@ -28,7 +28,7 @@ let selected = new SvelteSet<string>();
 let directory = $state(buildDirectory(currentSecondaryTab));
 </script>
 
-<section class="bm-dialog-body">
+<section class="bm-dialog-body bm-dialog-body__export">
     <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
 
     <header>
@@ -48,12 +48,6 @@ let directory = $state(buildDirectory(currentSecondaryTab));
 </section>
 
 <style lang="scss">
-.bm-dialog-body {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
     header {
         display: flex;
     }

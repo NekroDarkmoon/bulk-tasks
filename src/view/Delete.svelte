@@ -48,12 +48,6 @@ let directory = $state(buildDirectory(currentSecondaryTab));
 </section>
 
 <style lang="scss">
-    .bm-dialog-body {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
     header {
         display: flex;
     }

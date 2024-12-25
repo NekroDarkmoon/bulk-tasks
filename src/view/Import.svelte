@@ -21,11 +21,11 @@ async function importData() {
 }
 
 let loading = $state(false);
-let documents = $state([]);
+let documents: any[] = $state([]);
 let documentCount = $derived(documents.length);
 </script>
 
-<section class="bm-dialog-body">
+<section class="bm-dialog-body bm-dialog-body__import">
     <header>
         <label class="bm-drop">
             <input
@@ -74,12 +74,6 @@ let documentCount = $derived(documents.length);
 </section>
 
 <style lang="scss">
-     .bm-dialog-body {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
     header {
         display: flex;
         gap: 0.25rem;

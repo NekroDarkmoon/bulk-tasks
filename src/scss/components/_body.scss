@@ -1,4 +1,52 @@
 .bm-dialog-body {
+  display: grid;
+  grid-template-areas:
+    'nav'
+    'header'
+    'directory'
+    'footer';
+  grid-template-rows: min-content min-content 1fr min-content;
+  gap: 0.5rem;
   padding-inline: 0.5rem;
   padding-block: 0.75rem;
+
+  &__delete {
+    //
+  }
+
+  &__duplicate {
+    grid-template-areas:
+      'nav'
+      'directory config'
+      'footer';
+    grid-template-rows: min-content 1fr min-content;
+  }
+
+  &__export {
+    //
+  }
+
+  &__import {
+    grid-template-areas:
+      'header'
+      'directory config';
+    grid-template-rows: min-content 1fr;
+  }
+
+  &__move {
+    grid-template-areas:
+      'nav'
+      'directory'
+      'config'
+      'footer';
+    grid-template-rows: min-content 1fr min-content min-content;
+  }
+
+  &__rename {
+    //
+  }
+
+  &__update {
+    //
+  }
 }

@@ -23,6 +23,11 @@ function getFolderList() {
 	);
 }
 
+async function moveDocs() {
+	await BulkTasksManager.moveDocuments(new Set(selected), folderId);
+	directory = buildDirectory(currentSecondaryTab);
+}
+
 let { currentSecondaryTab = $bindable() } = $props();
 
 let directory = $state(buildDirectory(currentSecondaryTab));
@@ -58,7 +63,7 @@ $effect(() => {
     </label>
 
     <footer>
-        <button onclick={() => BulkTasksManager.moveDocuments(new Set(selected), folderId)}>
+        <button onclick={moveDocs}>
             {localize("BulkTasks.move")}
         </button>
     </footer>

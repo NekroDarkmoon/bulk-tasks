@@ -8,6 +8,11 @@ import { localize } from '../utils/localize.ts';
 import FolderView from './components/FolderView.svelte';
 import SecondaryNav from './components/SecondaryNav.svelte';
 
+async function deleteDocs() {
+	await BulkTasksManager.deleteDocuments(new Set(selected));
+	directory = buildDirectory(currentSecondaryTab);
+}
+
 function selectAll(folder, operation) {
 	operation ??= !selected.has(folder.uuid);
 
@@ -41,7 +46,7 @@ let directory = $state(buildDirectory(currentSecondaryTab));
     </div>
 
     <footer>
-        <button onclick={() => BulkTasksManager.deleteDocuments(new Set(selected))}>
+        <button onclick={deleteDocs}>
             {localize("BulkTasks.delete")}
         </button>
     </footer>

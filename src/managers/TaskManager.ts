@@ -190,7 +190,7 @@ class BulkTasksManager {
 		}
 	}
 
-	static moveDocuments(ids: Set<string>, folderId: string) {
+	static async moveDocuments(ids: Set<string>, folderId: string) {
 		if (!ids.size) return;
 
 		// Prepare data
@@ -250,8 +250,8 @@ class BulkTasksManager {
 			return acc;
 		}, [] as any[]);
 
-		Folder.updateDocuments(folderUpdates);
-		CONFIG[docType]?.documentClass.updateDocuments(docUpdates);
+		await Folder.updateDocuments(folderUpdates);
+		await CONFIG[docType]?.documentClass.updateDocuments(docUpdates);
 	}
 
 	static #cleanName(name: string): string {

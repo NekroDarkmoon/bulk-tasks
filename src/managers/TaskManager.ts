@@ -22,7 +22,62 @@ class BulkTasksManager {
 		}
 	}
 
-	static async duplicateDocument(ids: Set<string>, options: DuplicateOptions) {}
+	static async duplicateDocuments(ids: Set<string>, options: DuplicateOptions) {
+		if (ids.size === 0) return;
+
+		// Prepare data
+		const duplicateData: Record<string, any[]> = ids.reduce((acc, uuid) => {
+			if (!uuid) return acc;
+
+			const { id, ...parts } = foundry.utils.parseUuid(uuid);
+			const type = parts.type as unknown as string;
+			if (!type) return acc;
+
+			const cls = CONFIG[type].documentClass;
+			const doc = cls.get(id)?.toObject();
+			if (!doc) return acc;
+
+			// Apply Changes
+			if (options.duplicateToRoot) doc.folder = null;
+			if (options.resetImages && cls.DEFAULT_ICON) doc.img = cls.DEFAULT_ICON;
+
+			// Adjust for num copies
+			const docs = Array.from({ length: options.numCopies ?? 1 }, () => {
+				return foundry.utils.deepClone(doc);
+			});
+
+			// Apply naming changes
+			docs.forEach((d, idx) => {
+				const namingConvention = options.namingConvention || '{documentName} #{index}';
+				const originalName = d.name;
+
+				const newName = namingConvention
+					.replaceAll('{documentName}', originalName)
+					.replaceAll('{index}', `${idx + 1}`);
+
+				d.name = newName;
+			});
+
+			// Collect
+			acc[type] ??= [];
+			acc[type].push(...docs);
+
+			return acc;
+		}, {});
+
+		for await (const [type, docs] of Object.entries(duplicateData)) {
+			const cls = CONFIG[type].documentClass;
+			const chunkSize = 100;
+			const chunks: any[] = [];
+			for (let i = 0; i < Math.ceil(docs.length / chunkSize); i++) {
+				chunks[i] = docs.slice(i * chunkSize, (i + 1) * chunkSize);
+			}
+
+			for await (const chunk of chunks) {
+				await cls.createDocuments(chunk);
+			}
+		}
+	}
 
 	static async exportDocuments(ids: Set<string>) {
 		if (ids.size === 0) return;

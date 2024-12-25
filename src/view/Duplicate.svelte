@@ -8,25 +8,23 @@ import { localize } from '../utils/localize.ts';
 import FolderView from './components/FolderView.svelte';
 import SecondaryNav from './components/SecondaryNav.svelte';
 
-function selectAll(folder, operation) {
-	operation ??= !selected.has(folder.uuid);
+async function duplicateDocs() {
+	const options = {
+		namingConvention,
+		numCopies,
+		duplicateToRoot,
+		resetImages,
+	};
 
-	if (operation) {
-		selected.add(folder.uuid);
-		folder.documents.forEach((d) => selected.add(d.uuid));
-	} else {
-		selected.delete(folder.uuid);
-		folder.documents.forEach((d) => selected.delete(d.uuid));
-	}
-
-	(folder.folders ?? []).forEach((f) => selectAll(f, operation));
+	await BulkTasksManager.duplicateDocuments(new Set(selected), options);
+	directory = buildDirectory(currentSecondaryTab);
 }
 
 let { currentSecondaryTab } = $props();
 
 let selected = new SvelteSet<string>();
 let directory = $state(buildDirectory(currentSecondaryTab));
-let namingConvention = $state('{documentName} #{number}');
+let namingConvention = $state('{documentName} #{index}');
 let numCopies = $state(1);
 let duplicateToRoot = $state(false);
 let resetImages = $state(false);
@@ -89,7 +87,7 @@ let resetImages = $state(false);
     </div>
 
     <footer>
-        <button onclick={() => BulkTasksManager.deleteDocuments(new Set(selected))}>
+        <button onclick={duplicateDocs}>
             {localize("BulkTasks.duplicate")}
         </button>
     </footer>

@@ -29,7 +29,7 @@ export const secondaryTabs = {
 		label: localize('BulkTasks.secondaryNav.playlists'),
 		icon: 'fa-solid fa-music',
 	},
-	compendium: {
+	packs: {
 		label: localize('BulkTasks.secondaryNav.compendium'),
 		icon: 'fa-solid fa-atlas',
 	},

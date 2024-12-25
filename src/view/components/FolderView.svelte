@@ -36,7 +36,12 @@ let { directory, selected } = $props();
                 checked={selected.has(folder.uuid)}
                 onchange={() => selectFolder(folder)}
             />
+
+            <i class="fa-regular fa-folder"></i>
+
             <label for="folder-{folder.uuid}"> {folder.name}</label>
+
+            <!-- <i class="bm-chevron fa-solid" class:fa-chevron-down={true}></i> -->
         </li>
 
         <FolderView directory={folder} {selected} />
@@ -51,22 +56,42 @@ let { directory, selected } = $props();
                 onchange={() => selectDocument(uuid)}
             />
 
+            <i class="fa-regular fa-file"></i>
+
             <label for="document-{uuid}">{name}</label>
         </li>
     {/each}
 </ul>
 
 <style lang="scss">
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-inline: 0.5rem;
+        margin: 0;
+    }
+
     .bm-tree-view {
         display: flex;
         align-items: center;
         list-style: none;
+        margin: 0;
 
         &__folder {
-            color: blue;
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
         }
 
-        &__file {
+        &__document {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
         }
     }
+
+    // .bm-chevron {
+    //     font-size: var(--bulk-tasks-sm-text);
+    // }
 </style>

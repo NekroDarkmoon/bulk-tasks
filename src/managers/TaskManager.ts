@@ -1,4 +1,5 @@
 import JSZip from 'jszip';
+import { inferDocumentType } from '../utils/inferDocumentType.ts';
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 class BulkTasksManager {
@@ -102,6 +103,34 @@ class BulkTasksManager {
 			);
 			setTimeout(() => window.URL.revokeObjectURL(a.href), 100);
 		});
+	}
+
+	static async importDocuments(documents: any[]) {
+		if (!documents.length) return;
+
+		// Prepare data
+		const importData: Record<string, any[]> = documents.reduce((acc, data) => {
+			const type = inferDocumentType(data);
+			console.log(type);
+			if (!type) return;
+
+			acc[type] ??= [];
+			acc[type].push(data);
+			return acc;
+		}, {});
+
+		for await (const [type, docs] of Object.entries(importData)) {
+			const cls = CONFIG[type].documentClass;
+			const chunkSize = 100;
+			const chunks: any[] = [];
+			for (let i = 0; i < Math.ceil(docs.length / chunkSize); i++) {
+				chunks[i] = docs.slice(i * chunkSize, (i + 1) * chunkSize);
+			}
+
+			for await (const chunk of chunks) {
+				await cls.createDocuments(chunk);
+			}
+		}
 	}
 
 	static #cleanName(name: string): string {

@@ -8,6 +8,7 @@ import Export from './Export.svelte';
 import Import from './Import.svelte';
 import Move from './Move.svelte';
 import Rename from './Rename.svelte';
+import Update from './Update.svelte';
 
 function changePrimaryTab(id: string) {
 	currentPrimaryTab = primaryTabs[id] ?? primaryTabs.delete;
@@ -49,6 +50,12 @@ const primaryTabs = {
 		label: localize('BulkTasks.rename'),
 		icon: 'fa-solid fa-t',
 		component: Rename,
+	},
+	update: {
+		id: 'update',
+		label: localize('BulkTasks.update'),
+		icon: 'fa-solid fa-pen-to-square',
+		component: Update,
 	},
 };
 

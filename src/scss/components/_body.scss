@@ -9,6 +9,8 @@
   gap: 0.5rem;
   padding-inline: 0.5rem;
   padding-block: 0.75rem;
+  height: 100%;
+  overflow-y: hidden;
 
   &__delete {
     //
@@ -45,10 +47,25 @@
   }
 
   &__rename {
-    //
+    grid-template-areas:
+      'nav nav'
+      'directory config'
+      'footer footer';
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: min-content 1fr min-content;
   }
 
   &__update {
     //
+  }
+
+}
+
+.bm-naming-convention__hint {
+  ul {
+    font-size: var(--bulk-tasks-sm-text);
+    text-align: left;
+    padding: 0;
+    list-style: none;
   }
 }

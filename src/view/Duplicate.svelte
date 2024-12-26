@@ -24,7 +24,7 @@ let { currentSecondaryTab } = $props();
 
 let selected = new SvelteSet<string>();
 let directory = $state(buildDirectory(currentSecondaryTab));
-let namingConvention = $state('{documentName} #{index}');
+let namingConvention = $state('{name} {index}');
 let numCopies = $state(1);
 let duplicateToRoot = $state(false);
 let resetImages = $state(false);
@@ -43,7 +43,7 @@ let resetImages = $state(false);
                 Naming Convention
                 <i
                     class="fa-solid fa-circle-question"
-                    data-tooltip="Help"
+                    data-tooltip={BulkTasksManager.namingConventionHint}
                 >
                 </i>
             </span>

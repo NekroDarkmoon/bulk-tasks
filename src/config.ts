@@ -29,10 +29,10 @@ export const secondaryTabs = {
 		label: localize('BulkTasks.secondaryNav.playlists'),
 		icon: 'fa-solid fa-music',
 	},
-	packs: {
-		label: localize('BulkTasks.secondaryNav.compendium'),
-		icon: 'fa-solid fa-atlas',
-	},
+	// packs: {
+	// 	label: localize('BulkTasks.secondaryNav.compendium'),
+	// 	icon: 'fa-solid fa-atlas',
+	// },
 	macros: {
 		label: localize('BulkTasks.secondaryNav.macros'),
 		icon: 'fa-solid fa-code',

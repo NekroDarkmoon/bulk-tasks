@@ -11,23 +11,25 @@ function selectFolder(folder, operation: boolean | undefined = undefined) {
 
 	if (operation) {
 		selected.add(folder.uuid);
-		folder.documents.forEach((d) => selected.add(d.uuid));
+		folder.entries.forEach((d) => selected.add(d.uuid));
 	} else {
 		selected.delete(folder.uuid);
-		folder.documents.forEach((d) => selected.delete(d.uuid));
+		folder.entries.forEach((d) => selected.delete(d.uuid));
 	}
 
-	(folder.folders ?? []).forEach((f) => selectFolder(f, operation));
+	(folder.children ?? []).forEach((f) => selectFolder(f, operation));
 }
 
 let { directory, selected } = $props();
+let collapsed = $state(directory.children.map((f) => f.collapsed));
+$inspect(collapsed);
 </script>
 
 <ul>
-    {#each directory.folders as folder}
+    {#each directory.children as folder, idx}
         <li
             class="bm-tree-view bm-tree-view__folder"
-            data-uuid={folder.uuid}
+            data-uuid={folder.uuid || undefined}
             data-type="folders"
         >
             <input
@@ -41,13 +43,22 @@ let { directory, selected } = $props();
 
             <label for="folder-{folder.uuid}"> {folder.name}</label>
 
-            <!-- <i class="bm-chevron fa-solid" class:fa-chevron-down={true}></i> -->
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
+            <i
+                class="bm-chevron fa-solid"
+                class:fa-chevron-down={!collapsed[idx]}
+                class:fa-chevron-up={collapsed[idx]}
+                onclick={() => collapsed[idx] = !collapsed[idx]}
+            ></i>
         </li>
 
-        <FolderView directory={folder} {selected} />
+        {#if !collapsed[idx]}
+            <FolderView directory={folder} {selected}/>
+        {/if}
     {/each}
 
-    {#each directory.documents as { uuid, name, type }}
+    {#each directory.entries as { uuid, name, type}}
         <li class="bm-tree-view bm-tree-view__document" data-uuid="uuid" data-type={type}>
             <input
                 id="document-{uuid}"
@@ -92,6 +103,7 @@ let { directory, selected } = $props();
     }
 
     // .bm-chevron {
+    //     padding-top: 0.5rem;
     //     font-size: var(--bulk-tasks-sm-text);
     // }
 </style>

@@ -1,3 +1,23 @@
+function createNode(node) {
+	return {
+		// Folders
+		children: node.children.map((c) => createNode(c)),
+		depth: node.depth,
+		// Documents
+		entries: node.entries.map((e) => ({
+			name: e.name,
+			uuid: e.uuid,
+			type: e.collectionName,
+			visible: e.visible,
+		})),
+		name: node.folder?.name || 'root',
+		uuid: node.folder?.uuid || undefined,
+		collapsed: true,
+		root: node.root,
+		visible: node.visible,
+	};
+}
+
 export function buildDirectory(id: string) {
 	// @ts-ignore
 	const tree = game[id]?.tree ?? {};
@@ -30,5 +50,6 @@ export function buildDirectory(id: string) {
 		};
 	};
 
-	return _recurse(tree);
+	return createNode(tree);
+	// return _recurse(tree);
 }

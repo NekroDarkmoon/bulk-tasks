@@ -26,15 +26,19 @@
   }
 
   &__export {
-    //
+    grid-template-areas:
+      'nav nav'
+      'directory config'
+      'footer footer';
+    grid-template-rows: min-content 1fr min-content;
+    grid-template-columns: 1fr min-content;
   }
 
   &__import {
     grid-template-areas:
-      'header header'
-      'directory config';
+      'header'
+      'directory';
     grid-template-rows: min-content 1fr;
-    grid-template-columns: 1fr min-content;
   }
 
   &__move {

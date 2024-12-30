@@ -1,10 +1,27 @@
 import JSZip from 'jszip';
 import { inferDocumentType } from '../utils/inferDocumentType.ts';
 import { replaceAsync } from '../utils/replaceAsync.ts';
+import { moduleId } from '../constants.ts';
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 class BulkTasksManager {
-	static DEFAULT_NAMING_CONVENTION = '{name} {index}';
+	static get DEFAULTS() {
+		return {
+			EXPORT_NAMING_CONVENTION:
+				// @ts-expect-error
+				(game.settings?.get(moduleId, 'defaultExportNamingConvention') as string) || '{foundry}',
+			EXPORT_ZIP_NAME:
+				// @ts-expect-error
+				(game.settings?.get(moduleId, 'defaultExportZipName') as string) || 'bulk-tasks-export',
+			DUPLICATE_NAMING_CONVENTION:
+				// @ts-expect-error
+				(game.settings?.get(moduleId, 'defaultDuplicateNamingConvention') as string) ||
+				'{name} #{index}',
+			RENAME_NAMING_CONVENTION:
+				// @ts-expect-error
+				(game.settings?.get(moduleId, 'defaultRenameNamingConvention') as string) || '{name}',
+		};
+	}
 
 	static async deleteDocuments(ids: Set<string>) {
 		if (ids.size === 0) return;
@@ -29,7 +46,7 @@ class BulkTasksManager {
 		if (ids.size === 0) return;
 
 		// Prepare string args
-		const namingConvention = options.namingConvention || this.DEFAULT_NAMING_CONVENTION;
+		const namingConvention = options.namingConvention || this.DEFAULTS.DUPLICATE_NAMING_CONVENTION;
 		const now = new Date(Date.now()).toString();
 		// @ts-expect-error
 		await TextEditor._primeCompendiums([{ textContent: namingConvention }]);
@@ -86,12 +103,12 @@ class BulkTasksManager {
 		}
 	}
 
-	static async exportDocuments(ids: Set<string>) {
+	static async exportDocuments(ids: Set<string>, options: ExportOptions) {
 		if (ids.size === 0) return;
 
 		const zip = new JSZip();
 		const exportDocs: any[] = [];
-		const folders = {};
+		const fDocs = {};
 
 		// Prepare data
 		ids.forEach((uuid) => {
@@ -109,40 +126,86 @@ class BulkTasksManager {
 			let folder: string = doc.folder?.id;
 			if (!folder) folder = 'root';
 
-			folders[folder] ??= [];
-			folders[folder].push(doc);
+			fDocs[folder] ??= [];
+			fDocs[folder].push(doc);
 		});
 
 		const cleanDoc = (doc) => {
 			const data = doc.toCompendium(null);
-			data.flags.exportSource = {
-				// @ts-expect-error
-				world: game.world.id,
-				system: game.system.id,
-				coreVersion: game.version,
-				systemVersion: game.system.version,
-			};
+			if (options.preserveMetaData) {
+				data.flags.exportSource = {
+					// @ts-expect-error
+					world: game.world.id,
+					system: game.system.id,
+					coreVersion: game.version,
+					systemVersion: game.system.version,
+				};
+			}
 
 			return data;
 		};
 
 		// Create zip data
-		const folderKeys = Object.keys(folders);
-		if (folderKeys.length > 1) {
-			folderKeys.forEach((folder) => {
-				let folderZip = zip;
-				if (folder !== 'root') {
-					const name = game.folders.get(folder)?.name;
-					if (name) folderZip = zip.folder(this.#cleanName(name))!;
-				}
+		const folderKeys = Object.keys(fDocs);
+		if (folderKeys.length > 1 && options.preserveFolders) {
+			const folders = folderKeys.map((f) => game.folders.get(f));
+			const dir: Record<string, { name: string; entries: any[]; folders: any[] }> = {};
+			const handled = new Set<string>();
 
-				const docs = folders[folder];
+			// Assign folder locations
+			folders.forEach((f) => {
+				const id = f?.id ?? 'root';
+				dir[id] = {
+					name: f?.name || 'root',
+					entries: fDocs[id],
+					folders: (f?.children ?? []).map((e) => e.folder?.id).filter((e) => !!e),
+				};
+			});
+
+			// Update to match folder locations
+			Object.values(dir).forEach((node) => {
+				node.folders = node.folders
+					.map((f) => {
+						handled.add(f);
+						return dir[f];
+					})
+					.filter((f) => !!f);
+			});
+
+			// Remove subfolders from root
+			[...handled].forEach((id) => delete dir[id]);
+
+			// Recursing Function for zip node creation
+			const createNode = (currNode, zip: JSZip) => {
+				const folderZip = zip.folder(this.#cleanName(currNode.name))!;
+
+				const docs = currNode.entries;
 				docs.forEach((doc) => {
 					folderZip.file(
 						`${this.#cleanName(doc.name)}.json`,
 						JSON.stringify(cleanDoc(doc), null, '\t'),
 					);
 				});
+
+				currNode.folders.forEach((fn) => createNode(fn, folderZip));
+			};
+
+			Object.entries(dir).forEach(([id, node]) => {
+				const currNode = node;
+				const folderZip = zip;
+
+				if (id === 'root') {
+					const docs = dir.root.entries;
+					docs.forEach((doc) => {
+						folderZip.file(
+							`${this.#cleanName(doc.name)}.json`,
+							JSON.stringify(cleanDoc(doc), null, '\t'),
+						);
+					});
+					return;
+				}
+
+				createNode(currNode, folderZip);
 			});
 		} else {
 			Object.values(exportDocs).forEach((doc) => {
@@ -155,7 +218,7 @@ class BulkTasksManager {
 		zip.generateAsync({ type: 'blob', compression: 'DEFLATE' }).then((blob) => {
 			const a = document.createElement('a');
 			a.href = window.URL.createObjectURL(blob);
-			a.download = 'bulk-tasks-export.zip';
+			a.download = options.zipName || this.DEFAULTS.EXPORT_ZIP_NAME;
 
 			// Dispatch a click event to the element
 			a.dispatchEvent(
@@ -265,7 +328,7 @@ class BulkTasksManager {
 		if (ids.size === 0) return;
 
 		// Prepare string args
-		const namingConvention = options.namingConvention || this.DEFAULT_NAMING_CONVENTION;
+		const namingConvention = options.namingConvention || this.DEFAULTS.RENAME_NAMING_CONVENTION;
 		const now = new Date(Date.now()).toString();
 		// @ts-expect-error
 		await TextEditor._primeCompendiums([{ textContent: namingConvention }]);
@@ -314,7 +377,7 @@ class BulkTasksManager {
 	}
 
 	static async #enrichString(str: string, options: EnrichOptions): Promise<string> {
-		let namingConvention = str || this.DEFAULT_NAMING_CONVENTION;
+		let namingConvention = str;
 
 		namingConvention = namingConvention
 			.replaceAll('{name}', options.originalName || '')
@@ -358,6 +421,13 @@ class BulkTasksManager {
       </div>
     `;
 	}
+}
+
+export interface ExportOptions {
+	namingConvention: string;
+	preserveFolders: boolean;
+	preserveMetaData: boolean;
+	zipName: string;
 }
 
 export interface DuplicateOptions {

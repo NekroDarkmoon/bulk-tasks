@@ -51,12 +51,12 @@ const primaryTabs = {
 		icon: 'fa-solid fa-t',
 		component: Rename,
 	},
-	update: {
-		id: 'update',
-		label: localize('BulkTasks.update'),
-		icon: 'fa-solid fa-pen-to-square',
-		component: Update,
-	},
+	// update: {
+	// 	id: 'update',
+	// 	label: localize('BulkTasks.update'),
+	// 	icon: 'fa-solid fa-pen-to-square',
+	// 	component: Update,
+	// },
 };
 
 let currentPrimaryTab = $state(primaryTabs.delete);

@@ -21,11 +21,15 @@
 		},
 		"settings": {
 			"gmOnly": {
-				"name": "Hide menu from players",
+				"title": "Hide menu from players",
 				"hint": ""
 			},
+			"defaultExportNamingConvention": { "title": "Default File Naming Convention for Exports." },
+			"defaultExportZipName": { "title": "Default Zip Name for Exports." },
+			"defaultDuplicateNamingConvention": { "title": "Default Naming Convention for Duplicates." },
+			"defaultRenameNamingConvention": { "title": "Default File Naming Convention for Renames." },
 			"permDefaultName": {
-				"name": "Default Behavior for documents with undefined permissions.",
+				"title": "Default Behavior for documents with undefined permissions.",
 				"hint": "",
 				"choices": {
 					"GMOnly": "GM Only",

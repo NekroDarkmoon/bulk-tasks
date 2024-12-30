@@ -19,18 +19,20 @@
   &__duplicate {
     grid-template-areas:
       'nav nav'
+      'header config'
       'directory config'
       'footer footer';
     grid-template-columns: 1fr min-content;
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: min-content min-content 1fr min-content;
   }
 
   &__export {
     grid-template-areas:
       'nav nav'
+      'header config'
       'directory config'
       'footer footer';
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: min-content min-content 1fr min-content;
     grid-template-columns: 1fr min-content;
   }
 
@@ -44,19 +46,21 @@
   &__move {
     grid-template-areas:
       'nav'
+      'header'
       'directory'
       'config'
       'footer';
-    grid-template-rows: min-content 1fr min-content min-content;
+    grid-template-rows: min-content min-content 1fr min-content min-content;
   }
 
   &__rename {
     grid-template-areas:
       'nav nav'
+      'header config'
       'directory config'
       'footer footer';
     grid-template-columns: 1fr min-content;
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: min-content min-content 1fr min-content;
   }
 
   &__update {

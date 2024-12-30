@@ -6,6 +6,7 @@ import { buildDirectory } from '../utils/buildDirectory.ts';
 import { localize } from '../utils/localize.ts';
 
 import FolderView from './components/FolderView.svelte';
+import FolderViewHeader from './components/FolderViewHeader.svelte';
 import SecondaryNav from './components/SecondaryNav.svelte';
 
 async function exportDocs() {
@@ -19,20 +20,6 @@ async function exportDocs() {
 	await BulkTasksManager.exportDocuments(new Set(selected), options);
 }
 
-function selectAll(folder, operation) {
-	operation ??= !selected.has(folder.uuid);
-
-	if (operation) {
-		selected.add(folder.uuid);
-		folder.entries.forEach((d) => selected.add(d.uuid));
-	} else {
-		selected.delete(folder.uuid);
-		folder.entries.forEach((d) => selected.delete(d.uuid));
-	}
-
-	(folder.children ?? []).forEach((f) => selectAll(f, operation));
-}
-
 let { currentSecondaryTab } = $props();
 
 let selected = new SvelteSet<string>();
@@ -41,19 +28,16 @@ let namingConvention = $state(BulkTasksManager.DEFAULTS.EXPORT_NAMING_CONVENTION
 let zipName = $state(BulkTasksManager.DEFAULTS.EXPORT_ZIP_NAME);
 let preserveFolders = $state(true);
 let preserveMetaData = $state(true);
+let searchParam = $state('');
 </script>
 
 <section class="bm-dialog-body bm-dialog-body__export">
     <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
 
+    <FolderViewHeader {directory} {selected} bind:searchParam={searchParam}/>
 
     <div class="bm-directory-view">
-        <header>
-            <button onclick={() => selectAll(directory, true)}> Select All</button>
-            <button onclick={() => selectAll(directory, false)}>De-Select All</button>
-        </header>
-
-        <FolderView {directory} {selected} />
+        <FolderView {directory} {selected} {searchParam}/>
     </div>
 
     <div class="bm-config-view">
@@ -113,11 +97,6 @@ let preserveMetaData = $state(true);
 </section>
 
 <style lang="scss">
-    header {
-        grid-area: header;
-        display: flex;
-    }
-
     .bm-directory-view {
         grid-area: directory;
 

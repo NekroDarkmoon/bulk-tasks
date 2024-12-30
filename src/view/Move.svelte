@@ -6,6 +6,7 @@ import { buildDirectory } from '../utils/buildDirectory.ts';
 import { localize } from '../utils/localize.ts';
 
 import FolderView from './components/FolderView.svelte';
+import FolderViewHeader from './components/FolderViewHeader.svelte';
 import SecondaryNav from './components/SecondaryNav.svelte';
 
 function getFolderList() {
@@ -31,9 +32,9 @@ async function moveDocs() {
 let { currentSecondaryTab = $bindable() } = $props();
 
 let directory = $state(buildDirectory(currentSecondaryTab));
+let searchParam = $state('');
 let selected = $state(new SvelteSet<string>());
 let folderId = $state('');
-
 let folderOptions = $derived(getFolderList());
 
 $effect(() => {
@@ -46,8 +47,10 @@ $effect(() => {
 <section class="bm-dialog-body bm-dialog-body__move">
     <SecondaryNav bind:currentSecondaryTab={currentSecondaryTab} bind:directory={directory}/>
 
+    <FolderViewHeader {directory} {selected} bind:searchParam={searchParam}/>
+
     <div class="bm-directory-view">
-        <FolderView {directory} {selected} />
+        <FolderView {directory} {selected} {searchParam}/>
     </div>
 
     <label class="bm-folder-select">

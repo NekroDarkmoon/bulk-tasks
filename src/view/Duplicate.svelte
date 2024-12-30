@@ -6,6 +6,7 @@ import { buildDirectory } from '../utils/buildDirectory.ts';
 import { localize } from '../utils/localize.ts';
 
 import FolderView from './components/FolderView.svelte';
+import FolderViewHeader from './components/FolderViewHeader.svelte';
 import SecondaryNav from './components/SecondaryNav.svelte';
 
 async function duplicateDocs() {
@@ -28,13 +29,16 @@ let namingConvention = $state('{name} {index}');
 let numCopies = $state(1);
 let duplicateToRoot = $state(false);
 let resetImages = $state(false);
+let searchParam = $state('');
 </script>
 
 <section class="bm-dialog-body bm-dialog-body__duplicate">
     <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
 
+    <FolderViewHeader {directory} {selected} bind:searchParam={searchParam}/>
+
     <div class="bm-directory-view">
-        <FolderView {directory} {selected} />
+        <FolderView {directory} {selected} {searchParam}/>
     </div>
 
     <div class="bm-config-view">

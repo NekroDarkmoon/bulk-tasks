@@ -14,20 +14,6 @@ async function deleteDocs() {
 	directory = buildDirectory(currentSecondaryTab);
 }
 
-function selectAll(folder, operation) {
-	operation ??= !selected.has(folder.uuid);
-
-	if (operation) {
-		selected.add(folder.uuid);
-		folder.entries.forEach((d) => selected.add(d.uuid));
-	} else {
-		selected.delete(folder.uuid);
-		folder.entries.forEach((d) => selected.delete(d.uuid));
-	}
-
-	(folder.children ?? []).forEach((f) => selectAll(f, operation));
-}
-
 let { currentSecondaryTab } = $props();
 
 let selected = new SvelteSet<string>();
@@ -38,10 +24,6 @@ let searchParam = $state('');
 <section class="bm-dialog-body">
     <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
 
-    <!-- <header>
-        <button onclick={() => selectAll(directory, true)}> Select All</button>
-        <button onclick={() => selectAll(directory, false)}>De-Select All</button>
-    </header> -->
     <FolderViewHeader {directory} {selected} bind:searchParam={searchParam}/>
 
     {#key currentSecondaryTab}
@@ -58,11 +40,6 @@ let searchParam = $state('');
 </section>
 
 <style lang="scss">
-    header {
-        grid-area: header;
-        display: flex;
-    }
-
     .bm-directory-view {
         grid-area: directory;
         overflow-y: scroll;

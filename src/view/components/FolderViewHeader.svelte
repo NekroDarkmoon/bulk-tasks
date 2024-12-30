@@ -34,9 +34,23 @@ let { directory, selected, searchParam = $bindable() } = $props();
 <style lang="scss">
     header {
         grid-area: header;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .bm-header__search {
+        input[type="text"] {
+            font-size: var(--bulk-tasks-sm-text);
+            height: 1.7rem;
+        }
     }
 
     .bm-header__selection-buttons {
         display: flex;
+
+        button {
+            font-size: var(--bulk-tasks-sm-text);
+        }
     }
 </style>

@@ -6,6 +6,7 @@ import { buildDirectory } from '../utils/buildDirectory.ts';
 import { localize } from '../utils/localize.ts';
 
 import FolderView from './components/FolderView.svelte';
+import FolderViewHeader from './components/FolderViewHeader.svelte';
 import SecondaryNav from './components/SecondaryNav.svelte';
 
 async function deleteDocs() {
@@ -18,32 +19,36 @@ function selectAll(folder, operation) {
 
 	if (operation) {
 		selected.add(folder.uuid);
-		folder.documents.forEach((d) => selected.add(d.uuid));
+		folder.entries.forEach((d) => selected.add(d.uuid));
 	} else {
 		selected.delete(folder.uuid);
-		folder.documents.forEach((d) => selected.delete(d.uuid));
+		folder.entries.forEach((d) => selected.delete(d.uuid));
 	}
 
-	(folder.folders ?? []).forEach((f) => selectAll(f, operation));
+	(folder.children ?? []).forEach((f) => selectAll(f, operation));
 }
 
 let { currentSecondaryTab } = $props();
 
 let selected = new SvelteSet<string>();
 let directory = $state(buildDirectory(currentSecondaryTab));
+let searchParam = $state('');
 </script>
 
 <section class="bm-dialog-body">
     <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
 
-    <header>
+    <!-- <header>
         <button onclick={() => selectAll(directory, true)}> Select All</button>
         <button onclick={() => selectAll(directory, false)}>De-Select All</button>
-    </header>
+    </header> -->
+    <FolderViewHeader {directory} {selected} bind:searchParam={searchParam}/>
 
-    <div class="bm-directory-view">
-        <FolderView {directory} {selected} />
-    </div>
+    {#key currentSecondaryTab}
+        <div class="bm-directory-view">
+            <FolderView {directory} {selected} {searchParam} />
+        </div>
+    {/key}
 
     <footer>
         <button onclick={deleteDocs}>

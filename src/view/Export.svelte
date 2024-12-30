@@ -24,13 +24,13 @@ function selectAll(folder, operation) {
 
 	if (operation) {
 		selected.add(folder.uuid);
-		folder.documents.forEach((d) => selected.add(d.uuid));
+		folder.entries.forEach((d) => selected.add(d.uuid));
 	} else {
 		selected.delete(folder.uuid);
-		folder.documents.forEach((d) => selected.delete(d.uuid));
+		folder.entries.forEach((d) => selected.delete(d.uuid));
 	}
 
-	(folder.folders ?? []).forEach((f) => selectAll(f, operation));
+	(folder.children ?? []).forEach((f) => selectAll(f, operation));
 }
 
 let { currentSecondaryTab } = $props();

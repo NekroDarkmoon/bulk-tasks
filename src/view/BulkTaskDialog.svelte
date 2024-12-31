@@ -1,5 +1,4 @@
 <script lang="ts">
-import { buildDirectory } from '../utils/buildDirectory.ts';
 import { localize } from '../utils/localize.ts';
 
 import Delete from './Delete.svelte';
@@ -59,8 +58,10 @@ const primaryTabs = {
 	// },
 };
 
+let { secondaryTab } = $props();
+
 let currentPrimaryTab = $state(primaryTabs.delete);
-let currentSecondaryTab = $state('actors');
+let currentSecondaryTab = $state(secondaryTab || 'actors');
 </script>
 
 <article class="bm-dialog-container">

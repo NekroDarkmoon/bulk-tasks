@@ -1,3 +1,4 @@
+import type { secondaryTabs } from '../config.ts';
 import { moduleId } from '../constants.ts';
 import { BulkTaskDialog } from '../dialogs/BulkTasks.svelte.ts';
 import { localize } from './localize.ts';
@@ -36,10 +37,11 @@ export function addBulkButton(app, html: JQuery) {
 	if (!parent) return;
 
 	parent.append(button);
+	console.log(app, html);
 
 	// Add Event Listener
 	button.addEventListener('click', (e) => {
 		e.preventDefault();
-		new BulkTaskDialog().render(true);
+		new BulkTaskDialog({ props: { secondaryTab: app.tabName } }).render(true);
 	});
 }

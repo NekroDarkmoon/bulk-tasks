@@ -27,6 +27,7 @@ export class BulkTaskDialog extends SvelteApplicationMixin(ApplicationV2) {
 
 		this.props = {
 			dialog: this,
+			...(options.props ?? {}),
 		};
 
 		this.promise = new Promise((resolve) => {

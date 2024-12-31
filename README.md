@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/Software_License-MIT-blue.svg)](https://mit-license.org/)
 
-![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/NekroDarkmoon/bulk-tasks/releases/latest/download/system.json&color=blue)
+![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/NekroDarkmoon/bulk-tasks/releases/latest/download/module.json&color=blue)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/NekroDarkmoon/bulk-tasks/latest/module.zip)
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fa5e&colorB=brightgreen)](https://forge-vtt.com/bazaar#package=bulk-tasks)
 [![Patreon](https://img.shields.io/badge/Patreon-F96854?logo=patreon&logoColor=white)](https://www.patreon.com/ForgemasterModules)

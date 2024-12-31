@@ -23,7 +23,7 @@ The interface provides multiple ways to select documents.
 
 Allows for the deletion of documents across multiple document types including folders. Depending on the number of documents being deleted this may take a while. Keep a lookout for the job completed notification to pop up.
 
-![](/imgs/delete_demo.gif)
+![](/assets/delete_demo.mp4)
 
 ### Duplicate Documents
 
@@ -32,6 +32,8 @@ Allows for the duplication of multiple documents. The following options are avai
 - **Number of Copies:** Select how many duplicates of each document to make.
 - **Duplicate to root:** Duplicate documents to main directory outside of any folders.
 - **Reset Images:** Reset the document's image to it's foundry provided default.
+
+![](/assets/duplicate.mp4)
 
 ### Export Documents
 
@@ -42,25 +44,27 @@ Allows for the export of documents across multiple document types. The exported 
 - **Preserve Metadata:** Preserve foundry metadata in the exported documents.
 
 
-![](/imgs/export_demo.gif)
+![](/assets/export_demo.png)
 
 ### Import Documents
 
 Allows for the import of documents across multiple document types. Depending on the number of documents this may take a while. Keep a lookout for the job completion notification to pop up.
 
-![](/imgs/import_demo.gif)
+![](/assets/import_demo.mp4)
 
 ### Move Documents
 
 Allows for the relocation of documents. Documents can be moved from root to folders, from folders to folders, and from folders to root.
 
 
-![](/imgs/move_demo.gif)
+![](/assets/move_demo.mp4)
 
 ### Rename Documents
 
 Allows for the renaming of multiple documents. The following options are available while duplicating documents.
 - **Naming Convention:** Pragmatically generate names for the duplicated documents.
+
+![](/assets/rename_demo.mp4)
 
 ### Installation Guide
 

@@ -106,6 +106,9 @@ class BulkTasksManager {
 	static async exportDocuments(ids: Set<string>, options: ExportOptions) {
 		if (ids.size === 0) return;
 
+		const namingConvention = options.namingConvention || this.DEFAULTS.EXPORT_NAMING_CONVENTION;
+		const now = new Date(Date.now()).toString();
+
 		const zip = new JSZip();
 		const exportDocs: any[] = [];
 		const fDocs = {};
@@ -182,7 +185,7 @@ class BulkTasksManager {
 				const docs = currNode.entries;
 				docs.forEach((doc) => {
 					folderZip.file(
-						`${this.#cleanName(doc.name)}.json`,
+						`${this.#cleanName(doc.name, { namingConvention, time: now, documentName: doc.documentName, documentId: doc.id || doc._id })}.json`,
 						JSON.stringify(cleanDoc(doc), null, '\t'),
 					);
 				});
@@ -198,7 +201,7 @@ class BulkTasksManager {
 					const docs = dir.root.entries;
 					docs.forEach((doc) => {
 						folderZip.file(
-							`${this.#cleanName(doc.name)}.json`,
+							`${this.#cleanName(doc.name, { namingConvention, time: now, documentName: doc.documentName, documentId: doc.id || doc._id })}.json`,
 							JSON.stringify(cleanDoc(doc), null, '\t'),
 						);
 					});
@@ -209,7 +212,10 @@ class BulkTasksManager {
 			});
 		} else {
 			Object.values(exportDocs).forEach((doc) => {
-				zip.file(`${this.#cleanName(doc.name)}.json`, JSON.stringify(cleanDoc(doc), null, '\t'));
+				zip.file(
+					`${this.#cleanName(doc.name, { namingConvention, time: now, documentName: doc.documentName, documentId: doc.id || doc._id })}.json`,
+					JSON.stringify(cleanDoc(doc), null, '\t'),
+				);
 			});
 		}
 
@@ -372,8 +378,30 @@ class BulkTasksManager {
 		}
 	}
 
-	static #cleanName(name: string): string {
-		return name.slugify({ strict: true, replacement: '-' });
+	static #cleanName(name: string, options?: ExportFileNamingOptions): string {
+		if (!options) return name.slugify({ strict: true, replacement: '-' });
+
+		const namingConvention = options.namingConvention;
+		if (namingConvention.toLowerCase().includes('{foundry}')) {
+			const filename = [
+				'fvtt',
+				options.documentName,
+				name?.slugify(),
+				options.documentId,
+			].filterJoin('-');
+			return filename;
+		}
+
+		console.log(namingConvention);
+		if (namingConvention.toLowerCase().includes('{bulk-tasks}')) {
+			return name.slugify({ strict: true, replacement: '-' });
+		}
+
+		return namingConvention
+			.replaceAll('{name}', name)
+			.replaceAll('{time}', options.time)
+			.replace(/\s+/g, ' ')
+			.trim();
 	}
 
 	static async #enrichString(str: string, options: EnrichOptions): Promise<string> {
@@ -421,6 +449,21 @@ class BulkTasksManager {
       </div>
     `;
 	}
+
+	static get exportNamingConvention(): string {
+		return `
+      <div class="bm-naming-convention__hint">
+        <span>Attributes</span>
+
+        <ul>
+          <li>{name} : Document Name</li>
+          <li>{time} : Current Timestamp</li>
+          <li>{foundry} : Foundry export naming scheme</li>
+          <li>{bulk-tasks} : Bulk Tasks export naming scheme</li>
+        </ul>
+      </div>
+    `;
+	}
 }
 
 export interface ExportOptions {
@@ -428,6 +471,13 @@ export interface ExportOptions {
 	preserveFolders: boolean;
 	preserveMetaData: boolean;
 	zipName: string;
+}
+
+export interface ExportFileNamingOptions {
+	namingConvention: string;
+	time: string;
+	documentName: string;
+	documentId: string;
 }
 
 export interface DuplicateOptions {

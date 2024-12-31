@@ -51,12 +51,12 @@ let searchParam = $state('');
             />
         </label>
 
-        <!-- <label class="bm-config-view__label">
+        <label class="bm-config-view__label">
             <span>
                 File Naming Convention
                 <i
                     class="fa-solid fa-circle-question"
-                    data-tooltip={BulkTasksManager.namingConventionHint}
+                    data-tooltip={BulkTasksManager.exportNamingConvention}
                 >
                 </i>
             </span>
@@ -66,7 +66,7 @@ let searchParam = $state('');
                 type="text"
                 bind:value={namingConvention}
             />
-        </label> -->
+        </label>
 
         <label class="bm-config-view__label bm-config-view__label--row">
             <input

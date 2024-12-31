@@ -76,7 +76,14 @@ let searchParam = $state('');
                 type="checkbox"
             >
 
-            <span>Duplicate to root</span>
+            <span>
+                Duplicate to root
+                <i
+                    class="fa-solid fa-circle-question"
+                    data-tooltip="Duplicate files to outside of any folder."
+                >
+                </i>
+            </span>
         </label>
 
         <label class="bm-config-view__label bm-config-view__label--row">
@@ -86,7 +93,14 @@ let searchParam = $state('');
                 type="checkbox"
             >
 
-            <span>Reset Images</span>
+            <span>
+                Reset Images
+                <i
+                    class="fa-solid fa-circle-question"
+                    data-tooltip="Reset the main document's image to the default image."
+                >
+                </i>
+            </span>
         </label>
     </div>
 

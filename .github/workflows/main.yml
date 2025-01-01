@@ -59,7 +59,7 @@ jobs:
     # Create a zip file with all files required by the system to add to the release
     - name: Zip Files
       working-directory: ./
-      run: zip -r ./module.zip LICENSE README.MD module.json bulkTasks.js bulkTasks.js.map bulkTasks.css lang/
+      run: zip -r ./module.zip LICENSE README.md module.json bulkTasks.js bulkTasks.js.map bulkTasks.css lang/
 
     # Create a release for this specific version
     - name: Update Release with Files

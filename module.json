@@ -14,7 +14,7 @@
 	"flags": {},
 	"version": "Replaced",
 	"compatibility": {
-		"minimum": 10,
+		"minimum": 12,
 		"verified": 12
 	},
 	"esmodules": ["bulkTasks.js"],

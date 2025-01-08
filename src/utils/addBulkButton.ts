@@ -37,7 +37,6 @@ export function addBulkButton(app, html: JQuery) {
 	if (!parent) return;
 
 	parent.append(button);
-	console.log(app, html);
 
 	// Add Event Listener
 	button.addEventListener('click', (e) => {

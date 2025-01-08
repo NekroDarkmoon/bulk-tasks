@@ -2,6 +2,7 @@
 //                      Imports
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 import './scss/main.scss';
+
 import { moduleId, moduleName } from './constants.ts';
 import { registerSettings } from './settings.ts';
 import { addBulkButton } from './utils/addBulkButton.ts';

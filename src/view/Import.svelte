@@ -81,7 +81,7 @@ let documentCount = $derived(documents.length);
         gap: 0.25rem;
         column-gap: 0.375rem;
         padding: 0.5rem 0.5rem 0.25rem;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--bulk-tasks-import-header-border-color);
     }
 
     .bm-drop {
@@ -92,8 +92,8 @@ let documentCount = $derived(documents.length);
         height: 4rem;
         flex-grow: 1;
         flex-shrink: 0;
-        background-color: #ccc;
-        border: 1px solid #aaa;
+        background-color: var(--bulk-tasks-import-drop-background-color);
+        border: 1px solid var(--bulk-tasks-import-drop-border-color);
         border-radius: 5px;
 
         &__input {
@@ -109,7 +109,7 @@ let documentCount = $derived(documents.length);
         &__icon {
             position: absolute;
             font-size: 1.75rem;
-            color: #777;
+            color: var(--bulk-tasks-import-drop-icon-color);
             z-index: 0;
         }
     }
@@ -121,23 +121,28 @@ let documentCount = $derived(documents.length);
         width: 4rem;
         margin: 0;
         padding: 0;
-        background-color: #4caf50;
-        border-color: #449d48;
-        box-shadow: inset 0 0 10px #3d8b40;
+        background-color: var(--bulk-tasks-import-button-background-color);
+        border-color: var(--bulk-tasks-import-button-border-color);
+        box-shadow: inset 0 0 10px var(--bulk-tasks-import-button-shadow-color);
 
         &--disabled {
-            background-color: #ccc;
-            border-color: #bfbfbf;
-            box-shadow: inset 0 0 10px #b3b3b3;
+            background-color: var(--bulk-tasks-import-button-background-color-disabled);
+            border-color: var(--bulk-tasks-import-button-border-color-disabled);
+            box-shadow: inset 0 0 10px var(--bulk-tasks-import-button-shadow-color-disabled);
         }
 
         &__icon {
-            color: var(--bulk-tasks-light-text-color);
+            color: var(--bulk-tasks-import-button-icon-color);
             font-size: var(--bulk-tasks-xxl-text);
 
             &--disabled {
-                color: var(--bulk-tasks-dark-text-color);
+                color: var(--bulk-tasks-import-button-icon-color-disabled);
             }
+        }
+
+        &:hover,
+        &:focus {
+            box-shadow: none;
         }
     }
 

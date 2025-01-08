@@ -22,25 +22,29 @@
 
   --bulk-tasks-dark-text-glow-color: hsl(0, 66%, 53%);
 
-  --bulk-tasks-navigation-text-color: hsl(38, 38%, 94%);
-  --bulk-tasks-navigation-active-text-color: hsl(38, 38%, 94%);
-
-  --bulk-tasks-secondary-navigation-text-color: var(--bulk-tasks-medium-text-color);
-  --bulk-tasks-secondary-navigation-active-text-color: hsl(1, 51%, 34%);
-
-  --bulk-tasks-sidebar-text-color: hsl(36, 53%, 80%);
-  --bulk-tasks-search-input-border-color: hsl(41, 18%, 54%);
-  --bulk-tasks-currency-input-border-color: var(--bulk-tasks-search-input-border-color);
-  --bulk-tasks-dark-input-text-color: var(--bulk-tasks-light-text-color);
-
-
   /** BASE SHEET **/
   --bulk-tasks-application-background: hsl(0, 0%, 96%);
 
   /** NAVIGATION **/
   --bulk-tasks-primary-nav-background-color: hsl(240, 5%, 11%);
+  --bulk-tasks-primary-nav-text-color: hsl(38, 38%, 94%);
   --bulk-tasks-primary-nav-element-background-color: hsl(240, 6%, 21%);
   --bulk-tasks-secondary-nav-selected-text-color: hsl(38, 38%, 94%);
+
+  /** Import Tab **/
+  --bulk-tasks-import-header-border-color: hsl(0, 0%, 80%);
+  --bulk-tasks-import-drop-background-color: hsl(0, 0%, 80%);
+  --bulk-tasks-import-drop-border-color: hsl(0, 0%, 67%);
+  --bulk-tasks-import-drop-icon-color: hsl(0, 0%, 47%);
+
+  --bulk-tasks-import-button-background-color: hsl(122, 39%, 49%);
+  --bulk-tasks-import-button-border-color: hsl(123, 40%, 44%);
+  --bulk-tasks-import-button-shadow-color: hsl(122, 39%, 39%);
+  --bulk-tasks-import-button-background-color-disabled: hsl(0, 0%, 80%);
+  --bulk-tasks-import-button-border-color-disabled: hsl(0, 0%, 75%);
+  --bulk-tasks-import-button-shadow-color-disabled: hsl(0, 0%, 70%);
+  --bulk-tasks-import-button-icon-color: hsl(38, 38%, 94%);
+  --bulk-tasks-import-button-icon-color-disabled: hsl(0, 0%, 47%);
 
   /** ANIMATION **/
   --bulk-tasks-standard-transition: all 0.15s ease-in-out;

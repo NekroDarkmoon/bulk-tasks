@@ -7,7 +7,7 @@ import Export from './Export.svelte';
 import Import from './Import.svelte';
 import Move from './Move.svelte';
 import Rename from './Rename.svelte';
-import Update from './Update.svelte';
+// import Update from './Update.svelte';
 
 function changePrimaryTab(id: string) {
 	currentPrimaryTab = primaryTabs[id] ?? primaryTabs.delete;
@@ -97,7 +97,7 @@ let currentSecondaryTab = $state(secondaryTab || 'actors');
         flex-direction: column;
         justify-content: space-around;
         background-color: var(--bulk-tasks-primary-nav-background-color);
-        color: var(--bulk-tasks-light-text-color);
+        color: var(--bulk-tasks-primary-nav-text-color);
 
         &__element {
             width: 3rem;

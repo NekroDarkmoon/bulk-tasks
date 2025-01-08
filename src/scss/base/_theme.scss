@@ -2,7 +2,7 @@
 
 .theme-dark {
   /** TEXT COLORS **/
-  --bulk-tasks-dark-text-color: hsl(36, 53%, 80%);
+  --bulk-tasks-dark-text-color: hsl(36, 53%, 85%);
   --bulk-tasks-dark-text-hover-color: hsl(36, 58%, 90%);
   --bulk-tasks-dark-text-glow-color: var(--bulk-tasks-dark-text-color);
   --bulk-tasks-light-text-color: hsl(50, 14%, 9%);
@@ -14,26 +14,27 @@
   --bulk-tasks-sidebar-text-color: hsl(36, 53%, 80%);
   --bulk-tasks-code-editor-text-color: hsl(217, 34%, 88%);
 
-  /** OTHER COLORS **/
-  --bulk-tasks-box-background-color: hsl(293, 10%, 17%);
-  --bulk-tasks-sheet-background-color: unset;
-  --bulk-tasks-accent-color: hsl(278, 10%, 42%);
-  --bulk-tasks-range-slider-handle-color: var(--bulk-tasks-dark-text-color);
-  --bulk-tasks-hover-tag-text-color: var(--bulk-tasks-dark-text-color);
-  --bulk-tasks-selected-tag-text-color: var(--bulk-tasks-dark-text-color);
-  --bulk-tasks-hp-bar-background: hsl(293, 10%, 17%);
-  --bulk-tasks-sheet-background: hsl(247, 16%, 11%);
-  --bulk-tasks-navigation-background-color: hsl(293, 10%, 17%);
-  --bulk-tasks-navigation-border-color: hsl(293, 10%, 25%);
-  --bulk-tasks-navigation-box-shadow: var(--bulk-tasks-box-shadow);
-  --bulk-tasks-navigation-button-box-shadow: 0 0 0 1px hsl(36, 53%, 80%), 0 0 0 2px var(--bulk-tasks-navigation-border-color),
-    0 3px 5px rgba(0, 0, 0, 0.4);
-  --bulk-tasks-search-input-border-color: none;
-  --bulk-tasks-currency-input-border-color: none;
-  --bulk-tasks-dark-input-text-color: hsl(36, 53%, 80%);
-  --bulk-tasks-code-editor-background-color: hsl(293, 10%, 17%);
-  --bulk-tasks-card-border-color: hsl(293, 10%, 25%);
-  --bulk-tasks-ac-border-color: hsl(293, 10%, 25%);
-  --bulk-tasks-initiative-border-color: hsl(293, 10%, 25%);
-  --bulk-tasks-icon-button-border-color: hsl(293, 10%, 25%);
+  /** BASE SHEET **/
+  --bulk-tasks-application-background: hsla(247, 31%, 6%, 0.9);
+
+  /** NAVIGATION **/
+  --bulk-tasks-primary-nav-background-color: hsl(240, 5%, 11%);
+  --bulk-tasks-primary-nav-text-color: hsl(36, 53%, 80%);
+  --bulk-tasks-primary-nav-element-background-color: hsl(240, 6%, 21%);
+  --bulk-tasks-secondary-nav-selected-text-color: hsl(36, 53%, 80%);
+
+  /** Import Tab **/
+  --bulk-tasks-import-header-border-color: hsla(0, 0%, 80%, 0.637);
+  --bulk-tasks-import-drop-background-color: hsl(293, 10%, 17%);
+  --bulk-tasks-import-drop-border-color: transparent;
+  --bulk-tasks-import-drop-icon-color: hsl(0, 2%, 75%);
+
+  --bulk-tasks-import-button-background-color: hsl(122, 65%, 24%);
+  --bulk-tasks-import-button-border-color: transparent;
+  --bulk-tasks-import-button-shadow-color: transparent;
+  --bulk-tasks-import-button-background-color-disabled: hsl(293, 10%, 17%);
+  --bulk-tasks-import-button-border-color-disabled: transparent;
+  --bulk-tasks-import-button-shadow-color-disabled: transparent;
+  --bulk-tasks-import-button-icon-color: hsl(38, 38%, 94%);
+  --bulk-tasks-import-button-icon-color-disabled: hsl(0, 0%, 43%);
 }

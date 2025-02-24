@@ -52,4 +52,12 @@ export function registerSettings() {
 		},
 		default: 'gmOnly',
 	});
+
+	game.settings?.register(moduleId, 'keepIdsOnImport', {
+		name: 'BulkTasks.settings.keepIdsOnImport.title',
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: false,
+	});
 }

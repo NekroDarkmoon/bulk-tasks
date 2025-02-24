@@ -244,13 +244,17 @@ class BulkTasksManager {
 		// Prepare data
 		const importData: Record<string, any[]> = documents.reduce((acc, data) => {
 			const type = inferDocumentType(data);
-			console.log(type);
-			if (!type) return;
+			console.log(`${data._id} = ${type}`);
+			if (!type) return acc;
 
 			acc[type] ??= [];
 			acc[type].push(data);
 			return acc;
 		}, {});
+
+		let operation = {};
+		if (game.settings?.get(moduleId, 'keepIdsOnImport') as boolean)
+			operation = { keepId: true, keepEmbeddedIds: true };
 
 		for await (const [type, docs] of Object.entries(importData)) {
 			const cls = CONFIG[type].documentClass;
@@ -261,7 +265,7 @@ class BulkTasksManager {
 			}
 
 			for await (const chunk of chunks) {
-				await cls.createDocuments(chunk);
+				await cls.createDocuments(chunk, operation);
 			}
 		}
 	}

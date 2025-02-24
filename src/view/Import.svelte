@@ -15,14 +15,19 @@ async function handleFileSelection(event) {
 }
 
 async function importData() {
+	const options = {
+		keepIdsOnImport,
+	};
+
 	loading = true;
-	await BulkTasksManager.importDocuments(documents);
+	await BulkTasksManager.importDocuments(documents, options);
 	loading = false;
 }
 
 let loading = $state(false);
 let documents: any[] = $state([]);
 let documentCount = $derived(documents.length);
+let keepIdsOnImport = $state(BulkTasksManager.DEFAULTS.KEEP_IDS_ON_IMPORT);
 </script>
 
 <section class="bm-dialog-body bm-dialog-body__import">
@@ -61,6 +66,25 @@ let documentCount = $derived(documents.length);
         </button>
 
     </header>
+
+    <div class="bm-config-view">
+        <label class="bm-config-view__label bm-config-view__label--row">
+            <input
+                class="bm-config-view__input"
+                bind:checked={keepIdsOnImport}
+                type="checkbox"
+            >
+
+            <span>
+                Keep IDs on import
+                <i
+                    class="fa-solid fa-circle-question"
+                    data-tooltip="Preserve any document IDs in the imported documents."
+                >
+                </i>
+            </span>
+        </label>
+    </div>
 
     <div class="bm-document-list">
         <ul>

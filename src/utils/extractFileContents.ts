@@ -6,8 +6,10 @@ export async function extractFileContents(file: File) {
 		try {
 			const data = JSON.parse(content);
 
-			if (data.package) documents.push(...data.items);
-			else documents.push(data);
+			if (data.package) {
+				documents.push(...data.items);
+				documents.push(...data.folders);
+			} else documents.push(data);
 		} catch (err) {
 			console.warn(`Failed to parse datable due to bad entry: ${file.name}`);
 			console.error(err);

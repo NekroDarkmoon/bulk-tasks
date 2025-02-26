@@ -10,7 +10,7 @@ class BulkTasksManager {
 			EXPORT_NAMING_CONVENTION:
 				// @ts-expect-error
 				(game.settings?.get(moduleId, 'defaultExportNamingConvention') as string) || '{foundry}',
-			EXPORT_ZIP_NAME:
+			EXPORT_FILE_NAME:
 				// @ts-expect-error
 				(game.settings?.get(moduleId, 'defaultExportZipName') as string) || 'bulk-tasks-export',
 			DUPLICATE_NAMING_CONVENTION:
@@ -106,12 +106,8 @@ class BulkTasksManager {
 	static async exportDocuments(ids: Set<string>, options: ExportOptions) {
 		if (ids.size === 0) return;
 
-		const namingConvention = options.namingConvention || this.DEFAULTS.EXPORT_NAMING_CONVENTION;
-		const now = new Date(Date.now()).toString();
-
-		const zip = new JSZip();
 		const exportDocs: any[] = [];
-		const fDocs = {};
+		const fDocs: any = {};
 
 		// Prepare data
 		ids.forEach((uuid) => {
@@ -135,6 +131,7 @@ class BulkTasksManager {
 
 		const cleanDoc = (doc) => {
 			const data = doc.toCompendium(null);
+			data._id = doc._id;
 			if (options.preserveMetaData) {
 				data.flags.exportSource = {
 					// @ts-expect-error
@@ -147,6 +144,50 @@ class BulkTasksManager {
 
 			return data;
 		};
+
+		let exportBlob: Blob | undefined = undefined;
+		let filenameSuffix = '';
+
+		// The ZIP export automatically applies the correct filename suffix based on the MIME
+		// type in the Blob; however it was found for JSON it may not apply the correct extension
+		// if "some application" had registered against the JSON MIME type.
+		if (options.exportFileFormat === ExportFileFormat.JsonPackage) {
+			exportBlob = BulkTasksManager.exportDocumentsJsonPackage(exportDocs, options, cleanDoc);
+			filenameSuffix = '.json';
+		} else {
+			exportBlob = await BulkTasksManager.exportDocumentsZipFileAsync(
+				exportDocs,
+				fDocs,
+				options,
+				cleanDoc,
+			);
+		}
+
+		const a = document.createElement('a');
+		a.href = window.URL.createObjectURL(exportBlob);
+		a.download = (options.fileName || this.DEFAULTS.EXPORT_FILE_NAME) + filenameSuffix;
+
+		// Dispatch a click event to the element
+		a.dispatchEvent(
+			new MouseEvent('click', {
+				bubbles: true,
+				cancelable: true,
+				view: window,
+			}),
+		);
+		setTimeout(() => window.URL.revokeObjectURL(a.href), 100);
+	}
+
+	static async exportDocumentsZipFileAsync(
+		exportDocs: any[],
+		fDocs,
+		options: ExportOptions,
+		cleanDoc: (doc: any) => any,
+	): Promise<Blob> {
+		const namingConvention = options.namingConvention || this.DEFAULTS.EXPORT_NAMING_CONVENTION;
+		const now = new Date(Date.now()).toString();
+
+		const zip = new JSZip();
 
 		// Create zip data
 		const folderKeys = Object.keys(fDocs);
@@ -219,23 +260,57 @@ class BulkTasksManager {
 			});
 		}
 
-		// Download zip
 		console.log('Generating Zip');
-		zip.generateAsync({ type: 'blob', compression: 'DEFLATE' }).then((blob) => {
-			const a = document.createElement('a');
-			a.href = window.URL.createObjectURL(blob);
-			a.download = options.zipName || this.DEFAULTS.EXPORT_ZIP_NAME;
+		return await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+	}
 
-			// Dispatch a click event to the element
-			a.dispatchEvent(
-				new MouseEvent('click', {
-					bubbles: true,
-					cancelable: true,
-					view: window,
-				}),
-			);
-			setTimeout(() => window.URL.revokeObjectURL(a.href), 100);
+	static exportDocumentsJsonPackage(
+		exportDocs: any[],
+		options: ExportOptions,
+		cleanDoc: (doc: any) => any,
+	): Blob {
+		const unprocessedFolderIds: string[] = [];
+		const discoveredFolderIds: Set<string> = new Set();
+		const folders: any[] = [];
+
+		// In order to discover all of the folders we need, we essentially need to walk "down" the folder
+		// tree from each documented until we hit the root.
+		//
+		// Folders can appear multiple times in this walk, so we use discoveredFolderIds to track the
+		// folderIds we've seen, and unprocessedFolderIds to track the folders we have yet to process.
+		exportDocs.forEach((d) => {
+			const folderId = d.folder?.id;
+			if (folderId && !discoveredFolderIds.has(folderId)) {
+				unprocessedFolderIds.push(folderId);
+				discoveredFolderIds.add(folderId);
+			}
 		});
+
+		while (unprocessedFolderIds.length > 0) {
+			const folderId = unprocessedFolderIds.pop()!;
+			const doc = game.folders.get(folderId);
+			if (doc) {
+				folders.push(doc);
+				const parentFolderId = doc.folder?.id;
+				if (parentFolderId && !discoveredFolderIds.has(parentFolderId)) {
+					unprocessedFolderIds.push(parentFolderId);
+					discoveredFolderIds.add(parentFolderId);
+				}
+			}
+		}
+
+		const packageDict = {
+			package: {},
+			items: exportDocs.map((d) => {
+				return cleanDoc(d);
+			}),
+			folders: folders.map((d) => {
+				return cleanDoc(d);
+			}),
+		};
+		const packageJson: string = JSON.stringify(packageDict, null, '\t');
+		const packageBlob = new Blob([packageJson], { type: 'application/json' });
+		return packageBlob;
 	}
 
 	static async importDocuments(documents: any[]) {
@@ -466,11 +541,17 @@ class BulkTasksManager {
 	}
 }
 
+export enum ExportFileFormat {
+	Zip = 0,
+	JsonPackage = 1,
+}
+
 export interface ExportOptions {
 	namingConvention: string;
 	preserveFolders: boolean;
 	preserveMetaData: boolean;
-	zipName: string;
+	fileName: string;
+	exportFileFormat: ExportFileFormat;
 }
 
 export interface ExportFileNamingOptions {

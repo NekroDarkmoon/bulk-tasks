@@ -35,7 +35,8 @@
 					"GMOnly": "GM Only",
 					"all": "Everyone"
 				}
-			}
+			},
+			"keepIdsOnImport": { "title": "Keep IDs on Import" }
 		}
 	},
 	"BM.deleteTitle": "Delete Selected",

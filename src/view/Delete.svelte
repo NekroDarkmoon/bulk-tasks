@@ -11,6 +11,7 @@ import SecondaryNav from './components/SecondaryNav.svelte';
 
 async function deleteDocs() {
 	await BulkTasksManager.deleteDocuments(new Set(selected));
+	selected.clear();
 	directory = buildDirectory(currentSecondaryTab);
 }
 

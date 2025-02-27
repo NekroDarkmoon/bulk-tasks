@@ -37,6 +37,11 @@ const isRollTable = (source: Record<string, any>): boolean => {
 	return 'results' in source && 'displayRoll' in source && 'replacement' in source;
 };
 
+const isFolder = (source: Record<string, any>): boolean => {
+	/* Refer to: https://foundryvtt.com/api/interfaces/foundry.types.FolderData.html */
+	return 'name' in source && 'type' in source && 'sorting' in source;
+};
+
 export function inferDocumentType(doc): string | undefined {
 	if (isActor(doc)) return 'Actor';
 	if (isItem(doc)) return 'Item';
@@ -45,5 +50,6 @@ export function inferDocumentType(doc): string | undefined {
 	if (isScene(doc)) return 'Scene';
 	if (isPlaylist(doc)) return 'Playlist';
 	if (isRollTable(doc)) return 'RollTable';
+	if (isFolder(doc)) return 'Folder';
 	return undefined;
 }

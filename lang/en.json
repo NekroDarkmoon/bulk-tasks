@@ -25,7 +25,7 @@
 				"hint": ""
 			},
 			"defaultExportNamingConvention": { "title": "Default File Naming Convention for Exports." },
-			"defaultExportZipName": { "title": "Default Zip Name for Exports." },
+			"defaultExportFileName": { "title": "Default File Name for Exports." },
 			"defaultDuplicateNamingConvention": { "title": "Default Naming Convention for Duplicates." },
 			"defaultRenameNamingConvention": { "title": "Default File Naming Convention for Renames." },
 			"permDefaultName": {

@@ -9,8 +9,16 @@ export function registerSettings() {
 		default: '{foundry}',
 	});
 
+	/*
+	 * The name 'defaultExportZipName' originates from a time when only ZIP files
+	 * could be exported.  Even though this now applies to the file regardless of the
+	 * file format, the name has been maintained in order to ensure backwards
+	 * compatability with pre-existing configuration.
+	 *
+	 * Note that the name never included the '.zip' suffix.
+	 */
 	game.settings?.register(moduleId, 'defaultExportZipName', {
-		name: 'BulkTasks.settings.defaultExportZipName.title',
+		name: 'BulkTasks.settings.defaultExportFileName.title',
 		scope: 'world',
 		config: true,
 		type: String,

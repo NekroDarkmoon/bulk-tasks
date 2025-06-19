@@ -326,8 +326,9 @@ class BulkTasksManager {
         return acc;
       }
 
-      if (folderIds.has(parentFolder.id)) return acc;
-      if (parentFolder.ancestors.some((f) => folderIds.has(f.id))) return acc;
+      if (folderIds.has(parentFolder.id) && folderId) return acc;
+      if (parentFolder.ancestors.some((f) => folderIds.has(f.id)) && folderId)
+        return acc;
 
       acc.push({ _id: doc.id ?? doc._id, folder: folderId });
       return acc;
@@ -343,8 +344,9 @@ class BulkTasksManager {
         return acc;
       }
 
-      if (folderIds.has(parentFolder.id)) return acc;
-      if (parentFolder.ancestors.some((f) => folderIds.has(f.id))) return acc;
+      if (folderIds.has(parentFolder.id) && folderId) return acc;
+      if (parentFolder.ancestors.some((f) => folderIds.has(f.id)) && folderId)
+        return acc;
 
       acc.push({ _id: doc.id ?? doc._id, folder: folderId });
       return acc;

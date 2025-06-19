@@ -1,44 +1,44 @@
 <script lang="ts">
-import { SvelteSet } from 'svelte/reactivity';
+    import { SvelteSet } from "svelte/reactivity";
 
-import { BulkTasksManager } from '../managers/TaskManager.ts';
-import { buildDirectory } from '../utils/buildDirectory.ts';
-import { localize } from '../utils/localize.ts';
+    import { BulkTasksManager } from "../managers/TaskManager.ts";
+    import { buildDirectory } from "../utils/buildDirectory.ts";
+    import { localize } from "../utils/localize.ts";
 
-import FolderView from './components/FolderView.svelte';
-import FolderViewHeader from './components/FolderViewHeader.svelte';
-import SecondaryNav from './components/SecondaryNav.svelte';
+    import FolderView from "./components/FolderView.svelte";
+    import FolderViewHeader from "./components/FolderViewHeader.svelte";
+    import SecondaryNav from "./components/SecondaryNav.svelte";
 
-async function duplicateDocs() {
-	const options = {
-		namingConvention,
-		numCopies,
-		duplicateToRoot,
-		resetImages,
-	};
+    async function duplicateDocs() {
+        const options = {
+            namingConvention,
+            numCopies,
+            duplicateToRoot,
+            resetImages,
+        };
 
-	await BulkTasksManager.duplicateDocuments(new Set(selected), options);
-	directory = buildDirectory(currentSecondaryTab);
-}
+        await BulkTasksManager.duplicateDocuments(new Set(selected), options);
+        directory = buildDirectory(currentSecondaryTab);
+    }
 
-let { currentSecondaryTab } = $props();
+    let { currentSecondaryTab } = $props();
 
-let selected = new SvelteSet<string>();
-let directory = $state(buildDirectory(currentSecondaryTab));
-let namingConvention = $state('{name} {index}');
-let numCopies = $state(1);
-let duplicateToRoot = $state(false);
-let resetImages = $state(false);
-let searchParam = $state('');
+    let selected = new SvelteSet<string>();
+    let directory = $state(buildDirectory(currentSecondaryTab));
+    let namingConvention = $state("{name} {index}");
+    let numCopies = $state(1);
+    let duplicateToRoot = $state(false);
+    let resetImages = $state(false);
+    let searchParam = $state("");
 </script>
 
 <section class="bm-dialog-body bm-dialog-body__duplicate">
-    <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
+    <SecondaryNav {currentSecondaryTab} bind:directory />
 
-    <FolderViewHeader {directory} {selected} bind:searchParam={searchParam}/>
+    <FolderViewHeader {directory} {selected} bind:searchParam />
 
     <div class="bm-directory-view">
-        <FolderView {directory} {selected} {searchParam}/>
+        <FolderView {directory} {selected} {searchParam} />
     </div>
 
     <div class="bm-config-view">
@@ -74,7 +74,7 @@ let searchParam = $state('');
                 class="bm-config-view__input"
                 bind:checked={duplicateToRoot}
                 type="checkbox"
-            >
+            />
 
             <span>
                 Duplicate to root
@@ -91,7 +91,7 @@ let searchParam = $state('');
                 class="bm-config-view__input"
                 bind:checked={resetImages}
                 type="checkbox"
-            >
+            />
 
             <span>
                 Reset Images
@@ -105,7 +105,7 @@ let searchParam = $state('');
     </div>
 
     <footer>
-        <button onclick={duplicateDocs}>
+        <button class="bulk-tasks-button" onclick={duplicateDocs}>
             {localize("BulkTasks.duplicate")}
         </button>
     </footer>

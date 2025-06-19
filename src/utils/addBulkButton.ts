@@ -1,4 +1,3 @@
-import type { secondaryTabs } from "../config.ts";
 import { moduleId } from "../constants.ts";
 import { BulkTaskDialog } from "../dialogs/BulkTasks.svelte.ts";
 import { localize } from "./localize.ts";

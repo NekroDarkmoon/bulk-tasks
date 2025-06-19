@@ -1,0 +1,8 @@
+.bulk-tasks-button {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    width: 100%;
+    cursor: pointer;
+    transition: var(--bulk-tasks-standard-transition);
+}

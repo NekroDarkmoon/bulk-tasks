@@ -1,6 +1,7 @@
-@use 'base/variables';
-@use 'base/theme';
-@use 'base/typography';
-@use 'base/dialog';
+@use "base/base";
+@use "base/variables";
+@use "base/theme";
+@use "base/typography";
+@use "base/dialog";
 
-@use 'components/body';
+@use "components/body";

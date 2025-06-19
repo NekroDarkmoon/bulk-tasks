@@ -1,33 +1,35 @@
 <script lang="ts">
-import { BulkTasksManager } from '../managers/TaskManager.ts';
-import { extractFileContents } from '../utils/extractFileContents.ts';
-import { localize } from '../utils/localize.ts';
+    import { BulkTasksManager } from "../managers/TaskManager.ts";
+    import { extractFileContents } from "../utils/extractFileContents.ts";
+    import { localize } from "../utils/localize.ts";
 
-async function handleFileSelection(event) {
-	event.preventDefault();
-	event.stopPropagation();
+    async function handleFileSelection(event) {
+        event.preventDefault();
+        event.stopPropagation();
 
-	loading = true;
-	const files = [...event.target.files];
-	const updates = await Promise.all(files.map((f) => extractFileContents(f)));
-	documents = documents.concat(updates).flat();
-	loading = false;
-}
+        loading = true;
+        const files = [...event.target.files];
+        const updates = await Promise.all(
+            files.map((f) => extractFileContents(f)),
+        );
+        documents = documents.concat(updates).flat();
+        loading = false;
+    }
 
-async function importData() {
-	const options = {
-		keepIdsOnImport,
-	};
+    async function importData() {
+        const options = {
+            keepIdsOnImport,
+        };
 
-	loading = true;
-	await BulkTasksManager.importDocuments(documents, options);
-	loading = false;
-}
+        loading = true;
+        await BulkTasksManager.importDocuments(documents, options);
+        loading = false;
+    }
 
-let loading = $state(false);
-let documents: any[] = $state([]);
-let documentCount = $derived(documents.length);
-let keepIdsOnImport = $state(BulkTasksManager.DEFAULTS.KEEP_IDS_ON_IMPORT);
+    let loading = $state(false);
+    let documents: any[] = $state([]);
+    let documentCount = $derived(documents.length);
+    let keepIdsOnImport = $state(BulkTasksManager.DEFAULTS.KEEP_IDS_ON_IMPORT);
 </script>
 
 <section class="bm-dialog-body bm-dialog-body__import">
@@ -47,11 +49,9 @@ let keepIdsOnImport = $state(BulkTasksManager.DEFAULTS.KEEP_IDS_ON_IMPORT);
         </label>
 
         <button
-            class="bm-import-button"
+            class="bulk-tasks-button bm-import-button"
             class:bm-import-button--disabled={documentCount === 0}
-            data-tooltip={documentCount
-                ? "Import"
-                : "Nothing to Import"}
+            data-tooltip={documentCount ? "Import" : "Nothing to Import"}
             data-tooltip-direction="DOWN"
             onclick={importData}
             disabled={documentCount === 0}
@@ -64,7 +64,6 @@ let keepIdsOnImport = $state(BulkTasksManager.DEFAULTS.KEEP_IDS_ON_IMPORT);
                 class:bm-import-button__icon--disabled={documentCount === 0}
             ></i>
         </button>
-
     </header>
 
     <div class="bm-config-view">
@@ -73,7 +72,7 @@ let keepIdsOnImport = $state(BulkTasksManager.DEFAULTS.KEEP_IDS_ON_IMPORT);
                 class="bm-config-view__input"
                 bind:checked={keepIdsOnImport}
                 type="checkbox"
-            >
+            />
 
             <span>
                 Keep IDs on import
@@ -150,9 +149,12 @@ let keepIdsOnImport = $state(BulkTasksManager.DEFAULTS.KEEP_IDS_ON_IMPORT);
         box-shadow: inset 0 0 10px var(--bulk-tasks-import-button-shadow-color);
 
         &--disabled {
-            background-color: var(--bulk-tasks-import-button-background-color-disabled);
+            background-color: var(
+                --bulk-tasks-import-button-background-color-disabled
+            );
             border-color: var(--bulk-tasks-import-button-border-color-disabled);
-            box-shadow: inset 0 0 10px var(--bulk-tasks-import-button-shadow-color-disabled);
+            box-shadow: inset 0 0 10px
+                var(--bulk-tasks-import-button-shadow-color-disabled);
         }
 
         &__icon {

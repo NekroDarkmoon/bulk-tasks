@@ -1,26 +1,30 @@
 <script lang="ts">
-import { secondaryTabs } from '../../config.ts';
-import { buildDirectory } from '../../utils/buildDirectory.ts';
+    import { secondaryTabs } from "../../config.ts";
+    import { buildDirectory } from "../../utils/buildDirectory.ts";
 
-function changeSecondaryTab(id: string) {
-	currentSecondaryTab = id;
-	directory = buildDirectory(id);
-}
+    function changeSecondaryTab(id: string) {
+        currentSecondaryTab = id;
+        directory = buildDirectory(id);
+    }
 
-let { currentSecondaryTab = $bindable(), directory = $bindable() } = $props();
+    let { currentSecondaryTab = $bindable(), directory = $bindable() } =
+        $props();
 </script>
 
 <nav class="bm-secondary-nav">
     {#each Object.entries(secondaryTabs) as [id, { label, icon }]}
         <button
-            class="bm-secondary-nav__element {icon}"
-            class:bm-secondary-nav__element--selected={id === currentSecondaryTab}
+            class="bulk-tasks-button bm-secondary-nav__element"
+            class:bm-secondary-nav__element--selected={id ===
+                currentSecondaryTab}
             id="bm-nav=secondary-{id}"
             type="button"
             aria-label={label}
             data-tooltip={label}
             onclick={() => changeSecondaryTab(id)}
-        ></button>
+        >
+            <i class={icon}> </i></button
+        >
     {/each}
 </nav>
 

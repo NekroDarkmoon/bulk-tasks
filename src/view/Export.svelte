@@ -1,43 +1,45 @@
 <script lang="ts">
-import { SvelteSet } from 'svelte/reactivity';
+    import { SvelteSet } from "svelte/reactivity";
 
-import { BulkTasksManager } from '../managers/TaskManager.ts';
-import { buildDirectory } from '../utils/buildDirectory.ts';
-import { localize } from '../utils/localize.ts';
+    import { BulkTasksManager } from "../managers/TaskManager.ts";
+    import { buildDirectory } from "../utils/buildDirectory.ts";
+    import { localize } from "../utils/localize.ts";
 
-import FolderView from './components/FolderView.svelte';
-import FolderViewHeader from './components/FolderViewHeader.svelte';
-import SecondaryNav from './components/SecondaryNav.svelte';
+    import FolderView from "./components/FolderView.svelte";
+    import FolderViewHeader from "./components/FolderViewHeader.svelte";
+    import SecondaryNav from "./components/SecondaryNav.svelte";
 
-async function exportDocs() {
-	const options = {
-		namingConvention,
-		preserveFolders,
-		preserveMetaData,
-		zipName,
-	};
+    async function exportDocs() {
+        const options = {
+            namingConvention,
+            preserveFolders,
+            preserveMetaData,
+            zipName,
+        };
 
-	await BulkTasksManager.exportDocuments(new Set(selected), options);
-}
+        await BulkTasksManager.exportDocuments(new Set(selected), options);
+    }
 
-let { currentSecondaryTab } = $props();
+    let { currentSecondaryTab } = $props();
 
-let selected = new SvelteSet<string>();
-let directory = $state(buildDirectory(currentSecondaryTab));
-let namingConvention = $state(BulkTasksManager.DEFAULTS.EXPORT_NAMING_CONVENTION);
-let zipName = $state(BulkTasksManager.DEFAULTS.EXPORT_ZIP_NAME);
-let preserveFolders = $state(true);
-let preserveMetaData = $state(true);
-let searchParam = $state('');
+    let selected = new SvelteSet<string>();
+    let directory = $state(buildDirectory(currentSecondaryTab));
+    let namingConvention = $state(
+        BulkTasksManager.DEFAULTS.EXPORT_NAMING_CONVENTION,
+    );
+    let zipName = $state(BulkTasksManager.DEFAULTS.EXPORT_ZIP_NAME);
+    let preserveFolders = $state(true);
+    let preserveMetaData = $state(true);
+    let searchParam = $state("");
 </script>
 
 <section class="bm-dialog-body bm-dialog-body__export">
-    <SecondaryNav {currentSecondaryTab} bind:directory={directory}/>
+    <SecondaryNav {currentSecondaryTab} bind:directory />
 
-    <FolderViewHeader {directory} {selected} bind:searchParam={searchParam}/>
+    <FolderViewHeader {directory} {selected} bind:searchParam />
 
     <div class="bm-directory-view">
-        <FolderView {directory} {selected} {searchParam}/>
+        <FolderView {directory} {selected} {searchParam} />
     </div>
 
     <div class="bm-config-view">
@@ -73,7 +75,7 @@ let searchParam = $state('');
                 class="bm-config-view__input"
                 bind:checked={preserveFolders}
                 type="checkbox"
-            >
+            />
 
             <span>Preserve Folder Structure</span>
         </label>
@@ -83,14 +85,14 @@ let searchParam = $state('');
                 class="bm-config-view__input"
                 bind:checked={preserveMetaData}
                 type="checkbox"
-            >
+            />
 
             <span>Preserve MetaData</span>
         </label>
     </div>
 
     <footer>
-        <button onclick={exportDocs}>
+        <button class="bulk-tasks-button" onclick={exportDocs}>
             {localize("BulkTasks.export")}
         </button>
     </footer>
@@ -150,6 +152,5 @@ let searchParam = $state('');
 
     footer {
         grid-area: footer;
-
     }
 </style>

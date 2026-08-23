@@ -13,9 +13,14 @@ const isItem = (source: Record<string, any>): boolean => {
 		'type' in source &&
 		!('text' in source) &&
 		!('pages' in source) &&
+		!('cards' in source) &&
 		!isActor(source)
 	);
 };
+
+const isCard = (source: Record<string, any>): boolean => {
+  return 'cards' in source && 'displayCount' in source;
+}
 
 const isJournal = (source: Record<string, any>): boolean => {
 	/* Refer to: https://foundryvtt.com/api/interfaces/foundry.types.JournalEntryData.html */
@@ -41,6 +46,7 @@ const isRollTable = (source: Record<string, any>): boolean => {
 export function inferDocumentType(doc): string | undefined {
 	if (isActor(doc)) return 'Actor';
 	if (isItem(doc)) return 'Item';
+  if (isCard(doc)) return 'Cards';
 	if (isJournal(doc)) return 'JournalEntry';
 	if (isMacro(doc)) return 'Macro';
 	if (isScene(doc)) return 'Scene';

@@ -36,6 +36,8 @@ function selectFolder(folder, operation: boolean | undefined = undefined) {
 
 let { directory, selected, searchParam } = $props();
 let collapsed = $state(directory.children.map((f) => f.collapsed));
+
+
 </script>
 
 <ul>

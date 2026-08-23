@@ -1,43 +1,45 @@
 <script lang="ts">
-import FolderView from './FolderView.svelte';
+    import FolderView from "./FolderView.svelte";
 
-function nameMatch(name = '', param = '') {
-	return name.toLowerCase().includes(param.toLowerCase());
-}
+    function nameMatch(name = "", param = "") {
+        return name.toLowerCase().includes(param.toLowerCase());
+    }
 
-function folderNameMatch(folder, param = '') {
-    if (!param.length) return true;
+    function folderNameMatch(folder, param = "") {
+        if (!param.length) return true;
 
-    const self = nameMatch(folder.name, param);
-	const directChild = folder.entries.some((e) => nameMatch(e.name, param));
-	const possibleChild = folder.children.some((f) => folderNameMatch(f, param));
+        const self = nameMatch(folder.name, param);
+        const directChild = folder.entries.some((e) =>
+            nameMatch(e.name, param),
+        );
+        const possibleChild = folder.children.some((f) =>
+            folderNameMatch(f, param),
+        );
 
-	return self || directChild || possibleChild;
-}
+        return self || directChild || possibleChild;
+    }
 
-function selectDocument(uuid: string) {
-	if (selected.has(uuid)) selected.delete(uuid);
-	else selected.add(uuid);
-}
+    function selectDocument(uuid: string) {
+        if (selected.has(uuid)) selected.delete(uuid);
+        else selected.add(uuid);
+    }
 
-function selectFolder(folder, operation: boolean | undefined = undefined) {
-	operation ??= !selected.has(folder.uuid);
+    function selectFolder(folder, operation: boolean | undefined = undefined) {
+        operation ??= !selected.has(folder.uuid);
 
-	if (operation) {
-		selected.add(folder.uuid);
-		folder.entries.forEach((d) => selected.add(d.uuid));
-	} else {
-		selected.delete(folder.uuid);
-		folder.entries.forEach((d) => selected.delete(d.uuid));
-	}
+        if (operation) {
+            selected.add(folder.uuid);
+            folder.entries.forEach((d) => selected.add(d.uuid));
+        } else {
+            selected.delete(folder.uuid);
+            folder.entries.forEach((d) => selected.delete(d.uuid));
+        }
 
-	(folder.children ?? []).forEach((f) => selectFolder(f, operation));
-}
+        (folder.children ?? []).forEach((f) => selectFolder(f, operation));
+    }
 
-let { directory, selected, searchParam } = $props();
-let collapsed = $state(directory.children.map((f) => f.collapsed));
-
-
+    let { directory, selected, searchParam } = $props();
+    let collapsed = $state(directory.children.map((f) => f.collapsed));
 </script>
 
 <ul>
@@ -65,19 +67,23 @@ let collapsed = $state(directory.children.map((f) => f.collapsed));
                     class="bm-chevron fa-solid"
                     class:fa-chevron-down={!collapsed[idx]}
                     class:fa-chevron-up={collapsed[idx]}
-                    onclick={() => collapsed[idx] = !collapsed[idx]}
+                    onclick={() => (collapsed[idx] = !collapsed[idx])}
                 ></i>
             </li>
 
             {#if !collapsed[idx]}
-                <FolderView directory={folder} {selected} {searchParam}/>
+                <FolderView directory={folder} {selected} {searchParam} />
             {/if}
         {/if}
     {/each}
 
     {#each directory.entries as { uuid, name, type, visible }}
         {#if nameMatch(name, searchParam) && visible}
-            <li class="bm-tree-view bm-tree-view__document" data-uuid="uuid" data-type={type}>
+            <li
+                class="bm-tree-view bm-tree-view__document"
+                data-uuid="uuid"
+                data-type={type}
+            >
                 <input
                     id="document-{uuid}"
                     type="checkbox"

@@ -149,8 +149,9 @@ class BulkTasksManager {
 
     const cleanDoc = (doc) => {
       const data = doc.toCompendium(null);
+      console.log(data);
       if (options.preserveMetaData) {
-        data.flags.exportSource = {
+        data._stats.exportSource = {
           // @ts-expect-error
           world: game.world.id,
           system: game.system.id,

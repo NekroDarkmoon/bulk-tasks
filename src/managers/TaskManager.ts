@@ -341,6 +341,10 @@ class BulkTasksManager {
 
       const parentFolder = doc.folder;
       if (!parentFolder) {
+        if (doc.children.some((child) => child.folder?.folder?._id === doc.id)) {
+          ui.notifications.warn(`Skipping! Trying to move a parent folder into a child folder. (${doc.name})`);
+          return acc;
+        }
         acc.push({ _id: doc.id ?? doc._id, folder: folderId });
         return acc;
       }

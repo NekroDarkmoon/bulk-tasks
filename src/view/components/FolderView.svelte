@@ -6,10 +6,13 @@ function nameMatch(name = '', param = '') {
 }
 
 function folderNameMatch(folder, param = '') {
+    if (!param.length) return true;
+
+    const self = nameMatch(folder.name, param);
 	const directChild = folder.entries.some((e) => nameMatch(e.name, param));
 	const possibleChild = folder.children.some((f) => folderNameMatch(f, param));
 
-	return directChild || possibleChild;
+	return self || directChild || possibleChild;
 }
 
 function selectDocument(uuid: string) {

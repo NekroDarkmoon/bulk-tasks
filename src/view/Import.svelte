@@ -22,7 +22,10 @@
         };
 
         loading = true;
-        await BulkTasksManager.importDocuments(documents, options);
+        await BulkTasksManager.importDocuments(
+            $state.snapshot(documents),
+            options,
+        );
         loading = false;
     }
 

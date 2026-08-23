@@ -19,12 +19,18 @@
         return self || directChild || possibleChild;
     }
 
-    function selectDocument(uuid: string) {
-        if (selected.has(uuid)) selected.delete(uuid);
-        else selected.add(uuid);
+    function selectDocument(event: PointerEvent, uuid: string) {
+        if (event.shiftKey && lastSelected) {
+            selectRange(lastSelected, uuid);
+        } else {
+            if (selected.has(uuid)) selected.delete(uuid);
+            else selected.add(uuid);
+        }
+
+        lastSelected = uuid;
     }
 
-    function selectFolder(folder, operation: boolean | undefined = undefined) {
+    function _selectFolder(folder: any, operation?: boolean) {
         operation ??= !selected.has(folder.uuid);
 
         if (operation) {
@@ -35,11 +41,54 @@
             folder.entries.forEach((d) => selected.delete(d.uuid));
         }
 
-        (folder.children ?? []).forEach((f) => selectFolder(f, operation));
+        (folder.children ?? []).forEach((f) => _selectFolder(f, operation));
+        lastSelected = folder.uuid;
     }
 
-    let { directory, selected, searchParam } = $props();
+    function selectFolder(event: PointerEvent, folder: any) {
+        if (event.shiftKey && lastSelected) {
+            selectRange(lastSelected, folder.uuid);
+        } else {
+            _selectFolder(folder, !selected.has(folder.uuid));
+        }
+
+        lastSelected = folder.uuid;
+    }
+
+    function selectRange(from: string, to: string) {
+        const items = Array.from(
+            document.querySelectorAll<HTMLElement>(".bm-tree-view[data-uuid]"),
+        );
+
+        const start = items.findIndex((item) => item.dataset.uuid === from);
+        const end = items.findIndex((item) => item.dataset.uuid === to);
+
+        if (start === -1 || end === -1) return;
+
+        const first = Math.min(start, end);
+        const last = Math.max(start, end);
+
+        for (let i = first; i <= last; i++) {
+            const item = items[i];
+            const { uuid, type } = item.dataset;
+
+            if (!uuid) return;
+            if (type === "folders") {
+                // TODO: Add support for using _selectFolder cant use uuid because we have our own struct
+                selected.add(uuid);
+            } else selected.add(uuid);
+        }
+    }
+
+    let {
+        directory,
+        selected,
+        searchParam,
+        lastSelected = $bindable(null),
+    } = $props();
     let collapsed = $state(directory.children.map((f) => f.collapsed));
+
+    // let lastSelected: string | null = $state(null);
 </script>
 
 <ul>
@@ -54,7 +103,7 @@
                     id="folder-{folder.uuid}"
                     type="checkbox"
                     checked={selected.has(folder.uuid)}
-                    onchange={() => selectFolder(folder)}
+                    onclick={(event) => selectFolder(event, folder)}
                 />
 
                 <i class="fa-regular fa-folder"></i>
@@ -72,7 +121,12 @@
             </li>
 
             {#if !collapsed[idx]}
-                <FolderView directory={folder} {selected} {searchParam} />
+                <FolderView
+                    directory={folder}
+                    {selected}
+                    {searchParam}
+                    bind:lastSelected
+                />
             {/if}
         {/if}
     {/each}
@@ -81,14 +135,14 @@
         {#if nameMatch(name, searchParam) && visible}
             <li
                 class="bm-tree-view bm-tree-view__document"
-                data-uuid="uuid"
+                data-uuid={uuid}
                 data-type={type}
             >
                 <input
                     id="document-{uuid}"
                     type="checkbox"
                     checked={selected.has(uuid)}
-                    onchange={() => selectDocument(uuid)}
+                    onclick={(event) => selectDocument(event, uuid)}
                 />
 
                 <i class="fa-regular fa-file"></i>
